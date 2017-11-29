@@ -28,7 +28,7 @@ const plugins = [
     stylus(),
     scss(),
     babel(),
-    !production && livereload(), 
+    !production && livereload(),
     !production && serve('dist')
     // production && uglify()
 ];
@@ -37,7 +37,7 @@ export default {
     input: ['components'],
     output: {
         file: 'dist/components.js',
-        format: 'umd'
+        format: 'amd'
     },
     sourceMap: false,
     name: 'TM',
