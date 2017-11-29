@@ -1,4 +1,4 @@
-# Universal-Web-Components
+# universal-web-components
 A collection of TrendMicro Universal Web Components
 
 
