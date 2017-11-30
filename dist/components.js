@@ -256,9 +256,7 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
-<<<<<<< HEAD
-=======
-var SearchButton = { template: "<div class=\"search-button\"> <div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div> </div>", _scopeId: 'data-v-4bbc73ad',
+var SearchButton = { template: "<div class=\"search-button\"> <div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div> </div>", _scopeId: 'data-v-2683ad47',
     name: 'SearchButton',
     props: {
         placeholder: {
@@ -303,16 +301,12 @@ SearchButton.install = function (V, options) {
     V.component(SearchButton.name, SearchButton);
 };
 
->>>>>>> b8e2e02f3d12ca5cd5fb352d3ed7bfa3d24c8fab
 Vue.use(ActionButton);
 Vue.use(TmVueRadio);
 Vue.use(TmVueCheckbox);
 Vue.use(TmVueCheckboxCheckall);
 Vue.use(TmVueDropdown);
-<<<<<<< HEAD
-=======
 Vue.use(SearchButton);
->>>>>>> b8e2e02f3d12ca5cd5fb352d3ed7bfa3d24c8fab
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
