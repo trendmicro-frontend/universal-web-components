@@ -1,159 +1,169 @@
 .search-button .input-group[data-v-42d7afe2] {
-    position: relative;
-    display: table;
-    border-collapse: separate;
+  position: relative;
+  display: table;
+  border-collapse: separate;
 }
 
 .search-button .input-group[class*="col-"][data-v-42d7afe2] {
-    float: none;
-    padding-left: 0;
-    padding-right: 0;
+  float: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .search-button .input-group .form-control[data-v-42d7afe2] {
-    position: relative;
-    z-index: 2;
-    float: left;
-    width: 100%;
-    margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
 }
 
 .search-button .input-group .form-control[data-v-42d7afe2]:hover,
 .search-button .input-group .form-control[data-v-42d7afe2]:focus,
 .search-button .input-group .form-control.input-focus[data-v-42d7afe2] {
-    z-index: 4;
+  z-index: 4;
 }
 
-.search-button .input-group .input-icon-group>.form-control[data-v-42d7afe2] {
-    padding-left: 12px;
+.search-button .input-group .input-icon-group > .form-control[data-v-42d7afe2] {
+  padding-left: 12px;
 }
 
-.search-button .input-group .input-icon-group>.icon[data-v-42d7afe2] {
-    z-index: 4;
+.search-button .input-group .input-icon-group > .icon[data-v-42d7afe2] {
+  z-index: 4;
 }
 
 .search-button .input-group-btn[data-v-42d7afe2],
 .search-button .input-group .form-control[data-v-42d7afe2],
 .search-button .input-group .input-icon-group[data-v-42d7afe2] {
-    display: table-cell;
+  display: table-cell;
 }
 
 .search-button .input-group-addon[data-v-42d7afe2]:not(:first-child):not(:last-child),
 .search-button .input-group-btn[data-v-42d7afe2]:not(:first-child):not(:last-child),
 .search-button .input-group .form-control[data-v-42d7afe2]:not(:first-child):not(:last-child),
-.search-button .input-group .input-icon-group[data-v-42d7afe2]:not(:first-child):not(:last-child) {
-    border-radius: 0;
+.search-button
+  .input-group
+  .input-icon-group[data-v-42d7afe2]:not(:first-child):not(:last-child) {
+  border-radius: 0;
 }
 
-.search-button .input-group .input-icon-group:not(:first-child):not(:last-child) .form-control[data-v-42d7afe2] {
-    border-radius: 0;
+.search-button
+  .input-group
+  .input-icon-group:not(:first-child):not(:last-child)
+  .form-control[data-v-42d7afe2] {
+  border-radius: 0;
 }
 
 .search-button .input-group-addon[data-v-42d7afe2],
 .search-button .input-group-btn[data-v-42d7afe2] {
-    width: 1%;
-    white-space: nowrap;
-    vertical-align: middle;
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 .search-button .input-group .form-control[data-v-42d7afe2]:first-child,
-.search-button .input-group-btn:first-child>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:first-child>.btn-group>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:first-child>.dropdown-toggle[data-v-42d7afe2],
-.search-button .input-group-btn:last-child>.btn[data-v-42d7afe2]:not(:last-child):not(.dropdown-toggle),
-.search-button .input-group-btn:last-child>.btn-group:not(:last-child)>.btn[data-v-42d7afe2],
-.search-button .input-group .btn-group-vertical>.btn[data-v-42d7afe2] {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+.search-button .input-group-btn:first-child > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:first-child > .btn-group > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:first-child > .dropdown-toggle[data-v-42d7afe2],
+.search-button
+  .input-group-btn:last-child
+  > .btn[data-v-42d7afe2]:not(:last-child):not(.dropdown-toggle),
+.search-button .input-group-btn:last-child > .btn-group:not(:last-child) > .btn[data-v-42d7afe2],
+.search-button .input-group .btn-group-vertical > .btn[data-v-42d7afe2] {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .search-button .input-group .form-control[data-v-42d7afe2]:last-child,
-.search-button .input-group-btn:last-child>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:last-child>.btn-group>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:last-child>.dropdown-toggle[data-v-42d7afe2],
-.search-button .input-group-btn:first-child>.btn[data-v-42d7afe2]:not(:first-child),
-.search-button .input-group-btn:first-child>.btn-group:not(:first-child)>.btn[data-v-42d7afe2],
-.search-button .input-group .btn-group-vertical>.btn[data-v-42d7afe2] {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+.search-button .input-group-btn:last-child > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:last-child > .btn-group > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:last-child > .dropdown-toggle[data-v-42d7afe2],
+.search-button .input-group-btn:first-child > .btn[data-v-42d7afe2]:not(:first-child),
+.search-button
+  .input-group-btn:first-child
+  > .btn-group:not(:first-child)
+  > .btn[data-v-42d7afe2],
+.search-button .input-group .btn-group-vertical > .btn[data-v-42d7afe2] {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
-.search-button .input-group-btn:last-child>.dropdown-menu[data-v-42d7afe2] {
-    left: auto;
-    right: 0;
+.search-button .input-group-btn:last-child > .dropdown-menu[data-v-42d7afe2] {
+  left: auto;
+  right: 0;
 }
 
 .search-button .input-icon-group[data-v-42d7afe2] {
-    position: relative;
+  position: relative;
 }
 
-.search-button .input-icon-group>.form-control[data-v-42d7afe2] {
-    padding-left: 30px;
-    padding-right: 36px;
+.search-button .input-icon-group > .form-control[data-v-42d7afe2] {
+  padding-left: 30px;
+  padding-right: 36px;
 }
 
 .search-button .input-icon-label[data-v-42d7afe2] {
-    position: absolute;
-    left: 9px;
-    top: 50%;
-    margin-top: -10px;
-    color: #666666;
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  margin-top: -10px;
+  color: #666666;
 }
 
 .search-button .input-icon-group .loader[data-v-42d7afe2],
 .search-button .input-icon-group .icon[data-v-42d7afe2] {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    margin-top: -8px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  margin-top: -8px;
 }
 
 .search-button .input-icon-group .icon-cancel[data-v-42d7afe2] {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
 .search-button .input-icon-group .icon-cancel[data-v-42d7afe2]:hover {
-    cursor: pointer;
-    opacity: 1;
+  cursor: pointer;
+  opacity: 1;
 }
 
 .search-button .input-group-btn[data-v-42d7afe2] {
-    position: relative;
-    font-size: 0;
-    white-space: nowrap;
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
 }
 
-.search-button .input-group-btn:first-child>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:first-child>.btn-group[data-v-42d7afe2] {
-    z-index: 3;
-    margin-right: -1px;
+.search-button .input-group-btn:first-child > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:first-child > .btn-group[data-v-42d7afe2] {
+  z-index: 3;
+  margin-right: -1px;
 }
 
-.search-button .input-group-btn:first-child>.btn[data-v-42d7afe2]:hover,
-.search-button .input-group-btn:first-child>.btn-group[data-v-42d7afe2]:hover {
-    z-index: 3;
+.search-button .input-group-btn:first-child > .btn[data-v-42d7afe2]:hover,
+.search-button .input-group-btn:first-child > .btn-group[data-v-42d7afe2]:hover {
+  z-index: 3;
 }
 
-.search-button .input-group-btn:last-child>.btn[data-v-42d7afe2],
-.search-button .input-group-btn:last-child>.btn-group[data-v-42d7afe2] {
-    z-index: 3;
-    margin-left: -1px;
+.search-button .input-group-btn:last-child > .btn[data-v-42d7afe2],
+.search-button .input-group-btn:last-child > .btn-group[data-v-42d7afe2] {
+  z-index: 3;
+  margin-left: -1px;
 }
 
-.search-button .input-group-btn:last-child>.btn[data-v-42d7afe2]:hover,
-.search-button .input-group-btn:last-child>.btn-group[data-v-42d7afe2]:hover {
-    z-index: 3;
+.search-button .input-group-btn:last-child > .btn[data-v-42d7afe2]:hover,
+.search-button .input-group-btn:last-child > .btn-group[data-v-42d7afe2]:hover {
+  z-index: 3;
 }
 
-.search-button .input-group-btn>.btn[data-v-42d7afe2] {
-    position: relative;
+.search-button .input-group-btn > .btn[data-v-42d7afe2] {
+  position: relative;
 }
 
-.search-button .input-group-btn>.btn+.btn[data-v-42d7afe2] {
-    margin-left: -1px;
+.search-button .input-group-btn > .btn + .btn[data-v-42d7afe2] {
+  margin-left: -1px;
 }
 
-.search-button .input-group-btn>.btn[data-v-42d7afe2]:focus,
-.search-button .input-group-btn>.btn[data-v-42d7afe2]:active {
-    z-index: 4;
+.search-button .input-group-btn > .btn[data-v-42d7afe2]:focus,
+.search-button .input-group-btn > .btn[data-v-42d7afe2]:active {
+  z-index: 4;
 }

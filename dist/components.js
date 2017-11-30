@@ -3,53 +3,53 @@ define(['exports', 'vue'], function (exports, Vue) { 'use strict';
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 
 var TmVueActionButton$1 = { template: "<button class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
-    name: 'TmVueActionButton',
-    props: {
-        name: {
-            type: String,
-            default: null
-        },
-        loadingName: {
-            type: String,
-            default: null
-        },
-        isPrimary: {
-            type: Boolean,
-            default: true
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        isLoading: {
-            type: Boolean,
-            default: false
-        }
+  name: "TmVueActionButton",
+  props: {
+    name: {
+      type: String,
+      default: null
     },
-
-    data: function data() {
-        return {
-            // show_name:this.param.name,
-            // is_disabled:'',
-        };
+    loadingName: {
+      type: String,
+      default: null
     },
-    computed: {
-        val: function val() {
-            if (this.isLoading) {
-                return this.loadingName;
-            } else {
-                return this.name;
-            }
-        },
-        buttonStatus: function buttonStatus() {
-            if (this.isPrimary) return 'btn-primary';else return 'btn-default';
-        }
+    isPrimary: {
+      type: Boolean,
+      default: true
     },
-    methods: {
-        clicked: function clicked() {
-            this.$emit("clicked");
-        }
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
+  },
+
+  data: function data() {
+    return {
+      // show_name:this.param.name,
+      // is_disabled:'',
+    };
+  },
+  computed: {
+    val: function val() {
+      if (this.isLoading) {
+        return this.loadingName;
+      } else {
+        return this.name;
+      }
+    },
+    buttonStatus: function buttonStatus() {
+      if (this.isPrimary) return "btn-primary";else return "btn-default";
+    }
+  },
+  methods: {
+    clicked: function clicked() {
+      this.$emit("clicked");
+    }
+  }
 };
 
 TmVueActionButton$1.install = function (V, options) {
@@ -256,44 +256,44 @@ TmVueDropdown.install = function (V, options) {
 };
 
 var TmVueSearchButton$1 = { template: "<div class=\"search-button\"> <div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div> </div>", _scopeId: 'data-v-42d7afe2',
-    name: 'TmVueSearchButton',
-    props: {
-        placeholder: {
-            type: String,
-            default: null
-        }
-    },
-    data: function data() {
-        return {
-            textVal: ""
-        };
-    },
-    methods: {
-        changed: function changed(e) {
-            this.$emit("changed", this.textVal);
-        },
-        updated: function updated() {
-            this.$emit("updated", this.textVal);
-        }
-    },
-
-    mounted: function mounted() {
-        var self = this;
-        /**
-         * todo
-         * should bind custom element
-         */
-        $('.has-clear input[type="text"]').on('input propertychange', function () {
-            var $this = $(this);
-            var visible = Boolean($this.val());
-            $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
-        }).trigger('propertychange');
-
-        $('.form-control-clear').click(function () {
-            self.textVal = '';
-            $(this).siblings('input[type="text"]').val('').trigger('propertychange').focus();
-        });
+  name: "TmVueSearchButton",
+  props: {
+    placeholder: {
+      type: String,
+      default: null
     }
+  },
+  data: function data() {
+    return {
+      textVal: ""
+    };
+  },
+  methods: {
+    changed: function changed(e) {
+      this.$emit("changed", this.textVal);
+    },
+    updated: function updated() {
+      this.$emit("updated", this.textVal);
+    }
+  },
+
+  mounted: function mounted() {
+    var self = this;
+    /**
+             * todo
+             * should bind custom element
+             */
+    $('.has-clear input[type="text"]').on("input propertychange", function () {
+      var $this = $(this);
+      var visible = Boolean($this.val());
+      $this.siblings(".form-control-clear").toggleClass("hidden", !visible);
+    }).trigger("propertychange");
+
+    $(".form-control-clear").click(function () {
+      self.textVal = "";
+      $(this).siblings('input[type="text"]').val("").trigger("propertychange").focus();
+    });
+  }
 };
 
 TmVueSearchButton$1.install = function (V, options) {
