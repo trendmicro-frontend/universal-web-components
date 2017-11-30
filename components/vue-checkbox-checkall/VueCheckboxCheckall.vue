@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: 'TmVueCheckboxCheckall',
+        name: 'TmVueCheckallCheckbox',
         props:{
             checked:{
                 type:Boolean,

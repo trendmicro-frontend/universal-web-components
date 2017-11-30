@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import TmVueCheckboxCheckall from './VueCheckboxCheckall.vue'
+import TmVueCheckallCheckbox from './VueCheckboxCheckall.vue'
 
-TmVueCheckboxCheckall.install = function (V, options) {
-    V.component(TmVueCheckboxCheckall.name, TmVueCheckboxCheckall);
+TmVueCheckallCheckbox.install = function (V, options) {
+    V.component(TmVueCheckallCheckbox.name, TmVueCheckallCheckbox);
 };
 
-export default TmVueCheckboxCheckall
+export default TmVueCheckallCheckbox
