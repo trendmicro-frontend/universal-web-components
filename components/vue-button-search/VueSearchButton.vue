@@ -16,7 +16,7 @@
 <script>
     var vaule = "";
     export default {
-        name: 'SearchButton',
+        name: 'TmVueSearchButton',
         props: {
             placeholder: {
                 type: String,

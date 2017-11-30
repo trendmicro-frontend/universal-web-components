@@ -7,7 +7,7 @@
 <script>
     var vaule = "";
     export default {
-        name: 'ActionButton',
+        name: 'TmVueActionButton',
         props: {
             name: {
                 type: String,

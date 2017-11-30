@@ -1,10 +1,9 @@
-(function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
 define(['exports', 'vue'], function (exports, Vue) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 
-var ActionButton = { template: "<button class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
-    name: 'ActionButton',
+var TmVueActionButton$1 = { template: "<button class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
+    name: 'TmVueActionButton',
     props: {
         name: {
             type: String,
@@ -53,8 +52,8 @@ var ActionButton = { template: "<button class=\"btn\" :class=\"buttonStatus\" :d
     }
 };
 
-ActionButton.install = function (V, options) {
-    V.component(ActionButton.name, ActionButton);
+TmVueActionButton$1.install = function (V, options) {
+    V.component(TmVueActionButton$1.name, TmVueActionButton$1);
 };
 
 var TmVueRadio = { template: "<div class=\"radio\" :class=\"{'disabled':isDisabled}\"> <input type=\"radio\" :value=\"value\" :name=\"name\" @change=\"handleChange\" v-model=\"checked\" class=\"input-radio\" :disabled=\"isDisabled\" :class=\"{'disabled':disabledClass}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
@@ -163,8 +162,8 @@ TmVueCheckbox.install = function (V, options) {
     V.component(TmVueCheckbox.name, TmVueCheckbox);
 };
 
-var TmVueCheckboxCheckall = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':checked,'disabled':disabledClass,'checkbox-partical':this.indeterminate}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
-    name: 'TmVueCheckboxCheckall',
+var TmVueCheckallCheckbox$1 = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':checked,'disabled':disabledClass,'checkbox-partical':this.indeterminate}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
+    name: 'TmVueCheckallCheckbox',
     props: {
         checked: {
             type: Boolean,
@@ -202,8 +201,8 @@ var TmVueCheckboxCheckall = { template: "<div class=\"checkbox\" :class=\"{'disa
     }
 };
 
-TmVueCheckboxCheckall.install = function (V, options) {
-    V.component(TmVueCheckboxCheckall.name, TmVueCheckboxCheckall);
+TmVueCheckallCheckbox$1.install = function (V, options) {
+    V.component(TmVueCheckallCheckbox$1.name, TmVueCheckallCheckbox$1);
 };
 
 var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button\" :title=\"selectedText\" class=\"form-control btn btn-border dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" :disabled=\"isDisabled\" :class=\"widthClass\"> <span class=\"caret\"></span>{{selectedText}}</button> <ul class=\"dropdown-menu\"> <template v-for=\"item in param.droplist\"> <li @click=\"handleChange(item.value)\"><a href=\"javascript:void(0)\">{{item.display}}</a></li> </template> </ul> </div>",
@@ -256,8 +255,8 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
-var SearchButton = { template: "<div class=\"search-button\"> <div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div> </div>", _scopeId: 'data-v-2683ad47',
-    name: 'SearchButton',
+var TmVueSearchButton$1 = { template: "<div class=\"search-button\"> <div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div> </div>", _scopeId: 'data-v-42d7afe2',
+    name: 'TmVueSearchButton',
     props: {
         placeholder: {
             type: String,
@@ -297,16 +296,16 @@ var SearchButton = { template: "<div class=\"search-button\"> <div class=\"input
     }
 };
 
-SearchButton.install = function (V, options) {
-    V.component(SearchButton.name, SearchButton);
+TmVueSearchButton$1.install = function (V, options) {
+    V.component(TmVueSearchButton$1.name, TmVueSearchButton$1);
 };
 
-Vue.use(ActionButton);
+Vue.use(TmVueActionButton$1);
 Vue.use(TmVueRadio);
 Vue.use(TmVueCheckbox);
-Vue.use(TmVueCheckboxCheckall);
+Vue.use(TmVueCheckallCheckbox$1);
 Vue.use(TmVueDropdown);
-Vue.use(SearchButton);
+Vue.use(TmVueSearchButton$1);
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

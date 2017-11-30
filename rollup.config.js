@@ -1,12 +1,13 @@
-import babel from 'rollup-plugin-babel';
+import fs from 'fs'
+import babel from 'rollup-plugin-babel'
 
-import vue from 'rollup-plugin-vue';
+import vue from 'rollup-plugin-vue'
 import stylus from 'rollup-plugin-stylus-css-modules'
-import scss from 'rollup-plugin-scss';
-import uglify from 'rollup-plugin-uglify';
+import scss from 'rollup-plugin-scss'
+import uglify from 'rollup-plugin-uglify'
 
-import resolve from 'rollup-plugin-node-resolve';
-import multiEntry from 'rollup-plugin-multi-entry';
+import resolve from 'rollup-plugin-node-resolve'
+import multiEntry from 'rollup-plugin-multi-entry'
 import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
 
@@ -23,9 +24,12 @@ const plugins = [
     vue({
         autoStyles: false,
         styleToImports: false,
-        compileTemplate: false
+        compileTemplate: false,
+        css(style, styles, compiler) {
+            fs.writeFileSync('dist/components.css', style.trim())
+        }
     }),
-    stylus(),
+    // stylus(),
     scss(),
     babel(),
     !production && livereload(),

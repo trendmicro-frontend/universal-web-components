@@ -1,14 +1,14 @@
 import Vue from 'vue'
-import TMActionButton from './action-button'
+import TmVueActionButton from './vue-button-action'
 import TMVueRadio from './vue-radio'
 import TMVueCheckbox from './vue-checkbox'
 import TmVueCheckallCheckbox from './vue-checkbox-checkall'
 import TMVueDropdown from './vue-dropdown'
-import TMSearchButton from './search-button'
+import TmVueSearchButton from './vue-button-search'
 
-Vue.use(TMActionButton)
+Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
 Vue.use(TMVueCheckbox)
 Vue.use(TmVueCheckallCheckbox)
 Vue.use(TMVueDropdown)
-Vue.use(TMSearchButton)
+Vue.use(TmVueSearchButton)
