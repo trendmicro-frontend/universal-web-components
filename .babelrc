@@ -5,10 +5,8 @@
       {
         "modules": false
       }
-    ]
-  ],
-  "plugins": [
-    "external-helpers"
+    ],
+    "vue"
   ],
   "ignore": [
     "node_modules/**"

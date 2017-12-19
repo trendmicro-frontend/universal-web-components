@@ -22,23 +22,25 @@ const plugins = [
         browser: true
     }),
     vue({
-        autoStyles: false,
+        autoStyles: true,
         styleToImports: false,
-        compileTemplate: false,
+        compileTemplate: true,
         css(style, styles, compiler) {
             fs.writeFileSync('dist/components.css', style.trim())
         }
     }),
     // stylus(),
     scss(),
-    babel(),
+    babel({
+        plugins: ['external-helpers']
+    }),
     !production && livereload(),
     !production && serve('dist')
     // production && uglify()
 ];
 
 export default {
-    input: ['components'],
+    input: ['src/components'],
     output: {
         file: 'dist/components.js',
         format: 'amd'
