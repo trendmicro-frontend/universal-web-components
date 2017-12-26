@@ -145,14 +145,12 @@ storiesOf('Dropdown', module)
       }     
     },
     methods:{
-      getDropDownValue(value){
-        this.dropdown_value = value;
-      }
+      
     },
     template: `
               <div>
               select list is: {{dropdown_value}}
-              <tm-vue-dropdown :param="drop_down" v-model="dropdown_value" @change="getDropDownValue">checkbox test b</tm-vue-dropdown>
+              <tm-vue-dropdown :param="drop_down" v-model="dropdown_value"></tm-vue-dropdown>
               </div>
               `,
 
@@ -172,7 +170,6 @@ storiesOf('Radio & Check box', module)
     },
     methods:{
       getSelectRadio_3(value){
-        this.checkbox_1 = value;
         if(this.checkbox_1.length == 1){
           this.all_check_box.indeterminate = true;
           this.checkbox_all = false;
@@ -213,20 +210,12 @@ storiesOf('Radio & Check box', module)
       }     
     },
     methods:{
-      getSelectRadio_3(val){
-        this.checkbox_a = val;
-        console.log(this.checkbox_a);
-      },
-      getSelectRadio_4(val){
-        this.checkbox_b = val;
-        console.log(this.checkbox_b);
-      }     
     },
     template: `<div>
               checkbox test a:{{checkbox_a}}<br/>
               checkbox test b:{{checkbox_b}}
-              <tm-vue-checkbox :disabled="e_check_box.disabled" v-model="checkbox_a" @change="getSelectRadio_3">checkbox test a</tm-vue-checkbox>
-              <tm-vue-checkbox :disabled="f_check_box.disabled" v-model="checkbox_b" @change="getSelectRadio_4">checkbox test b</tm-vue-checkbox>
+              <tm-vue-checkbox :disabled="e_check_box.disabled" v-model="checkbox_a">checkbox test a</tm-vue-checkbox>
+              <tm-vue-checkbox :disabled="f_check_box.disabled" v-model="checkbox_b">checkbox test b</tm-vue-checkbox>
               </div>`,
 
   }))
@@ -241,7 +230,7 @@ storiesOf('Radio & Check box', module)
     },
     methods:{
       getSelectRadio_1(val){
-        this.radio_checked_1 = val;
+        console.log("change triggered");
       }
     },
     template: `<div>

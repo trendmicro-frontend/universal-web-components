@@ -52,7 +52,7 @@
             handleChange(value) {
                 this.value = value;
                 this.$nextTick(function(){
-                    this.$emit('change', this.value);
+                    this.$emit('input', this.value);
                 });
             }
         }
