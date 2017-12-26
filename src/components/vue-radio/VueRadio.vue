@@ -1,6 +1,6 @@
 <template>
     <div class="radio" :class="{'disabled':isDisabled}">
-      <input type="radio" :value="value" :name="name" @change="handleChange" v-model="checked" class="input-radio" :disabled="isDisabled" :class="{'disabled':disabledClass}">
+      <input type="radio" :value="value" @change="handleChange" v-model="checked" class="input-radio" :disabled="isDisabled" :class="{'disabled':disabledClass}">
       <label @click="labelClick"><slot></slot></label>
     </div>
 </template>
@@ -14,21 +14,17 @@
         },
         props:{
             checked:{
-                type:String,
+                type:Number,
                 default:""
             },
             value:{
-                type:String,
+                type:[String,Number],
                 value:""
             },
             disabled:{
-                type:Number,
+                type:Boolean,
                 default:false
-            },
-            name:{
-                type:String,
-                default:""
-            },
+            }
         },
         computed:{
             isDisabled:function(){

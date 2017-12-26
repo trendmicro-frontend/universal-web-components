@@ -1,6 +1,8 @@
-define(['exports', 'vue'], function (exports, Vue) { 'use strict';
+define(['exports', 'vue', 'jquery', 'bootstrap', 'lodash'], function (exports, Vue, jquery, bootstrap, _) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
+jquery = jquery && jquery.hasOwnProperty('default') ? jquery['default'] : jquery;
+_ = _ && _.hasOwnProperty('default') ? _['default'] : _;
 
 var TmVueActionButton$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { staticClass: "btn", class: _vm.buttonStatus, attrs: { "disabled": _vm.disabled }, on: { "click": _vm.clicked } }, [_c('span', { directives: [{ name: "show", rawName: "v-show", value: _vm.isLoading, expression: "isLoading" }], staticClass: "glyphicon-loader" }), _vm._v(_vm._s(_vm.val) + " ")]);
@@ -59,7 +61,7 @@ TmVueActionButton$1.install = function (V, options) {
 };
 
 var TmVueRadio = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "radio", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-radio", class: { 'disabled': _vm.disabledClass }, attrs: { "type": "radio", "name": _vm.name, "disabled": _vm.isDisabled }, domProps: { "value": _vm.value, "checked": _vm._q(_vm.checked, _vm.value) }, on: { "change": [function ($event) {
+        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "radio", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-radio", class: { 'disabled': _vm.disabledClass }, attrs: { "type": "radio", "disabled": _vm.isDisabled }, domProps: { "value": _vm.value, "checked": _vm._q(_vm.checked, _vm.value) }, on: { "change": [function ($event) {
                     _vm.checked = _vm.value;
                 }, _vm.handleChange] } }), _vm._v(" "), _c('label', { on: { "click": _vm.labelClick } }, [_vm._t("default")], 2)]);
     }, staticRenderFns: [],
@@ -70,20 +72,16 @@ var TmVueRadio = { render: function render() {
     },
     props: {
         checked: {
-            type: String,
+            type: Number,
             default: ""
         },
         value: {
-            type: String,
+            type: [String, Number],
             value: ""
         },
         disabled: {
-            type: Number,
+            type: Boolean,
             default: false
-        },
-        name: {
-            type: String,
-            default: ""
         }
     },
     computed: {
@@ -136,11 +134,11 @@ var TmVueCheckbox = { render: function render() {
     },
     props: {
         checked: {
-            type: Number,
-            default: 0
+            type: [Boolean, Array],
+            default: ""
         },
         value: {
-            type: String,
+            type: [String, Number],
             default: ""
         },
         disabled: {
@@ -153,10 +151,17 @@ var TmVueCheckbox = { render: function render() {
             return this.disabled === true ? true : false; //default disabled attribute is false.
         },
         disabledClass: function disabledClass() {
-            return this.isDisabled && this.checked.indexOf(this.value) == -1; //only add disabled class for the unchecked radio to stop hover color change.
+            return this.isDisabled && (this.isBoolean ? !this.checked : this.checked.indexOf(this.value) == -1); //only add disabled class for the unchecked radio to stop hover color change.
         },
         isChecked: function isChecked() {
-            return this.checked.indexOf(this.value) != -1;
+            if (this.isBoolean) {
+                return this.checked;
+            } else {
+                return this.checked.indexOf(this.value) != -1;
+            }
+        },
+        isBoolean: function isBoolean() {
+            return typeof this.checked === 'boolean';
         }
     },
     methods: {
@@ -165,14 +170,17 @@ var TmVueCheckbox = { render: function render() {
                 this.$emit('change', this.checked);
             });
         },
-
         lableClick: function lableClick() {
             if (this.isDisabled) return;
-            var index = this.checked.indexOf(this.value);
-            if (index == -1) {
-                this.checked.push(this.value);
+            if (this.isBoolean) {
+                this.checked = !this.checked;
             } else {
-                this.checked.splice(index, 1);
+                var index = this.checked.indexOf(this.value);
+                if (index == -1) {
+                    this.checked.push(this.value);
+                } else {
+                    this.checked.splice(index, 1);
+                }
             }
             this.handleChange();
         }
@@ -241,6 +249,8 @@ TmVueCheckallCheckbox$1.install = function (V, options) {
     V.component(TmVueCheckallCheckbox$1.name, TmVueCheckallCheckbox$1);
 };
 
+window.jQuery = jquery;
+
 var TmVueDropdown = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "btn-group" }, [_c('button', { staticClass: "form-control btn btn-border dropdown-toggle", class: _vm.widthClass, attrs: { "type": "button", "title": _vm.selectedText, "data-toggle": "dropdown", "aria-expanded": "false", "disabled": _vm.isDisabled } }, [_c('span', { staticClass: "caret" }), _vm._v(_vm._s(_vm.selectedText))]), _vm._v(" "), _c('ul', { staticClass: "dropdown-menu" }, [_vm._l(_vm.param.droplist, function (item) {
             return [_c('li', { on: { "click": function click($event) {
@@ -251,7 +261,7 @@ var TmVueDropdown = { render: function render() {
     name: 'TmVueDropdown',
     props: {
         value: {
-            type: String,
+            type: [String, Number],
             default: 0
         },
         param: {
@@ -307,7 +317,7 @@ var TmVueSearchButton$1 = { render: function render() {
             return null;
           }_vm.changed($event);
         } } }), _vm._v(" "), _c('span', { staticClass: "form-control-clear icon icon-cancel hidden" })]), _vm._v(" "), _c('span', { staticClass: "input-group-btn" }, [_c('button', { staticClass: "btn btn-default btn-icon-only", attrs: { "type": "button" }, on: { "click": _vm.changed } }, [_c('span', { staticClass: "fa fa-search" })])])])]);
-  }, staticRenderFns: [], _scopeId: 'data-v-5ae5e1ad',
+  }, staticRenderFns: [], _scopeId: 'data-v-190e2a80',
   name: "TmVueSearchButton",
   props: {
     placeholder: {
@@ -582,6 +592,228 @@ var BreadcrumbItem = { render: function render() {
 
 Breadcrumb.Item = BreadcrumbItem;
 
+var TmVueFilterTag$1 = { render: function render() {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "Tokenize tokenize", class: { disabled: _vm.disabled }, style: { width: _vm.width_display }, attrs: { "tabindex": "0" }, on: { "click": _vm.showInput } }, [_c('span', { directives: [{ name: "show", rawName: "v-show", value: _vm.selected_list.length > 0, expression: "selected_list.length > 0" }], staticClass: "icon icon-cancel", on: { "click": _vm.removeAll } }), _vm._v(" "), _c('ul', { staticClass: "TokensContainer tag-editor", attrs: { "tabindex": "0" } }, [_c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showPlaceholder, expression: "showPlaceholder" }], staticClass: "Placeholder placeholder" }, [_vm._v("Select...")]), _vm._v(" "), _vm._l(_vm.selected_list, function (item) {
+      return _c('li', { staticClass: "Token" }, [_c('a', { staticClass: "Close" }, [_c('span', { staticClass: "icon icon-cancel", attrs: { "tabindex": "0" }, on: { "click": function click($event) {
+            $event.stopPropagation();_vm.removeItem(item.id);
+          } } })]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.name))])]);
+    }), _vm._v(" "), _c('li', { staticClass: "TokenSearch" }, [_c('input', { directives: [{ name: "focus", rawName: "v-focus", value: _vm.focus, expression: "focus" }, { name: "model", rawName: "v-model", value: _vm.text_value, expression: "text_value" }], attrs: { "disabled": _vm.disabled, "size": "8" }, domProps: { "value": _vm.text_value }, on: { "keydown": [function ($event) {
+          if (!('button' in $event) && _vm._k($event.keyCode, "down", 40, $event.key)) {
+            return null;
+          }_vm.selectNextItem($event);
+        }, function ($event) {
+          if (!('button' in $event) && _vm._k($event.keyCode, "up", 38, $event.key)) {
+            return null;
+          }_vm.selectPreviousItem($event);
+        }], "keyup": function keyup($event) {
+          if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
+            return null;
+          }_vm.addSelectItem($event);
+        }, "focusout": function focusout($event) {
+          _vm.hideInput($event);
+        }, "input": function input($event) {
+          if ($event.target.composing) {
+            return;
+          }_vm.text_value = $event.target.value;
+        } } })])], 2), _vm._v(" "), _c('ul', { staticClass: "Dropdown dropdown-menu", style: { display: _vm.dropdown_display, width: _vm.width_display }, attrs: { "tabindex": "0" } }, [_vm._l(_vm.showInitList, function (item) {
+      return _c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showInitList.length > 0, expression: "showInitList.length>0" }], class: { Hover: item.hover }, attrs: { "tabindex": "0", "data": "for-select" }, on: { "mouseover": function mouseover($event) {
+            _vm.setHoverItem(item.id);
+          }, "mouseout": _vm.clearAllHover, "click": function click($event) {
+            $event.stopPropagation();_vm.addItem(item.id);
+          } } }, [_vm._v(_vm._s(item.name))]);
+    }), _vm._v(" "), _c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showInitList.length == 0, expression: "showInitList.length==0" }], staticClass: "no-matches", attrs: { "tabindex": "0" } }, [_vm._v("No matches found")])], 2)]);
+  }, staticRenderFns: [], _scopeId: 'data-v-46e9abec',
+  name: 'TmVueFilterTag',
+  props: {
+    initial_list: {
+      type: Array,
+      default: []
+    },
+    selected_list: {
+      type: Array,
+      default: []
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    width: {
+      type: String,
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      focus: false,
+      text_value: '',
+      current_hover_id: '',
+      new_init_list: _.map(this.initial_list, function (item) {
+        return _.extend({}, item, { hover: false });
+      })
+    };
+  },
+  computed: {
+    dropdown_display: function dropdown_display() {
+      return this.focus ? 'block' : 'none';
+    },
+    width_display: function width_display() {
+      return this.width ? this.width : '100%';
+    },
+    showPlaceholder: function showPlaceholder() {
+      return this.selected_list.length == 0 && this.text_value.length == 0;
+    },
+    showInitList: function showInitList() {
+      var _this = this;
+      if (this.text_value.length == 0) return this.new_init_list;
+      var tmp = this.new_init_list.filter(function (item) {
+        if (item.name.toLowerCase().startsWith(_this.text_value.toLowerCase()) === false) return false;else return true;
+      });
+      return tmp;
+    }
+  },
+  methods: {
+    addItem: function addItem(id) {
+      if (this.disabled) return;
+      this.text_value = "";
+      var remove_item = _.find(this.showInitList, function (item) {
+        return item.id == id;
+      });
+      var i = this.showInitList.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.showInitList.splice(i, 1);
+      this.selected_list.push(remove_item);
+      this.returnList();
+    },
+    removeAll: function removeAll(value) {
+      if (this.disabled) return;
+      this.text_value = "";
+      var tmp = _.clone(this.selected_list);
+      for (var i = 0; i < tmp.length; i++) {
+        this.removeItem(tmp[i].id);
+      }
+      this.selected_list = [];
+      this.returnList();
+    },
+    removeItem: function removeItem(id) {
+      if (this.disabled) return;
+      this.text_value = "";
+      var remove_item = _.find(this.selected_list, function (item) {
+        return item.id == id;
+      });
+      var i = this.selected_list.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.selected_list.splice(i, 1);
+      this.showInitList.push(remove_item);
+      this.sortInitList();
+      this.returnList();
+    },
+    selectNextItem: function selectNextItem() {
+      if (this.showInitList.length > 0) {
+        var index = this.getHoverItemIndex();
+        this.clearAllHover();
+        if (index == this.showInitList.length - 1) {
+          index = 0;
+        } else {
+          index = index + 1;
+        }
+        this.setHoverItemFlag(index);
+      }
+    },
+    selectPreviousItem: function selectPreviousItem() {
+      var index = this.getHoverItemIndex();
+      this.clearAllHover();
+      if (index == 0 || index == -1) {
+        index = this.showInitList.length - 1;
+      } else {
+        index = index - 1;
+      }
+      this.setHoverItemFlag(index);
+    },
+    setHoverItem: function setHoverItem(hover_id) {
+      this.clearAllHover();
+      var index = this.getItemIndexById(hover_id, this.new_init_list);
+      this.setHoverItemFlag(index);
+    },
+    setHoverItemFlag: function setHoverItemFlag(index) {
+      var tmp_object = _.clone(this.new_init_list[index]);
+      tmp_object.hover = true;
+      this.new_init_list.splice(index, 1, tmp_object);
+    },
+    getItemIndexById: function getItemIndexById(item_id, list) {
+      return _.findIndex(list, function (item) {
+        return item.id == item_id;
+      });
+    },
+    getHoverItemIndex: function getHoverItemIndex() {
+      return _.findIndex(this.new_init_list, 'hover');
+    },
+    addSelectItem: function addSelectItem() {
+      var index = this.getHoverItemIndex();
+      var id = this.new_init_list[index].id;
+      this.addItem(id);
+      this.returnList();
+    },
+    filterIintList: function filterIintList() {
+      var tmp = this.showInitList;
+    },
+    showInput: function showInput() {
+      if (this.disabled) return;
+      this.focus = true;
+      //clear the focus before show init list.
+      this.clearAllHover();
+      //hover on the first item when show the init list.
+      if (this.showInitList.length > 0) {
+        this.setHoverItemFlag(0);
+      }
+    },
+    hideInput: function hideInput(e) {
+      if (this.disabled) return;
+      if (e.relatedTarget == this.$el.getElementsByClassName("TokensContainer")[0] || e.relatedTarget == this.$el.getElementsByClassName("Dropdown") || e.relatedTarget && e.relatedTarget.getAttribute("data") == "for-select") {
+        var _this = this;
+        setTimeout(function () {
+          _this.$el.getElementsByTagName("input")[0].focus();
+        }, 10);
+        return;
+      } else {
+        this.focus = false;
+      }
+    },
+    clearAllHover: function clearAllHover() {
+      this.new_init_list = _.map(this.new_init_list, function (item) {
+        item.hover = false;return item;
+      });
+    },
+    sortInitList: function sortInitList() {
+      this.showInitList.sort(function (a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
+    },
+    returnList: function returnList() {
+      this.$emit('change', this.selected_list);
+    }
+  },
+  directives: {
+    focus: {
+      componentUpdated: function componentUpdated(el, value) {
+        if (value.value) {
+          el.focus();
+        }
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.sortInitList();
+  }
+};
+
+TmVueFilterTag$1.install = function (V, options) {
+    V.component(TmVueFilterTag$1.name, TmVueFilterTag$1);
+};
+
 Vue.use(TmVueActionButton$1);
 Vue.use(TmVueRadio);
 Vue.use(TmVueCheckbox);
@@ -589,7 +821,8 @@ Vue.use(TmVueCheckallCheckbox$1);
 Vue.use(TmVueDropdown);
 Vue.use(TmVueSearchButton$1);
 Vue.use(TmVueButton$1);
-Vye.use(Breadcrumb);
+Vue.use(Breadcrumb);
+Vue.use(TmVueFilterTag$1);
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

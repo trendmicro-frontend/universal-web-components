@@ -9,13 +9,14 @@
         </ul>
     </div>
 </template>
-
 <script>
+    import '../jquery-global';
+    import 'bootstrap';
     export default {
         name: 'TmVueDropdown',
         props:{
             value:{
-                type:String,
+                type:[String,Number],
                 default:0
             },          
             param:{

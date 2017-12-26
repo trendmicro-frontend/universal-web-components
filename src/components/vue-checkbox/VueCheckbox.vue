@@ -14,11 +14,11 @@
         },
         props:{
             checked:{
-                type:Number,
-                default:0
+                type:[Boolean,Array],
+                default:"",
             },
             value:{
-                type:String,
+                type:[String,Number],
                 default:""
             },
             disabled:{
@@ -31,10 +31,17 @@
                 return this.disabled===true?true:false;//default disabled attribute is false.
             },
             disabledClass:function(){
-                return this.isDisabled && (this.checked.indexOf(this.value) == -1);//only add disabled class for the unchecked radio to stop hover color change.
+                return this.isDisabled && (this.isBoolean ? !this.checked : this.checked.indexOf(this.value) == -1);//only add disabled class for the unchecked radio to stop hover color change.
             },
             isChecked:function(){
-                return this.checked.indexOf(this.value) != -1;
+                if(this.isBoolean){
+                    return this.checked;
+                }else{
+                    return this.checked.indexOf(this.value) != -1;
+                }
+            },
+            isBoolean(){
+                return typeof this.checked === 'boolean';
             }
         },
         methods: {
@@ -43,17 +50,22 @@
                     this.$emit('change', this.checked);
                 });
             },
-            lableClick:function(){
+            lableClick(){
                 if(this.isDisabled)return;
-                var index = this.checked.indexOf(this.value);
-                if(index == -1){
-                    this.checked.push(this.value);
+                if(this.isBoolean){
+                    this.checked = !this.checked;
                 }else{
-                    this.checked.splice(index, 1);
+                    var index = this.checked.indexOf(this.value);
+                    if(index == -1){
+                        this.checked.push(this.value);
+                    }else{
+                        this.checked.splice(index, 1);
+                    }
                 }
                 this.handleChange();
                 
             }
+            
         }
     }
 </script>

@@ -48,7 +48,7 @@ export default {
     sourceMap: false,
     name: 'TM',
     plugins: plugins,
-    external: ['lodash', 'vue'],
+    external: ['lodash', 'vue','jquery','bootstrap'],
     globals: {
         jquery: '$',
         lodash: '_',

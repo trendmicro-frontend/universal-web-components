@@ -76,6 +76,6 @@ export default {
 
 
 <style lang="less">
-  @import "../../third-party/less/ddei.less";
+  /*@import "../../third-party/less/ddei.less";*/
 </style>
 

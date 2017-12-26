@@ -8,6 +8,7 @@ import TmVueSearchButton from './vue-button-search'
 
 import TmVueButton from './vue-button'
 import TmVueBreadcrumb from './vue-breadcrumb'
+import TmVueFilterTag from './vue-filter-tag'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
@@ -16,4 +17,5 @@ Vue.use(TmVueCheckallCheckbox)
 Vue.use(TMVueDropdown)
 Vue.use(TmVueSearchButton)
 Vue.use(TmVueButton)
-Vye.use(TmVueBreadcrumb)
+Vue.use(TmVueBreadcrumb)
+Vue.use(TmVueFilterTag)

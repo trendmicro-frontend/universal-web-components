@@ -44,5 +44,5 @@ export default {
 
 
 <style lang="less" scope>
-  @import "../../third-party/less/ddei.less";
+ /* @import "../../third-party/less/ddei.less";*/
 </style>
