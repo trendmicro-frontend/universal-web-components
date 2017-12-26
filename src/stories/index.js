@@ -15,11 +15,14 @@ import {
 } from '@storybook/addon-knobs';
 import centered from '@storybook/addon-centered';
 
+import Icon from '../components/icon'
 import TmVueBreadcrumb from '../components/vue-breadcrumb'
 import TmVueBreadcrumbItem from '../components/vue-breadcrumb/breadcrumb-item.vue'
 import TmVueButton from '../components/vue-button'
 
 import TmVueForm from '../components/vue-form'
+
+import TmVueFormItem from '../components/vue-form/form-item.vue'
 
 import Welcome from './Welcome.vue';
 
@@ -251,22 +254,39 @@ storiesOf('Radio & Check box', module)
 storiesOf('Form', module)
   .addDecorator(centered)
   .add('default', () => ({
-    components: { TmVueForm },
+    components: { TmVueForm, TmVueFormItem, TmVueButton, Icon },
     template: `<tm-vue-form ref="formInline" :model="formInline" :rules="ruleInline" inline >
-                <form-item prop="user">
-                  <i-input type="text" v-model="formInline.user" placeholder="Username">
+                <tm-vue-form-item prop="user">
+                  <tm-vue-button type="text" v-model="formInline.user" placeholder="Username">
                     <icon type="ios-person-outline" slot="prepend"></icon>
-                  </i-input>
-                </form-item>
-                <form-item prop="password">
-                  <i-input type="password" v-model="formInline.password" placeholder="Password">
+                  </tm-vue-button>
+                </tm-vue-form-item>
+                <tm-vue-form-item prop="password">
+                  <tm-vue-button type="password" v-model="formInline.password" placeholder="Password">
                     <icon type="ios-locked-outline" slot="prepend"></icon>
-                  </i-input>
-                </form-item>
-                <form-item>
-                  <i-button type="primary" @click="handleSubmit('formInline')">Signin</i-button>
-                </form - item >
-              </tm-vue-form>`
+                  </tm-vue-button>
+                </tm-vue-form-item>
+                <tm-vue-form-item>
+                  <tm-vue-button type="primary" @click="handleSubmit('formInline')">Signin</tm-vue-button>
+                </tm-vue-form-item>
+              </tm-vue-form>`,
+    data() {
+      return {
+        formInline: {
+          user: '',
+          password: ''
+        },
+        ruleInline: {
+          user: [
+            { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: 'Please fill in the password.', trigger: 'blur' },
+            { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+          ]
+        }
+      }
+    },
   }))
 
 /* eslint-enable react/react-in-jsx-scope */
