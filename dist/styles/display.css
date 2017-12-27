@@ -1130,7 +1130,6 @@
 }
 .segment {
   -webkit-transition: width 0.3s ease;
-  -o-transition: width 0.3s ease;
   transition: width 0.3s ease;
 }
 .segment-panel {
@@ -1140,7 +1139,6 @@
   z-index: 1;
   /* Prevent z-index of segment examples higher than others, like modal. */
   -webkit-transition: height 0.3s ease;
-  -o-transition: height 0.3s ease;
   transition: height 0.3s ease;
 }
 .segment-panel.overflow {
