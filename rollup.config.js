@@ -15,7 +15,6 @@ import serve from 'rollup-plugin-serve'
 const production = process.env.NODE_ENV === 'production';
 
 const plugins = [
-    multiEntry(),
     resolve({
         jsnext: false,
         main: true,
@@ -26,10 +25,10 @@ const plugins = [
         styleToImports: false,
         compileTemplate: true,
         css(style, styles, compiler) {
-            fs.writeFileSync('dist/components.css', style.trim())
+            // fs.writeFileSync('dist/components.css', style.trim())
         }
     }),
-    // stylus(),
+    stylus(),
     scss(),
     babel({
         plugins: ['external-helpers']
@@ -40,7 +39,7 @@ const plugins = [
 ];
 
 export default {
-    input: ['src/components'],
+    input: 'src/components/index',
     output: {
         file: 'dist/components.js',
         format: 'amd'

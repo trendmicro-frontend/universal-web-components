@@ -41,8 +41,3 @@ export default {
   }
 };
 </script>
-
-
-<style lang="less" scope>
- /* @import "../../third-party/less/ddei.less"; */
-</style>

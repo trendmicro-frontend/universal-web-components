@@ -24,6 +24,8 @@ import TmVueForm from '../components/vue-form'
 
 import TmVueFormItem from '../components/vue-form/form-item.vue'
 
+import TmVueInput from '../components/vue-input'
+
 import Welcome from './Welcome.vue';
 
 import TmVueFilterTag from '../components/vue-filter-tag';
@@ -33,7 +35,6 @@ import TmVueRadio from '../components/vue-radio';
 import TmVueDropdown from '../components/vue-dropdown';
 
 import "./ddei"
-import "./demo.css"
 
 storiesOf('Welcome', module).add('to Universal Web Components', () => ({
   components: { Welcome },
@@ -266,17 +267,17 @@ storiesOf('Form', module)
     components: { TmVueForm, TmVueFormItem, TmVueButton, Icon },
     template: `<tm-vue-form ref="formInline" :model="formInline" :rules="ruleInline" inline >
                 <tm-vue-form-item prop="user">
-                  <tm-vue-button type="text" v-model="formInline.user" placeholder="Username">
+                  <tm-vue-button type="default" v-model="formInline.user" placeholder="Username">
                     <icon type="ios-person-outline" slot="prepend"></icon>
                   </tm-vue-button>
                 </tm-vue-form-item>
                 <tm-vue-form-item prop="password">
-                  <tm-vue-button type="password" v-model="formInline.password" placeholder="Password">
+                  <tm-vue-button type="default" v-model="formInline.password" placeholder="Password">
                     <icon type="ios-locked-outline" slot="prepend"></icon>
                   </tm-vue-button>
                 </tm-vue-form-item>
                 <tm-vue-form-item>
-                  <tm-vue-button type="primary" @click="handleSubmit('formInline')">Signin</tm-vue-button>
+                  <tm-vue-button type="default" @click="handleSubmit('formInline')">Signin</tm-vue-button>
                 </tm-vue-form-item>
               </tm-vue-form>`,
     data() {
@@ -296,6 +297,103 @@ storiesOf('Form', module)
         }
       }
     },
+    methods: {
+      handleSubmit: function (name) {
+        console.log('hello world');
+        // this.$refs[name].validate((valid) => {
+        //   if (valid) {
+        //     this.$Message.success('Success!');
+        //   } else {
+        //     this.$Message.error('Fail!');
+        //   }
+        // })
+      }
+    },
   }))
-
+  .add('complex', () => ({
+    components: { TmVueForm, TmVueFormItem, TmVueButton, Icon, TmVueInput },
+    template: `<tm-vue-form :model="formItem" :label-width="80">
+                  <tm-vue-form-item label="data">
+                      <tm-vue-input v-model="formItem.input" placeholder="Enter something..."></tm-vue-input>
+                  </tm-vue-form-item>
+                  
+              </tm-vue-form>`,
+    data() {
+      return {
+        formItem: {
+          input: '',
+          select: '',
+          radio: 'male',
+          checkbox: [],
+          switch: true,
+          date: '',
+          time: '',
+          slider: [20, 50],
+          textarea: ''
+        }
+      }
+    },
+    methods: {
+      handleSubmit: function (name) {
+        debugger;
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            this.$Message.success('Success!');
+          } else {
+            this.$Message.error('Fail!');
+          }
+        })
+      }
+    },
+  }))
 /* eslint-enable react/react-in-jsx-scope */
+
+
+// <tm-vue-form-item label="Select">
+                  //     <Select v-model="formItem.select">
+                  //         <Option value="beijing">New York</Option>
+                  //         <Option value="shanghai">London</Option>
+                  //         <Option value="shenzhen">Sydney</Option>
+                  //     </Select>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="DatePicker">
+                  //     <Row>
+                  //         <Col span="11">
+                  //             <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
+                  //         </Col>
+                  //         <Col span="2" style="text-align: center">-</Col>
+                  //         <Col span="11">
+                  //             <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
+                  //         </Col>
+                  //     </Row>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="Radio">
+                  //     <RadioGroup v-model="formItem.radio">
+                  //         <Radio label="male">Male</Radio>
+                  //         <Radio label="female">Female</Radio>
+                  //     </RadioGroup>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="Checkbox">
+                  //     <CheckboxGroup v-model="formItem.checkbox">
+                  //         <Checkbox label="Eat"></Checkbox>
+                  //         <Checkbox label="Sleep"></Checkbox>
+                  //         <Checkbox label="Run"></Checkbox>
+                  //         <Checkbox label="Movie"></Checkbox>
+                  //     </CheckboxGroup>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="Switch">
+                  //     <i-switch v-model="formItem.switch" size="large">
+                  //         <span slot="open">On</span>
+                  //         <span slot="close">Off</span>
+                  //     </i-switch>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="Slider">
+                  //     <Slider v-model="formItem.slider" range></Slider>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item label="Text">
+                  //     <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+                  // </tm-vue-form-item>
+                  // <tm-vue-form-item>
+                  //     <Button type="primary">Submit</Button>
+                  //     <Button type="ghost" style="margin-left: 8px">Cancel</Button>
+                  // </tm-vue-form-item>

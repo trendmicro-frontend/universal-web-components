@@ -1,4 +1,4 @@
-define(['exports', 'vue', 'jquery', 'bootstrap', 'lodash'], function (exports, Vue, jquery, bootstrap, _) { 'use strict';
+define(['vue', 'jquery', 'bootstrap', 'lodash'], function (Vue, jquery, bootstrap, _) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 jquery = jquery && jquery.hasOwnProperty('default') ? jquery['default'] : jquery;
@@ -319,7 +319,7 @@ var TmVueSearchButton$1 = { render: function render() {
             return null;
           }_vm.changed($event);
         } } }), _vm._v(" "), _c('span', { staticClass: "form-control-clear icon icon-cancel hidden" })]), _vm._v(" "), _c('span', { staticClass: "input-group-btn" }, [_c('button', { staticClass: "btn btn-default btn-icon-only", attrs: { "type": "button" }, on: { "click": _vm.changed } }, [_c('span', { staticClass: "fa fa-search" })])])])]);
-  }, staticRenderFns: [], _scopeId: 'data-v-190e2a80',
+  }, staticRenderFns: [],
   name: "TmVueSearchButton",
   props: {
     placeholder: {
@@ -420,6 +420,22 @@ var MutationObserver = isServer ? false : window.MutationObserver || window.WebK
 // scrollTop animation
 
 
+// Find components upward
+function findComponentUpward(context, componentName, componentNames) {
+    if (typeof componentName === 'string') {
+        componentNames = [componentName];
+    } else {
+        componentNames = componentName;
+    }
+
+    var parent = context.$parent;
+    var name = parent.$options.name;
+    while (parent && (!name || componentNames.indexOf(name) < 0)) {
+        parent = parent.$parent;
+        if (parent) name = parent.$options.name;
+    }
+    return parent;
+}
 // Find component downward
 
 
@@ -624,7 +640,7 @@ var TmVueFilterTag$1 = { render: function render() {
             $event.stopPropagation();_vm.addItem(item.id);
           } } }, [_vm._v(_vm._s(item.name))]);
     }), _vm._v(" "), _c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showInitList.length == 0, expression: "showInitList.length==0" }], staticClass: "no-matches", attrs: { "tabindex": "0" } }, [_vm._v("No matches found")])], 2)]);
-  }, staticRenderFns: [], _scopeId: 'data-v-46e9abec',
+  }, staticRenderFns: [], _scopeId: 'data-v-47dc18c2',
   name: 'TmVueFilterTag',
   props: {
     initial_list: {
@@ -816,6 +832,323 @@ TmVueFilterTag$1.install = function (V, options) {
     V.component(TmVueFilterTag$1.name, TmVueFilterTag$1);
 };
 
+// Thanks to
+// https://github.com/andreypopp/react-textarea-autosize/
+// https://github.com/ElemeFE/element/blob/master/packages/input/src/calcTextareaHeight.js
+
+var hiddenTextarea = void 0;
+
+var HIDDEN_STYLE = '\n    height:0 !important;\n    min-height:0 !important;\n    max-height:none !important;\n    visibility:hidden !important;\n    overflow:hidden !important;\n    position:absolute !important;\n    z-index:-1000 !important;\n    top:0 !important;\n    right:0 !important\n';
+
+var CONTEXT_STYLE = ['letter-spacing', 'line-height', 'padding-top', 'padding-bottom', 'font-family', 'font-weight', 'font-size', 'text-rendering', 'text-transform', 'width', 'text-indent', 'padding-left', 'padding-right', 'border-width', 'box-sizing'];
+
+function calculateNodeStyling(node) {
+    var style = window.getComputedStyle(node);
+
+    var boxSizing = style.getPropertyValue('box-sizing');
+
+    var paddingSize = parseFloat(style.getPropertyValue('padding-bottom')) + parseFloat(style.getPropertyValue('padding-top'));
+
+    var borderSize = parseFloat(style.getPropertyValue('border-bottom-width')) + parseFloat(style.getPropertyValue('border-top-width'));
+
+    var contextStyle = CONTEXT_STYLE.map(function (name) {
+        return name + ':' + style.getPropertyValue(name);
+    }).join(';');
+
+    return { contextStyle: contextStyle, paddingSize: paddingSize, borderSize: borderSize, boxSizing: boxSizing };
+}
+
+function calcTextareaHeight(targetNode) {
+    var minRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var maxRows = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+    if (!hiddenTextarea) {
+        hiddenTextarea = document.createElement('textarea');
+        document.body.appendChild(hiddenTextarea);
+    }
+
+    var _calculateNodeStyling = calculateNodeStyling(targetNode),
+        paddingSize = _calculateNodeStyling.paddingSize,
+        borderSize = _calculateNodeStyling.borderSize,
+        boxSizing = _calculateNodeStyling.boxSizing,
+        contextStyle = _calculateNodeStyling.contextStyle;
+
+    hiddenTextarea.setAttribute('style', contextStyle + ';' + HIDDEN_STYLE);
+    hiddenTextarea.value = targetNode.value || targetNode.placeholder || '';
+
+    var height = hiddenTextarea.scrollHeight;
+    var minHeight = -Infinity;
+    var maxHeight = Infinity;
+
+    if (boxSizing === 'border-box') {
+        height = height + borderSize;
+    } else if (boxSizing === 'content-box') {
+        height = height - paddingSize;
+    }
+
+    hiddenTextarea.value = '';
+    var singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
+
+    if (minRows !== null) {
+        minHeight = singleRowHeight * minRows;
+        if (boxSizing === 'border-box') {
+            minHeight = minHeight + paddingSize + borderSize;
+        }
+        height = Math.max(minHeight, height);
+    }
+    if (maxRows !== null) {
+        maxHeight = singleRowHeight * maxRows;
+        if (boxSizing === 'border-box') {
+            maxHeight = maxHeight + paddingSize + borderSize;
+        }
+        height = Math.min(maxHeight, height);
+    }
+
+    return {
+        height: height + 'px',
+        minHeight: minHeight + 'px',
+        maxHeight: maxHeight + 'px'
+    };
+}
+
+function _broadcast(componentName, eventName, params) {
+    this.$children.forEach(function (child) {
+        var name = child.$options.name;
+
+        if (name === componentName) {
+            child.$emit.apply(child, [eventName].concat(params));
+        } else {
+            // todo 如果 params 是空数组，接收到的会是 undefined
+            _broadcast.apply(child, [componentName, eventName].concat([params]));
+        }
+    });
+}
+var Emitter = {
+    methods: {
+        dispatch: function dispatch(componentName, eventName, params) {
+            var parent = this.$parent || this.$root;
+            var name = parent.$options.name;
+
+            while (parent && (!name || name !== componentName)) {
+                parent = parent.$parent;
+
+                if (parent) {
+                    name = parent.$options.name;
+                }
+            }
+            if (parent) {
+                parent.$emit.apply(parent, [eventName].concat(params));
+            }
+        },
+        broadcast: function broadcast(componentName, eventName, params) {
+            _broadcast.call(this, componentName, eventName, params);
+        }
+    }
+};
+
+var prefixCls$4 = 'ivu-input';
+
+var TmVueInput$1 = { render: function render() {
+        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.wrapClasses }, [_vm.type !== 'textarea' ? [_vm.prepend ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-prepend'] }, [_vm._t("prepend")], 2) : _vm._e(), _vm._v(" "), _vm.icon ? _c('i', { staticClass: "ivu-icon", class: ['ivu-icon-' + _vm.icon, _vm.prefixCls + '-icon', _vm.prefixCls + '-icon-normal'], on: { "click": _vm.handleIconClick } }) : _vm._e(), _vm._v(" "), _c('transition', { attrs: { "name": "fade" } }, [!_vm.icon ? _c('i', { staticClass: "ivu-icon ivu-icon-load-c ivu-load-loop", class: [_vm.prefixCls + '-icon', _vm.prefixCls + '-icon-validate'] }) : _vm._e()]), _vm._v(" "), _c('input', { ref: "input", class: _vm.inputClasses, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "type": _vm.type, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "number": _vm.number, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
+                    if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
+                        return null;
+                    }_vm.handleEnter($event);
+                }, _vm.handleKeyup], "keypress": _vm.handleKeypress, "keydown": _vm.handleKeydown, "focus": _vm.handleFocus, "blur": _vm.handleBlur, "input": _vm.handleInput, "change": _vm.handleChange } }), _vm._v(" "), _vm.append ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-append'] }, [_vm._t("append")], 2) : _vm._e()] : _c('textarea', { ref: "textarea", class: _vm.textareaClasses, style: _vm.textareaStyles, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "rows": _vm.rows, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
+                    if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
+                        return null;
+                    }_vm.handleEnter($event);
+                }, _vm.handleKeyup], "keypress": _vm.handleKeypress, "keydown": _vm.handleKeydown, "focus": _vm.handleFocus, "blur": _vm.handleBlur, "input": _vm.handleInput } })], 2);
+    }, staticRenderFns: [],
+    name: 'Input',
+    mixins: [Emitter],
+    props: {
+        type: {
+            validator: function validator(value) {
+                return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
+            },
+
+            default: 'text'
+        },
+        value: {
+            type: [String, Number],
+            default: ''
+        },
+        size: {
+            validator: function validator(value) {
+                return oneOf(value, ['small', 'large', 'default']);
+            }
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
+        maxlength: {
+            type: Number
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        icon: String,
+        autosize: {
+            type: [Boolean, Object],
+            default: false
+        },
+        rows: {
+            type: Number,
+            default: 2
+        },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
+        name: {
+            type: String
+        },
+        number: {
+            type: Boolean,
+            default: false
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        spellcheck: {
+            type: Boolean,
+            default: false
+        },
+        autocomplete: {
+            validator: function validator(value) {
+                return oneOf(value, ['on', 'off']);
+            },
+
+            default: 'off'
+        },
+        elementId: {
+            type: String
+        }
+    },
+    data: function data() {
+        return {
+            currentValue: this.value,
+            prefixCls: prefixCls$4,
+            prepend: true,
+            append: true,
+            slotReady: false,
+            textareaStyles: {}
+        };
+    },
+
+    computed: {
+        wrapClasses: function wrapClasses() {
+            var _ref;
+
+            return [prefixCls$4 + '-wrapper', (_ref = {}, defineProperty(_ref, prefixCls$4 + '-wrapper-' + this.size, !!this.size), defineProperty(_ref, prefixCls$4 + '-type', this.type), defineProperty(_ref, prefixCls$4 + '-group', this.prepend || this.append), defineProperty(_ref, prefixCls$4 + '-group-' + this.size, (this.prepend || this.append) && !!this.size), defineProperty(_ref, prefixCls$4 + '-group-with-prepend', this.prepend), defineProperty(_ref, prefixCls$4 + '-group-with-append', this.append), defineProperty(_ref, prefixCls$4 + '-hide-icon', this.append), _ref)];
+        },
+        inputClasses: function inputClasses() {
+            var _ref2;
+
+            return ['' + prefixCls$4, (_ref2 = {}, defineProperty(_ref2, prefixCls$4 + '-' + this.size, !!this.size), defineProperty(_ref2, prefixCls$4 + '-disabled', this.disabled), _ref2)];
+        },
+        textareaClasses: function textareaClasses() {
+            return ['' + prefixCls$4, defineProperty({}, prefixCls$4 + '-disabled', this.disabled)];
+        }
+    },
+    methods: {
+        handleEnter: function handleEnter(event) {
+            this.$emit('on-enter', event);
+        },
+        handleKeydown: function handleKeydown(event) {
+            this.$emit('on-keydown', event);
+        },
+        handleKeypress: function handleKeypress(event) {
+            this.$emit('on-keypress', event);
+        },
+        handleKeyup: function handleKeyup(event) {
+            this.$emit('on-keyup', event);
+        },
+        handleIconClick: function handleIconClick(event) {
+            this.$emit('on-click', event);
+        },
+        handleFocus: function handleFocus(event) {
+            this.$emit('on-focus', event);
+        },
+        handleBlur: function handleBlur(event) {
+            this.$emit('on-blur', event);
+            if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
+                this.dispatch('FormItem', 'on-form-blur', this.currentValue);
+            }
+        },
+        handleInput: function handleInput(event) {
+            var value = event.target.value;
+            if (this.number) value = Number.isNaN(Number(value)) ? value : Number(value);
+            this.$emit('input', value);
+            this.setCurrentValue(value);
+            this.$emit('on-change', event);
+        },
+        handleChange: function handleChange(event) {
+            this.$emit('on-input-change', event);
+        },
+        setCurrentValue: function setCurrentValue(value) {
+            var _this = this;
+
+            if (value === this.currentValue) return;
+            this.$nextTick(function () {
+                _this.resizeTextarea();
+            });
+            this.currentValue = value;
+            if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
+                this.dispatch('FormItem', 'on-form-change', value);
+            }
+        },
+        resizeTextarea: function resizeTextarea() {
+            var autosize = this.autosize;
+            if (!autosize || this.type !== 'textarea') {
+                return false;
+            }
+
+            var minRows = autosize.minRows;
+            var maxRows = autosize.maxRows;
+
+            this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows);
+        },
+        focus: function focus() {
+            if (this.type === 'textarea') {
+                this.$refs.textarea.focus();
+            } else {
+                this.$refs.input.focus();
+            }
+        },
+        blur: function blur() {
+            if (this.type === 'textarea') {
+                this.$refs.textarea.blur();
+            } else {
+                this.$refs.input.blur();
+            }
+        }
+    },
+    watch: {
+        value: function value(val) {
+            this.setCurrentValue(val);
+        }
+    },
+    mounted: function mounted() {
+        if (this.type !== 'textarea') {
+            this.prepend = this.$slots.prepend !== undefined;
+            this.append = this.$slots.append !== undefined;
+        } else {
+            this.prepend = false;
+            this.append = false;
+        }
+        this.slotReady = true;
+        this.resizeTextarea();
+    }
+};
+
+TmVueInput$1.install = function (V, options) {
+    V.component(TmVueInput$1.name, TmVueInput$1);
+};
+
 Vue.use(TmVueActionButton$1);
 Vue.use(TmVueRadio);
 Vue.use(TmVueCheckbox);
@@ -825,7 +1158,6 @@ Vue.use(TmVueSearchButton$1);
 Vue.use(TmVueButton$1);
 Vue.use(Breadcrumb);
 Vue.use(TmVueFilterTag$1);
-
-Object.defineProperty(exports, '__esModule', { value: true });
+Vue.use(TmVueInput$1);
 
 });

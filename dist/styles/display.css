@@ -1,0 +1,1320 @@
+.clearfix:before,
+.clearfix:after,
+.segment-panel-heading:before,
+.segment-panel-heading:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+.segment-panel-heading:after {
+  clear: both;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pull-right {
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
+.hide {
+  display: none !important;
+}
+.show {
+  display: block !important;
+}
+.invisible {
+  visibility: hidden;
+}
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.hidden {
+  display: none !important;
+}
+.affix {
+  position: fixed;
+}
+.nav-icon-home {
+  background-image: url(../images/icon/home.png);
+}
+.nav-icon-type {
+  background-image: url(../images/icon/type.png);
+}
+.nav-icon-components {
+  background-image: url(../images/icon/components.png);
+}
+.nav-icon-form {
+  background-image: url(../images/icon/form.png);
+}
+.nav-icon-table {
+  background-image: url(../images/icon/table.png);
+}
+.nav-icon-line-chart {
+  background-image: url(../images/icon/line-chart.png);
+}
+.nav-icon-templates {
+  background-image: url(../images/icon/templates.png);
+}
+/* grid rows */
+@media (min-width: 768px) {
+  .row-sm-70 {
+    height: 4880px;
+  }
+  .row-sm-69 {
+    height: 4810px;
+  }
+  .row-sm-68 {
+    height: 4740px;
+  }
+  .row-sm-67 {
+    height: 4670px;
+  }
+  .row-sm-66 {
+    height: 4600px;
+  }
+  .row-sm-65 {
+    height: 4530px;
+  }
+  .row-sm-64 {
+    height: 4460px;
+  }
+  .row-sm-63 {
+    height: 4390px;
+  }
+  .row-sm-62 {
+    height: 4320px;
+  }
+  .row-sm-61 {
+    height: 4250px;
+  }
+  .row-sm-60 {
+    height: 4180px;
+  }
+  .row-sm-59 {
+    height: 4110px;
+  }
+  .row-sm-58 {
+    height: 4040px;
+  }
+  .row-sm-57 {
+    height: 3970px;
+  }
+  .row-sm-56 {
+    height: 3900px;
+  }
+  .row-sm-55 {
+    height: 3830px;
+  }
+  .row-sm-54 {
+    height: 3760px;
+  }
+  .row-sm-53 {
+    height: 3690px;
+  }
+  .row-sm-52 {
+    height: 3620px;
+  }
+  .row-sm-51 {
+    height: 3550px;
+  }
+  .row-sm-50 {
+    height: 3480px;
+  }
+  .row-sm-49 {
+    height: 3410px;
+  }
+  .row-sm-48 {
+    height: 3340px;
+  }
+  .row-sm-47 {
+    height: 3270px;
+  }
+  .row-sm-46 {
+    height: 3200px;
+  }
+  .row-sm-45 {
+    height: 3130px;
+  }
+  .row-sm-44 {
+    height: 3060px;
+  }
+  .row-sm-43 {
+    height: 2990px;
+  }
+  .row-sm-42 {
+    height: 2920px;
+  }
+  .row-sm-41 {
+    height: 2850px;
+  }
+  .row-sm-40 {
+    height: 2780px;
+  }
+  .row-sm-39 {
+    height: 2710px;
+  }
+  .row-sm-38 {
+    height: 2640px;
+  }
+  .row-sm-37 {
+    height: 2570px;
+  }
+  .row-sm-36 {
+    height: 2500px;
+  }
+  .row-sm-35 {
+    height: 2430px;
+  }
+  .row-sm-34 {
+    height: 2360px;
+  }
+  .row-sm-33 {
+    height: 2290px;
+  }
+  .row-sm-32 {
+    height: 2220px;
+  }
+  .row-sm-31 {
+    height: 2150px;
+  }
+  .row-sm-30 {
+    height: 2080px;
+  }
+  .row-sm-29 {
+    height: 2010px;
+  }
+  .row-sm-28 {
+    height: 1940px;
+  }
+  .row-sm-27 {
+    height: 1870px;
+  }
+  .row-sm-26 {
+    height: 1800px;
+  }
+  .row-sm-25 {
+    height: 1730px;
+  }
+  .row-sm-24 {
+    height: 1660px;
+  }
+  .row-sm-23 {
+    height: 1590px;
+  }
+  .row-sm-22 {
+    height: 1520px;
+  }
+  .row-sm-21 {
+    height: 1450px;
+  }
+  .row-sm-20 {
+    height: 1380px;
+  }
+  .row-sm-19 {
+    height: 1310px;
+  }
+  .row-sm-18 {
+    height: 1240px;
+  }
+  .row-sm-17 {
+    height: 1170px;
+  }
+  .row-sm-16 {
+    height: 1100px;
+  }
+  .row-sm-15 {
+    height: 1030px;
+  }
+  .row-sm-14 {
+    height: 960px;
+  }
+  .row-sm-13 {
+    height: 890px;
+  }
+  .row-sm-12 {
+    height: 820px;
+  }
+  .row-sm-11 {
+    height: 750px;
+  }
+  .row-sm-10 {
+    height: 680px;
+  }
+  .row-sm-9 {
+    height: 610px;
+  }
+  .row-sm-8 {
+    height: 540px;
+  }
+  .row-sm-7 {
+    height: 470px;
+  }
+  .row-sm-6 {
+    height: 400px;
+  }
+  .row-sm-5 {
+    height: 330px;
+  }
+  .row-sm-4 {
+    height: 260px;
+  }
+  .row-sm-3 {
+    height: 190px;
+  }
+  .row-sm-2 {
+    height: 120px;
+  }
+  .row-sm-1 {
+    height: 50px;
+  }
+}
+@media (min-width: 992px) {
+  .row-md-70 {
+    height: 4880px;
+  }
+  .row-md-69 {
+    height: 4810px;
+  }
+  .row-md-68 {
+    height: 4740px;
+  }
+  .row-md-67 {
+    height: 4670px;
+  }
+  .row-md-66 {
+    height: 4600px;
+  }
+  .row-md-65 {
+    height: 4530px;
+  }
+  .row-md-64 {
+    height: 4460px;
+  }
+  .row-md-63 {
+    height: 4390px;
+  }
+  .row-md-62 {
+    height: 4320px;
+  }
+  .row-md-61 {
+    height: 4250px;
+  }
+  .row-md-60 {
+    height: 4180px;
+  }
+  .row-md-59 {
+    height: 4110px;
+  }
+  .row-md-58 {
+    height: 4040px;
+  }
+  .row-md-57 {
+    height: 3970px;
+  }
+  .row-md-56 {
+    height: 3900px;
+  }
+  .row-md-55 {
+    height: 3830px;
+  }
+  .row-md-54 {
+    height: 3760px;
+  }
+  .row-md-53 {
+    height: 3690px;
+  }
+  .row-md-52 {
+    height: 3620px;
+  }
+  .row-md-51 {
+    height: 3550px;
+  }
+  .row-md-50 {
+    height: 3480px;
+  }
+  .row-md-49 {
+    height: 3410px;
+  }
+  .row-md-48 {
+    height: 3340px;
+  }
+  .row-md-47 {
+    height: 3270px;
+  }
+  .row-md-46 {
+    height: 3200px;
+  }
+  .row-md-45 {
+    height: 3130px;
+  }
+  .row-md-44 {
+    height: 3060px;
+  }
+  .row-md-43 {
+    height: 2990px;
+  }
+  .row-md-42 {
+    height: 2920px;
+  }
+  .row-md-41 {
+    height: 2850px;
+  }
+  .row-md-40 {
+    height: 2780px;
+  }
+  .row-md-39 {
+    height: 2710px;
+  }
+  .row-md-38 {
+    height: 2640px;
+  }
+  .row-md-37 {
+    height: 2570px;
+  }
+  .row-md-36 {
+    height: 2500px;
+  }
+  .row-md-35 {
+    height: 2430px;
+  }
+  .row-md-34 {
+    height: 2360px;
+  }
+  .row-md-33 {
+    height: 2290px;
+  }
+  .row-md-32 {
+    height: 2220px;
+  }
+  .row-md-31 {
+    height: 2150px;
+  }
+  .row-md-30 {
+    height: 2080px;
+  }
+  .row-md-29 {
+    height: 2010px;
+  }
+  .row-md-28 {
+    height: 1940px;
+  }
+  .row-md-27 {
+    height: 1870px;
+  }
+  .row-md-26 {
+    height: 1800px;
+  }
+  .row-md-25 {
+    height: 1730px;
+  }
+  .row-md-24 {
+    height: 1660px;
+  }
+  .row-md-23 {
+    height: 1590px;
+  }
+  .row-md-22 {
+    height: 1520px;
+  }
+  .row-md-21 {
+    height: 1450px;
+  }
+  .row-md-20 {
+    height: 1380px;
+  }
+  .row-md-19 {
+    height: 1310px;
+  }
+  .row-md-18 {
+    height: 1240px;
+  }
+  .row-md-17 {
+    height: 1170px;
+  }
+  .row-md-16 {
+    height: 1100px;
+  }
+  .row-md-15 {
+    height: 1030px;
+  }
+  .row-md-14 {
+    height: 960px;
+  }
+  .row-md-13 {
+    height: 890px;
+  }
+  .row-md-12 {
+    height: 820px;
+  }
+  .row-md-11 {
+    height: 750px;
+  }
+  .row-md-10 {
+    height: 680px;
+  }
+  .row-md-9 {
+    height: 610px;
+  }
+  .row-md-8 {
+    height: 540px;
+  }
+  .row-md-7 {
+    height: 470px;
+  }
+  .row-md-6 {
+    height: 400px;
+  }
+  .row-md-5 {
+    height: 330px;
+  }
+  .row-md-4 {
+    height: 260px;
+  }
+  .row-md-3 {
+    height: 190px;
+  }
+  .row-md-2 {
+    height: 120px;
+  }
+  .row-md-1 {
+    height: 50px;
+  }
+}
+@media (min-width: 1200px) {
+  .row-lg-70 {
+    height: 4880px;
+  }
+  .row-lg-69 {
+    height: 4810px;
+  }
+  .row-lg-68 {
+    height: 4740px;
+  }
+  .row-lg-67 {
+    height: 4670px;
+  }
+  .row-lg-66 {
+    height: 4600px;
+  }
+  .row-lg-65 {
+    height: 4530px;
+  }
+  .row-lg-64 {
+    height: 4460px;
+  }
+  .row-lg-63 {
+    height: 4390px;
+  }
+  .row-lg-62 {
+    height: 4320px;
+  }
+  .row-lg-61 {
+    height: 4250px;
+  }
+  .row-lg-60 {
+    height: 4180px;
+  }
+  .row-lg-59 {
+    height: 4110px;
+  }
+  .row-lg-58 {
+    height: 4040px;
+  }
+  .row-lg-57 {
+    height: 3970px;
+  }
+  .row-lg-56 {
+    height: 3900px;
+  }
+  .row-lg-55 {
+    height: 3830px;
+  }
+  .row-lg-54 {
+    height: 3760px;
+  }
+  .row-lg-53 {
+    height: 3690px;
+  }
+  .row-lg-52 {
+    height: 3620px;
+  }
+  .row-lg-51 {
+    height: 3550px;
+  }
+  .row-lg-50 {
+    height: 3480px;
+  }
+  .row-lg-49 {
+    height: 3410px;
+  }
+  .row-lg-48 {
+    height: 3340px;
+  }
+  .row-lg-47 {
+    height: 3270px;
+  }
+  .row-lg-46 {
+    height: 3200px;
+  }
+  .row-lg-45 {
+    height: 3130px;
+  }
+  .row-lg-44 {
+    height: 3060px;
+  }
+  .row-lg-43 {
+    height: 2990px;
+  }
+  .row-lg-42 {
+    height: 2920px;
+  }
+  .row-lg-41 {
+    height: 2850px;
+  }
+  .row-lg-40 {
+    height: 2780px;
+  }
+  .row-lg-39 {
+    height: 2710px;
+  }
+  .row-lg-38 {
+    height: 2640px;
+  }
+  .row-lg-37 {
+    height: 2570px;
+  }
+  .row-lg-36 {
+    height: 2500px;
+  }
+  .row-lg-35 {
+    height: 2430px;
+  }
+  .row-lg-34 {
+    height: 2360px;
+  }
+  .row-lg-33 {
+    height: 2290px;
+  }
+  .row-lg-32 {
+    height: 2220px;
+  }
+  .row-lg-31 {
+    height: 2150px;
+  }
+  .row-lg-30 {
+    height: 2080px;
+  }
+  .row-lg-29 {
+    height: 2010px;
+  }
+  .row-lg-28 {
+    height: 1940px;
+  }
+  .row-lg-27 {
+    height: 1870px;
+  }
+  .row-lg-26 {
+    height: 1800px;
+  }
+  .row-lg-25 {
+    height: 1730px;
+  }
+  .row-lg-24 {
+    height: 1660px;
+  }
+  .row-lg-23 {
+    height: 1590px;
+  }
+  .row-lg-22 {
+    height: 1520px;
+  }
+  .row-lg-21 {
+    height: 1450px;
+  }
+  .row-lg-20 {
+    height: 1380px;
+  }
+  .row-lg-19 {
+    height: 1310px;
+  }
+  .row-lg-18 {
+    height: 1240px;
+  }
+  .row-lg-17 {
+    height: 1170px;
+  }
+  .row-lg-16 {
+    height: 1100px;
+  }
+  .row-lg-15 {
+    height: 1030px;
+  }
+  .row-lg-14 {
+    height: 960px;
+  }
+  .row-lg-13 {
+    height: 890px;
+  }
+  .row-lg-12 {
+    height: 820px;
+  }
+  .row-lg-11 {
+    height: 750px;
+  }
+  .row-lg-10 {
+    height: 680px;
+  }
+  .row-lg-9 {
+    height: 610px;
+  }
+  .row-lg-8 {
+    height: 540px;
+  }
+  .row-lg-7 {
+    height: 470px;
+  }
+  .row-lg-6 {
+    height: 400px;
+  }
+  .row-lg-5 {
+    height: 330px;
+  }
+  .row-lg-4 {
+    height: 260px;
+  }
+  .row-lg-3 {
+    height: 190px;
+  }
+  .row-lg-2 {
+    height: 120px;
+  }
+  .row-lg-1 {
+    height: 50px;
+  }
+}
+@media (min-width: 1600px) {
+  .row-xl-70 {
+    height: 4880px;
+  }
+  .row-xl-69 {
+    height: 4810px;
+  }
+  .row-xl-68 {
+    height: 4740px;
+  }
+  .row-xl-67 {
+    height: 4670px;
+  }
+  .row-xl-66 {
+    height: 4600px;
+  }
+  .row-xl-65 {
+    height: 4530px;
+  }
+  .row-xl-64 {
+    height: 4460px;
+  }
+  .row-xl-63 {
+    height: 4390px;
+  }
+  .row-xl-62 {
+    height: 4320px;
+  }
+  .row-xl-61 {
+    height: 4250px;
+  }
+  .row-xl-60 {
+    height: 4180px;
+  }
+  .row-xl-59 {
+    height: 4110px;
+  }
+  .row-xl-58 {
+    height: 4040px;
+  }
+  .row-xl-57 {
+    height: 3970px;
+  }
+  .row-xl-56 {
+    height: 3900px;
+  }
+  .row-xl-55 {
+    height: 3830px;
+  }
+  .row-xl-54 {
+    height: 3760px;
+  }
+  .row-xl-53 {
+    height: 3690px;
+  }
+  .row-xl-52 {
+    height: 3620px;
+  }
+  .row-xl-51 {
+    height: 3550px;
+  }
+  .row-xl-50 {
+    height: 3480px;
+  }
+  .row-xl-49 {
+    height: 3410px;
+  }
+  .row-xl-48 {
+    height: 3340px;
+  }
+  .row-xl-47 {
+    height: 3270px;
+  }
+  .row-xl-46 {
+    height: 3200px;
+  }
+  .row-xl-45 {
+    height: 3130px;
+  }
+  .row-xl-44 {
+    height: 3060px;
+  }
+  .row-xl-43 {
+    height: 2990px;
+  }
+  .row-xl-42 {
+    height: 2920px;
+  }
+  .row-xl-41 {
+    height: 2850px;
+  }
+  .row-xl-40 {
+    height: 2780px;
+  }
+  .row-xl-39 {
+    height: 2710px;
+  }
+  .row-xl-38 {
+    height: 2640px;
+  }
+  .row-xl-37 {
+    height: 2570px;
+  }
+  .row-xl-36 {
+    height: 2500px;
+  }
+  .row-xl-35 {
+    height: 2430px;
+  }
+  .row-xl-34 {
+    height: 2360px;
+  }
+  .row-xl-33 {
+    height: 2290px;
+  }
+  .row-xl-32 {
+    height: 2220px;
+  }
+  .row-xl-31 {
+    height: 2150px;
+  }
+  .row-xl-30 {
+    height: 2080px;
+  }
+  .row-xl-29 {
+    height: 2010px;
+  }
+  .row-xl-28 {
+    height: 1940px;
+  }
+  .row-xl-27 {
+    height: 1870px;
+  }
+  .row-xl-26 {
+    height: 1800px;
+  }
+  .row-xl-25 {
+    height: 1730px;
+  }
+  .row-xl-24 {
+    height: 1660px;
+  }
+  .row-xl-23 {
+    height: 1590px;
+  }
+  .row-xl-22 {
+    height: 1520px;
+  }
+  .row-xl-21 {
+    height: 1450px;
+  }
+  .row-xl-20 {
+    height: 1380px;
+  }
+  .row-xl-19 {
+    height: 1310px;
+  }
+  .row-xl-18 {
+    height: 1240px;
+  }
+  .row-xl-17 {
+    height: 1170px;
+  }
+  .row-xl-16 {
+    height: 1100px;
+  }
+  .row-xl-15 {
+    height: 1030px;
+  }
+  .row-xl-14 {
+    height: 960px;
+  }
+  .row-xl-13 {
+    height: 890px;
+  }
+  .row-xl-12 {
+    height: 820px;
+  }
+  .row-xl-11 {
+    height: 750px;
+  }
+  .row-xl-10 {
+    height: 680px;
+  }
+  .row-xl-9 {
+    height: 610px;
+  }
+  .row-xl-8 {
+    height: 540px;
+  }
+  .row-xl-7 {
+    height: 470px;
+  }
+  .row-xl-6 {
+    height: 400px;
+  }
+  .row-xl-5 {
+    height: 330px;
+  }
+  .row-xl-4 {
+    height: 260px;
+  }
+  .row-xl-3 {
+    height: 190px;
+  }
+  .row-xl-2 {
+    height: 120px;
+  }
+  .row-xl-1 {
+    height: 50px;
+  }
+}
+@media (min-width: 1920px) {
+  .row-xxl-70 {
+    height: 4880px;
+  }
+  .row-xxl-69 {
+    height: 4810px;
+  }
+  .row-xxl-68 {
+    height: 4740px;
+  }
+  .row-xxl-67 {
+    height: 4670px;
+  }
+  .row-xxl-66 {
+    height: 4600px;
+  }
+  .row-xxl-65 {
+    height: 4530px;
+  }
+  .row-xxl-64 {
+    height: 4460px;
+  }
+  .row-xxl-63 {
+    height: 4390px;
+  }
+  .row-xxl-62 {
+    height: 4320px;
+  }
+  .row-xxl-61 {
+    height: 4250px;
+  }
+  .row-xxl-60 {
+    height: 4180px;
+  }
+  .row-xxl-59 {
+    height: 4110px;
+  }
+  .row-xxl-58 {
+    height: 4040px;
+  }
+  .row-xxl-57 {
+    height: 3970px;
+  }
+  .row-xxl-56 {
+    height: 3900px;
+  }
+  .row-xxl-55 {
+    height: 3830px;
+  }
+  .row-xxl-54 {
+    height: 3760px;
+  }
+  .row-xxl-53 {
+    height: 3690px;
+  }
+  .row-xxl-52 {
+    height: 3620px;
+  }
+  .row-xxl-51 {
+    height: 3550px;
+  }
+  .row-xxl-50 {
+    height: 3480px;
+  }
+  .row-xxl-49 {
+    height: 3410px;
+  }
+  .row-xxl-48 {
+    height: 3340px;
+  }
+  .row-xxl-47 {
+    height: 3270px;
+  }
+  .row-xxl-46 {
+    height: 3200px;
+  }
+  .row-xxl-45 {
+    height: 3130px;
+  }
+  .row-xxl-44 {
+    height: 3060px;
+  }
+  .row-xxl-43 {
+    height: 2990px;
+  }
+  .row-xxl-42 {
+    height: 2920px;
+  }
+  .row-xxl-41 {
+    height: 2850px;
+  }
+  .row-xxl-40 {
+    height: 2780px;
+  }
+  .row-xxl-39 {
+    height: 2710px;
+  }
+  .row-xxl-38 {
+    height: 2640px;
+  }
+  .row-xxl-37 {
+    height: 2570px;
+  }
+  .row-xxl-36 {
+    height: 2500px;
+  }
+  .row-xxl-35 {
+    height: 2430px;
+  }
+  .row-xxl-34 {
+    height: 2360px;
+  }
+  .row-xxl-33 {
+    height: 2290px;
+  }
+  .row-xxl-32 {
+    height: 2220px;
+  }
+  .row-xxl-31 {
+    height: 2150px;
+  }
+  .row-xxl-30 {
+    height: 2080px;
+  }
+  .row-xxl-29 {
+    height: 2010px;
+  }
+  .row-xxl-28 {
+    height: 1940px;
+  }
+  .row-xxl-27 {
+    height: 1870px;
+  }
+  .row-xxl-26 {
+    height: 1800px;
+  }
+  .row-xxl-25 {
+    height: 1730px;
+  }
+  .row-xxl-24 {
+    height: 1660px;
+  }
+  .row-xxl-23 {
+    height: 1590px;
+  }
+  .row-xxl-22 {
+    height: 1520px;
+  }
+  .row-xxl-21 {
+    height: 1450px;
+  }
+  .row-xxl-20 {
+    height: 1380px;
+  }
+  .row-xxl-19 {
+    height: 1310px;
+  }
+  .row-xxl-18 {
+    height: 1240px;
+  }
+  .row-xxl-17 {
+    height: 1170px;
+  }
+  .row-xxl-16 {
+    height: 1100px;
+  }
+  .row-xxl-15 {
+    height: 1030px;
+  }
+  .row-xxl-14 {
+    height: 960px;
+  }
+  .row-xxl-13 {
+    height: 890px;
+  }
+  .row-xxl-12 {
+    height: 820px;
+  }
+  .row-xxl-11 {
+    height: 750px;
+  }
+  .row-xxl-10 {
+    height: 680px;
+  }
+  .row-xxl-9 {
+    height: 610px;
+  }
+  .row-xxl-8 {
+    height: 540px;
+  }
+  .row-xxl-7 {
+    height: 470px;
+  }
+  .row-xxl-6 {
+    height: 400px;
+  }
+  .row-xxl-5 {
+    height: 330px;
+  }
+  .row-xxl-4 {
+    height: 260px;
+  }
+  .row-xxl-3 {
+    height: 190px;
+  }
+  .row-xxl-2 {
+    height: 120px;
+  }
+  .row-xxl-1 {
+    height: 50px;
+  }
+}
+/* segment panel */
+.segment-panels {
+  padding: 20px 20px 0;
+}
+.segment {
+  -webkit-transition: width 0.3s ease;
+  -o-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+.segment-panel {
+  background: #fff;
+  border: 1px #d6d6d6 solid;
+  position: relative;
+  z-index: 1;
+  /* Prevent z-index of segment examples higher than others, like modal. */
+  -webkit-transition: height 0.3s ease;
+  -o-transition: height 0.3s ease;
+  transition: height 0.3s ease;
+}
+.segment-panel.overflow {
+  z-index: 2;
+}
+.segment-panel:last-child {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1023px) {
+  .segment-panel-loading {
+    height: 200px !important;
+  }
+}
+.segment-panel-heading {
+  padding: 0 16px;
+}
+.templates .segment-panel-heading {
+  padding: 0 24px;
+}
+.segment-panel-title {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 52px;
+  float: left;
+  margin: 0;
+}
+.segment-panel-actions {
+  float: right;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.segment-panel-actions > li {
+  float: left;
+  line-height: 1;
+  margin: 8px 0 8px 8px;
+}
+.segment-panel-actions > li > a {
+  padding: 8px 0;
+  font-size: 16px;
+  line-height: 20px;
+  color: #9c9c9c;
+  text-decoration: none;
+  vertical-align: top;
+  cursor: pointer;
+}
+.segment-panel-actions > li > a:hover {
+  color: #666;
+}
+.segment-content {
+  padding: 0 16px 16px;
+  position: absolute;
+  top: 52px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.templates .segment-content {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media screen and (max-width: 1023px) {
+  .segment-content {
+    position: static;
+    height: 100%;
+  }
+}
+.template-snapshot {
+  display: block;
+  border: 1px solid #ccc;
+}
+.template-snapshot:hover {
+  border: 1px solid #bbb;
+  -webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+.template-snapshot img {
+  width: 100%;
+}
+.template-snapshot + p {
+  margin: 12px 0;
+}
+.template-snapshot + p:last-child {
+  margin-bottom: 0;
+}
+.table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(1),
+.table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(1) {
+  width: 35.3%;
+}
+.table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(2),
+.table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(2) {
+  width: 23.53%;
+}
+.table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(3),
+.table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(3) {
+  width: 11.76%;
+  text-align: right;
+}
+.table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(4),
+.table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(4) {
+  width: 17.64%;
+}
+.table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(5),
+.table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(5) {
+  width: 11.77%;
+}
+.table-with-scrollbar.sb-h .table-horizontal-scrollable .table {
+  table-layout: auto;
+}
+.table-with-scrollbar.sb-h .table-horizontal-scrollable .table > thead > tr > th,
+.table-with-scrollbar.sb-h .table-horizontal-scrollable .table > tbody > tr > td {
+  white-space: nowrap;
+  text-align: left;
+}
+body {
+  background: #eee;
+}
+figure {
+  margin: 1em 2em;
+}
+pre {
+  background-color: #fcfcfc;
+}
+/* CSS Reference */
+.css-reference {
+  display: none;
+}
+.css-reference-title {
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 0;
+  margin-bottom: 8px;
+}
+/* prettyprint */
+pre.prettyprint {
+  border: 1px solid #eee;
+  padding: 8px 12px;
+}
+.com {
+  color: #888;
+  white-space: normal;
+}
+.segment-content .block {
+  display: block;
+}
+.segment-content .inline-block {
+  display: inline-block;
+  margin-right: 20px;
+}
+/* TODO: It should be replace for sepecifying*/
+ul.description {
+  list-style-type: disc;
+  margin-bottom: 20px;
+}
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+.example {
+  position: relative;
+  padding: 45px 0 15px;
+  margin-bottom: 20px;
+}
+.example:after {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  content: "Example";
+}
+.example:last-child {
+  margin-bottom: 0;
+}

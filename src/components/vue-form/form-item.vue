@@ -13,7 +13,7 @@
 import validate from "validate.js";
 import Emitter from "../../mixins/emitter";
 
-const prefixCls = "tm-vue-form-item";
+const prefixCls = "tm-vue-form-item form-group";
 
 function getPropByPath(obj, path) {
   let tempObj = obj;
@@ -107,7 +107,7 @@ export default {
     },
     form() {
       let parent = this.$parent;
-      while (parent.$options.name !== "iForm") {
+      while (parent.$options.name !== "TmVueForm") {
         parent = parent.$parent;
       }
       return parent;
@@ -162,6 +162,7 @@ export default {
       );
     },
     validate(trigger, callback = function() {}) {
+      debugger;
       const rules = this.getFilteredRule(trigger);
       if (!rules || rules.length === 0) {
         callback();
@@ -249,7 +250,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.dispatch("iForm", "on-form-item-remove", this);
+    this.dispatch("TmVueForm", "on-form-item-remove", this);
   }
 };
 </script>
