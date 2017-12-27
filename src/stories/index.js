@@ -139,9 +139,9 @@ storiesOf('Dropdown', module)
     components: { TmVueDropdown },
     data(){
       return {
-        drop_down:{disabled:false,droplist:[{value:1,display:"aaa"},{value:2,display:"bbb"}]},
         disabled:false,
-        dropdown_value:1
+        dropdown_value:1,
+        droplist:[{value:1,display:"aaa"},{value:2,display:"bbb"}]
       }     
     },
     methods:{
@@ -150,7 +150,27 @@ storiesOf('Dropdown', module)
     template: `
               <div>
               select list is: {{dropdown_value}}
-              <tm-vue-dropdown :param="drop_down" v-model="dropdown_value"></tm-vue-dropdown>
+              <tm-vue-dropdown :list="droplist" :disabled="disabled" v-model="dropdown_value"></tm-vue-dropdown>
+              </div>
+              `,
+
+  }))  
+  .add('disabled', () => ({
+    components: { TmVueDropdown },
+    data(){
+      return {
+        disabled:true,
+        dropdown_value:1,
+        droplist:[{value:1,display:"aaa"},{value:2,display:"bbb"}]
+      }     
+    },
+    methods:{
+      
+    },
+    template: `
+              <div>
+              select list is: {{dropdown_value}}
+              <tm-vue-dropdown :list="droplist" :disabled="disabled" v-model="dropdown_value"></tm-vue-dropdown>
               </div>
               `,
 

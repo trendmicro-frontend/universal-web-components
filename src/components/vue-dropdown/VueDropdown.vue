@@ -3,7 +3,7 @@
       <button type="button" :title="selectedText" class="form-control btn btn-border dropdown-toggle" data-toggle="dropdown" aria-expanded="false" :disabled="isDisabled" :class="widthClass">
         <span class="caret"></span>{{selectedText}}</button>
         <ul class="dropdown-menu">
-          <template v-for="item in param.droplist">
+          <template v-for="item in list">
             <li  @click="handleChange(item.value)"><a href="javascript:void(0)">{{item.display}}</a></li>
           </template>                               
         </ul>
@@ -18,34 +18,36 @@
             value:{
                 type:[String,Number],
                 default:0
-            },          
-            param:{
-                type:Object,
-                default:function(){
-                    return {
-                        droplist:[],//list of for dropdown [{value:"xx","display":"xx"}],
-                        disabled:Boolean,
-                        width:"default"//["mini","sm","default","md","lg","auto"]
-                    }   
-                }
+            },
+            list:{
+                type:Array,
+                default:[]
+            },
+            disabled:{
+                type:Boolean,
+                default:false
+            },
+            width:{
+                type:String,
+                default:'default'
             }
         },
         computed:{
             isDisabled:function(){
-                return this.param.disabled===true?true:false;//default disabled attribute is false
+                return this.disabled===true?true:false;//default disabled attribute is false
             },
             selectedText:function(){
                 var index = 0;
-                for(var i=0;i<this.param.droplist.length;i++){
-                    if(this.param.droplist[i].value == this.value){
+                for(var i=0;i<this.list.length;i++){
+                    if(this.list[i].value == this.value){
                         index = i;
                     }
                 }
-                return this.param.droplist[index].display;
+                return this.list[index].display;
             },
             widthClass:function(){
                 var class_list = {"mini":"input-width-mini","sm":"input-width-sm","default":"input-width-default","md":"input-width-md","lg":"input-width-lg","auto":""};
-                return class_list[this.param.width?this.param.width:'default'];
+                return class_list[this.width?this.width:'default'];
             }
         },
         methods: {

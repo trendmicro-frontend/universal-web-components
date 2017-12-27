@@ -252,7 +252,7 @@ TmVueCheckallCheckbox$1.install = function (V, options) {
 window.jQuery = jquery;
 
 var TmVueDropdown = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "btn-group" }, [_c('button', { staticClass: "form-control btn btn-border dropdown-toggle", class: _vm.widthClass, attrs: { "type": "button", "title": _vm.selectedText, "data-toggle": "dropdown", "aria-expanded": "false", "disabled": _vm.isDisabled } }, [_c('span', { staticClass: "caret" }), _vm._v(_vm._s(_vm.selectedText))]), _vm._v(" "), _c('ul', { staticClass: "dropdown-menu" }, [_vm._l(_vm.param.droplist, function (item) {
+        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "btn-group" }, [_c('button', { staticClass: "form-control btn btn-border dropdown-toggle", class: _vm.widthClass, attrs: { "type": "button", "title": _vm.selectedText, "data-toggle": "dropdown", "aria-expanded": "false", "disabled": _vm.isDisabled } }, [_c('span', { staticClass: "caret" }), _vm._v(_vm._s(_vm.selectedText))]), _vm._v(" "), _c('ul', { staticClass: "dropdown-menu" }, [_vm._l(_vm.list, function (item) {
             return [_c('li', { on: { "click": function click($event) {
                         _vm.handleChange(item.value);
                     } } }, [_c('a', { attrs: { "href": "javascript:void(0)" } }, [_vm._v(_vm._s(item.display))])])];
@@ -264,40 +264,42 @@ var TmVueDropdown = { render: function render() {
             type: [String, Number],
             default: 0
         },
-        param: {
-            type: Object,
-            default: function _default() {
-                return {
-                    droplist: [], //list of for dropdown [{value:"xx","display":"xx"}],
-                    disabled: Boolean,
-                    width: "default" //["mini","sm","default","md","lg","auto"]
-                };
-            }
+        list: {
+            type: Array,
+            default: []
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        width: {
+            type: String,
+            default: 'default'
         }
     },
     computed: {
         isDisabled: function isDisabled() {
-            return this.param.disabled === true ? true : false; //default disabled attribute is false
+            return this.disabled === true ? true : false; //default disabled attribute is false
         },
         selectedText: function selectedText() {
             var index = 0;
-            for (var i = 0; i < this.param.droplist.length; i++) {
-                if (this.param.droplist[i].value == this.value) {
+            for (var i = 0; i < this.list.length; i++) {
+                if (this.list[i].value == this.value) {
                     index = i;
                 }
             }
-            return this.param.droplist[index].display;
+            return this.list[index].display;
         },
         widthClass: function widthClass() {
             var class_list = { "mini": "input-width-mini", "sm": "input-width-sm", "default": "input-width-default", "md": "input-width-md", "lg": "input-width-lg", "auto": "" };
-            return class_list[this.param.width ? this.param.width : 'default'];
+            return class_list[this.width ? this.width : 'default'];
         }
     },
     methods: {
         handleChange: function handleChange(value) {
             this.value = value;
             this.$nextTick(function () {
-                this.$emit('change', this.value);
+                this.$emit('input', this.value);
             });
         }
     }
