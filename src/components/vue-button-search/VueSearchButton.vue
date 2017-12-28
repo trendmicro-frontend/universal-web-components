@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+const prefixCls = "uwc";
+
 export default {
   name: "TmVueSearchButton",
   props: {
