@@ -309,8 +309,10 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
+var prefixCls = "uwc";
+
 var TmVueSearchButton$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "search-button" }, [_c('div', { staticClass: "input-group has-clear", staticStyle: { "width": "100%" } }, [_c('div', { staticClass: "input-icon-group" }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.textVal, expression: "textVal" }], staticClass: "form-control", staticStyle: { "width": "100%" }, attrs: { "type": "text", "placeholder": _vm.placeholder }, domProps: { "value": _vm.textVal }, on: { "input": [function ($event) {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_c('div', { staticClass: "input-group has-clear", staticStyle: { "width": "100%" } }, [_c('div', { staticClass: "input-icon-group", staticStyle: { "width": "100%" } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.textVal, expression: "textVal" }], staticClass: "form-control", staticStyle: { "width": "100%" }, attrs: { "type": "text", "placeholder": _vm.placeholder }, domProps: { "value": _vm.textVal }, on: { "input": [function ($event) {
           if ($event.target.composing) {
             return;
           }_vm.textVal = $event.target.value;
@@ -357,6 +359,11 @@ var TmVueSearchButton$1 = { render: function render() {
       self.textVal = "";
       $(this).siblings('input[type="text"]').val("").trigger("propertychange").focus();
     });
+  },
+  computed: {
+    classes: function classes() {
+      return ['' + prefixCls];
+    }
   }
 };
 
@@ -465,7 +472,7 @@ var defineProperty = function (obj, key, value) {
   return obj;
 };
 
-var prefixCls = "btn";
+var prefixCls$1 = "btn";
 
 var TmVueButton$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { class: _vm.classes, attrs: { "type": _vm.htmlType, "disabled": _vm.disabled }, on: { "click": _vm.handleClick } }, [_vm.loading ? _c('Icon', { attrs: { "type": "loader loader-small" } }) : _vm._e(), _vm._v(" "), _vm.icon && !_vm.loading ? _c('Icon', { attrs: { "type": _vm.icon } }) : _vm._e(), _vm._v(" "), _vm.showSlot ? _c('span', { ref: "slot" }, [_vm._t("default")], 2) : _vm._e()], 1);
@@ -512,7 +519,7 @@ var TmVueButton$1 = { render: function render() {
     classes: function classes() {
       var _ref;
 
-      return ["" + prefixCls, (_ref = {}, defineProperty(_ref, prefixCls + "-" + this.type, !!this.type), defineProperty(_ref, prefixCls + "-" + this.size, !!this.size), defineProperty(_ref, prefixCls + "-block", !!this.full), defineProperty(_ref, prefixCls + "-icon-only", !this.showSlot && (!!this.icon || this.loading)), _ref)];
+      return ["" + prefixCls$1, (_ref = {}, defineProperty(_ref, prefixCls$1 + "-" + this.type, !!this.type), defineProperty(_ref, prefixCls$1 + "-" + this.size, !!this.size), defineProperty(_ref, prefixCls$1 + "-block", !!this.full), defineProperty(_ref, prefixCls$1 + "-icon-only", !this.showSlot && (!!this.icon || this.loading)), _ref)];
     }
   },
   methods: {
@@ -529,7 +536,7 @@ TmVueButton$1.install = function (V, options) {
     V.component(TmVueButton$1.name, TmVueButton$1);
 };
 
-var prefixCls$2 = "breadcrumb";
+var prefixCls$3 = "breadcrumb";
 
 var Breadcrumb = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('ol', { class: _vm.classes }, [_vm._t("default")], 2);
@@ -543,7 +550,7 @@ var Breadcrumb = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return "" + prefixCls$2;
+      return "" + prefixCls$3;
     }
   },
   mounted: function mounted() {
@@ -573,7 +580,7 @@ var Breadcrumb = { render: function render() {
   }
 };
 
-var prefixCls$3 = "tm-vue-breadcrumb-item";
+var prefixCls$4 = "tm-vue-breadcrumb-item";
 
 var BreadcrumbItem = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.to ? _c('li', [_c('a', { class: _vm.linkClasses, attrs: { "href": _vm.to }, on: { "click": _vm.handleClick } }, [_vm._t("default")], 2)]) : _c('li', { staticClass: "active" }, [_vm._t("default")], 2);
@@ -593,7 +600,7 @@ var BreadcrumbItem = { render: function render() {
   },
   computed: {
     linkClasses: function linkClasses() {
-      return prefixCls$3 + '-link';
+      return prefixCls$4 + '-link';
     }
   },
   methods: {
@@ -946,7 +953,7 @@ var Emitter = {
     }
 };
 
-var prefixCls$4 = 'ivu-input';
+var prefixCls$5 = 'ivu-input';
 
 var TmVueInput$1 = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.wrapClasses }, [_vm.type !== 'textarea' ? [_vm.prepend ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-prepend'] }, [_vm._t("prepend")], 2) : _vm._e(), _vm._v(" "), _vm.icon ? _c('i', { staticClass: "ivu-icon", class: ['ivu-icon-' + _vm.icon, _vm.prefixCls + '-icon', _vm.prefixCls + '-icon-normal'], on: { "click": _vm.handleIconClick } }) : _vm._e(), _vm._v(" "), _c('transition', { attrs: { "name": "fade" } }, [!_vm.icon ? _c('i', { staticClass: "ivu-icon ivu-icon-load-c ivu-load-loop", class: [_vm.prefixCls + '-icon', _vm.prefixCls + '-icon-validate'] }) : _vm._e()]), _vm._v(" "), _c('input', { ref: "input", class: _vm.inputClasses, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "type": _vm.type, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "number": _vm.number, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
@@ -1031,7 +1038,7 @@ var TmVueInput$1 = { render: function render() {
     data: function data() {
         return {
             currentValue: this.value,
-            prefixCls: prefixCls$4,
+            prefixCls: prefixCls$5,
             prepend: true,
             append: true,
             slotReady: false,
@@ -1043,15 +1050,15 @@ var TmVueInput$1 = { render: function render() {
         wrapClasses: function wrapClasses() {
             var _ref;
 
-            return [prefixCls$4 + '-wrapper', (_ref = {}, defineProperty(_ref, prefixCls$4 + '-wrapper-' + this.size, !!this.size), defineProperty(_ref, prefixCls$4 + '-type', this.type), defineProperty(_ref, prefixCls$4 + '-group', this.prepend || this.append), defineProperty(_ref, prefixCls$4 + '-group-' + this.size, (this.prepend || this.append) && !!this.size), defineProperty(_ref, prefixCls$4 + '-group-with-prepend', this.prepend), defineProperty(_ref, prefixCls$4 + '-group-with-append', this.append), defineProperty(_ref, prefixCls$4 + '-hide-icon', this.append), _ref)];
+            return [prefixCls$5 + '-wrapper', (_ref = {}, defineProperty(_ref, prefixCls$5 + '-wrapper-' + this.size, !!this.size), defineProperty(_ref, prefixCls$5 + '-type', this.type), defineProperty(_ref, prefixCls$5 + '-group', this.prepend || this.append), defineProperty(_ref, prefixCls$5 + '-group-' + this.size, (this.prepend || this.append) && !!this.size), defineProperty(_ref, prefixCls$5 + '-group-with-prepend', this.prepend), defineProperty(_ref, prefixCls$5 + '-group-with-append', this.append), defineProperty(_ref, prefixCls$5 + '-hide-icon', this.append), _ref)];
         },
         inputClasses: function inputClasses() {
             var _ref2;
 
-            return ['' + prefixCls$4, (_ref2 = {}, defineProperty(_ref2, prefixCls$4 + '-' + this.size, !!this.size), defineProperty(_ref2, prefixCls$4 + '-disabled', this.disabled), _ref2)];
+            return ['' + prefixCls$5, (_ref2 = {}, defineProperty(_ref2, prefixCls$5 + '-' + this.size, !!this.size), defineProperty(_ref2, prefixCls$5 + '-disabled', this.disabled), _ref2)];
         },
         textareaClasses: function textareaClasses() {
-            return ['' + prefixCls$4, defineProperty({}, prefixCls$4 + '-disabled', this.disabled)];
+            return ['' + prefixCls$5, defineProperty({}, prefixCls$5 + '-disabled', this.disabled)];
         }
     },
     methods: {
