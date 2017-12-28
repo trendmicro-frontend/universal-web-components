@@ -8,7 +8,7 @@ var prefixwrap = require("postcss-prefixwrap")
 
 gulp.task('less', function () {
     var processors = [
-        // autoprefixer,
+        autoprefixer,
         prefixwrap(".uwc")
     ]
     gulp.src('./src/third-party/less/*.less')

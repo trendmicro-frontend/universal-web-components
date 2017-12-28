@@ -1,6 +1,10 @@
 .uwc .input-group {
   position: relative;
-  align-items: stretch;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .uwc .input-group[class*="col-"] {
@@ -12,7 +16,9 @@
   position: relative;
   z-index: 2;
   float: left;
-  flex: 1 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   width: 1%;
   margin-bottom: 0;
 }
@@ -48,8 +54,12 @@
   height: 14px;
 }
 .uwc .input-group-addon, .uwc .input-group-btn, .uwc .input-group .form-control, .uwc .input-group .input-icon-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .uwc .input-group-addon:not(:first-child):not(:last-child), .uwc .input-group-btn:not(:first-child):not(:last-child), .uwc .input-group .form-control:not(:first-child):not(:last-child), .uwc .input-group .input-icon-group:not(:first-child):not(:last-child) {
   border-radius: 0;
@@ -149,18 +159,22 @@
   opacity: 1;
 }
 .uwc .input-icon-group > .form-control:focus + .input-icon-label > i, .uwc .input-icon-group > .form-control.input-focus + .input-icon-label > i, .uwc .input-icon-group > .input-icon-label .focus {
+  -webkit-transition: all .2s linear 0s;
   transition: all .2s linear 0s;
   color: #0096cc;
 }
 .uwc .input-icon-group > .form-control:focus + .input-icon-label > i i.fa, .uwc .input-icon-group > .form-control.input-focus + .input-icon-label > i i.fa, .uwc .input-icon-group > .input-icon-label .focus i.fa, .uwc .input-icon-group > .form-control:focus + .input-icon-label > i span.fa, .uwc .input-icon-group > .form-control.input-focus + .input-icon-label > i span.fa, .uwc .input-icon-group > .input-icon-label .focus span.fa {
   color: #0096cc;
+  -webkit-transition: color .2s linear;
   transition: color .2s linear;
 }
 .uwc .input-group-btn {
   position: relative;
   font-size: 0;
   white-space: nowrap;
-  align-items: stretch;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 .uwc .input-group-btn:first-child > .btn, .uwc .input-group-btn:first-child > .btn-group {
   z-index: 3;
@@ -190,6 +204,7 @@
   margin-top: 2px;
 }
 .uwc .touchspin .form-control, .uwc .touchspin .btn {
+  -webkit-transition: border-color 0.2s linear 0s;
   transition: border-color 0.2s linear 0s;
 }
 .uwc .touchspin.vertical.focused .form-control {
