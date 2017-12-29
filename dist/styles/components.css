@@ -1,3 +1,60 @@
+.uwc nav.affix {
+  width: auto;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+.uwc nav.affix-top .breadcrumb-header {
+  margin-left: -54px;
+  -webkit-transition: margin 0.05s ease-out;
+  transition: margin 0.05s ease-out;
+}
+.uwc nav.affix .breadcrumb-header {
+  margin-left: 0;
+}
+.uwc .breadcrumb-header {
+  float: left;
+  margin-left: -54px;
+  padding: 12px 0;
+  line-height: 24px;
+  margin-right: 12px;
+  -webkit-transition: margin 0.2s ease-out;
+  transition: margin 0.2s ease-out;
+}
+.uwc .breadcrumb-header + .breadcrumb {
+  float: left;
+}
+.uwc .breadcrumb {
+  padding: 12px 0;
+  list-style: none;
+  background-color: transparent;
+  margin-bottom: 0;
+}
+.uwc .breadcrumb.with-line {
+  border-bottom: 1px #e6e6e6 solid;
+  margin-bottom: 16px;
+}
+.uwc .breadcrumb > li {
+  float: left;
+  font-size: 16px;
+  color: #888888;
+  line-height: 24px;
+}
+.uwc .breadcrumb > li > a {
+  color: #888888;
+  text-decoration: none;
+}
+.uwc .breadcrumb > li > a:hover, .uwc .breadcrumb > li > a:focus {
+  color: #0096cc;
+}
+.uwc .breadcrumb > li + li:before {
+  content: "›";
+  padding: 0 5px;
+  color: #888888;
+}
+.uwc .breadcrumb > .active {
+  color: #222222;
+}
 .uwc .input-group {
   position: relative;
   -webkit-box-align: stretch;
@@ -277,11 +334,11 @@
 .uwc .touchspin.horizontal.focused .input-group-btn:last-child .btn:focus:hover {
   border-left-color: #999;
 }
-.uwc .clearfix:before, .uwc .clearfix:after {
+.uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after {
   content: " ";
   display: table;
 }
-.uwc .clearfix:after {
+.uwc .clearfix:after, .uwc .breadcrumb:after {
   clear: both;
 }
 .uwc .center-block {

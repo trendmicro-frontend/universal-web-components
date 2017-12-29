@@ -1,9 +1,11 @@
 <template>
+  <div class="uwc">
     <button :type="htmlType" :class="classes" :disabled="disabled" @click="handleClick">
         <Icon type="loader loader-small" v-if="loading"></Icon>
         <Icon :type="icon" v-if="icon && !loading"></Icon>
         <span v-if="showSlot" ref="slot"><slot></slot></span>
     </button>
+  </div>
 </template>
 <script>
 import Icon from "../icon";

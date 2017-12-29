@@ -1,10 +1,12 @@
 <template>
-    <ol :class="classes">
-        <slot></slot>
+  <div :class="classes">
+    <ol class="breadcrumb">
+      <slot></slot>
     </ol>
+  </div>
 </template>
 <script>
-const prefixCls = "breadcrumb";
+const prefixCls = "uwc";
 
 export default {
   name: "TmVueBreadcrumb",

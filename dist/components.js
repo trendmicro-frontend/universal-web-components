@@ -472,7 +472,7 @@ var defineProperty = function (obj, key, value) {
   return obj;
 };
 
-var prefixCls$1 = "btn";
+var prefixCls$1 = "uwc";
 
 var TmVueButton$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { class: _vm.classes, attrs: { "type": _vm.htmlType, "disabled": _vm.disabled }, on: { "click": _vm.handleClick } }, [_vm.loading ? _c('Icon', { attrs: { "type": "loader loader-small" } }) : _vm._e(), _vm._v(" "), _vm.icon && !_vm.loading ? _c('Icon', { attrs: { "type": _vm.icon } }) : _vm._e(), _vm._v(" "), _vm.showSlot ? _c('span', { ref: "slot" }, [_vm._t("default")], 2) : _vm._e()], 1);
@@ -536,10 +536,10 @@ TmVueButton$1.install = function (V, options) {
     V.component(TmVueButton$1.name, TmVueButton$1);
 };
 
-var prefixCls$3 = "breadcrumb";
+var prefixCls$3 = "uwc";
 
 var Breadcrumb = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('ol', { class: _vm.classes }, [_vm._t("default")], 2);
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_c('ol', { staticClass: "breadcrumb" }, [_vm._t("default")], 2)]);
   }, staticRenderFns: [],
   name: "TmVueBreadcrumb",
   props: {
@@ -550,7 +550,7 @@ var Breadcrumb = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return "" + prefixCls$3;
+      return '' + prefixCls$3;
     }
   },
   mounted: function mounted() {
