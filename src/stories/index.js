@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { storiesOf } from '@storybook/vue';
+import { storiesOf, addDecorator } from '@storybook/vue'
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { withNotes } from '@storybook/addon-notes';
@@ -34,7 +34,12 @@ import TmVueCheckallCheckbox from '../components/vue-checkbox-checkall';
 import TmVueRadio from '../components/vue-radio';
 import TmVueDropdown from '../components/vue-dropdown';
 
+import TmVueBadge from '../components/vue-badge';
+import uwcDecorator from './uwcDecorator'
+
 import "./ddei"
+
+addDecorator(uwcDecorator)
 
 storiesOf('Welcome', module).add('to Universal Web Components', () => ({
   components: { Welcome },
@@ -42,8 +47,63 @@ storiesOf('Welcome', module).add('to Universal Web Components', () => ({
   methods: { action: linkTo('Button') },
 }));
 
+storiesOf('Badge', module)
+  .add('light gray', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="light-gray">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('blue', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="blue">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('green', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="green">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('cyan', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="cyan">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('orange', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="orange">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('red', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="red">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('yellow', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="yellow">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('dark', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge variant="dark">
+                badge
+               </tm-vue-badge>`
+  }))
+  .add('default link', () => ({
+    components: { TmVueBadge },
+    template: `<tm-vue-badge href="https://trendmicro.com">
+                badge
+               </tm-vue-badge>`
+  }))
+
 storiesOf('Breadcrumb', module)
-  .addDecorator(centered)
   .add('default', () => ({
     components: { TmVueBreadcrumb, TmVueBreadcrumbItem },
     template: `<tm-vue-breadcrumb>
@@ -53,10 +113,9 @@ storiesOf('Breadcrumb', module)
                </tm-vue-breadcrumb>`
   }))
 storiesOf('Button', module)
-  .addDecorator(centered)
   .add('default', () => ({
     components: { TmVueButton },
-    template: `<tm-vue-button>Default</tm-vue-button>`
+    template: `<tm-vue-button type="default">Default</tm-vue-button>`
   }))
   .add('primary', () => ({
     components: { TmVueButton },
@@ -103,25 +162,24 @@ storiesOf('Button', module)
     template: `<tm-vue-button type="border" loading >Uploading</tm-vue-button>`
   }))
 storiesOf('Tag & Token', module)
-  .addDecorator(centered)
   .add('Tag', () => ({
     components: { TmVueFilterTag },
-    data(){
+    data() {
       return {
-        selected_list:[{name:"No DMARC record",id:1},{name:"absdfew",id:2},{name:"cdwerwd",id:4}],
-        initial_list:[{name:"cdwerwerdf",id:3},{name:"fdwerds",id:5}],
-        width:"512px" ,
-        disabled:false,
-      }     
+        selected_list: [{ name: "No DMARC record", id: 1 }, { name: "absdfew", id: 2 }, { name: "cdwerwd", id: 4 }],
+        initial_list: [{ name: "cdwerwerdf", id: 3 }, { name: "fdwerds", id: 5 }],
+        width: "512px",
+        disabled: false,
+      }
     },
-    methods:{
-      getSelectList(list){
+    methods: {
+      getSelectList(list) {
         this.selected_list = list;
       },
-      disableTag(){
+      disableTag() {
         this.disabled = true;
       },
-      enableTag(){
+      enableTag() {
         this.disabled = false;
       }
     },
@@ -135,18 +193,17 @@ storiesOf('Tag & Token', module)
 
   }));
 storiesOf('Dropdown', module)
-  .addDecorator(centered)
   .add('default', () => ({
     components: { TmVueDropdown },
-    data(){
+    data() {
       return {
-        disabled:false,
-        dropdown_value:1,
-        droplist:[{value:1,display:"aaa"},{value:2,display:"bbb"}]
-      }     
+        disabled: false,
+        dropdown_value: 1,
+        droplist: [{ value: 1, display: "aaa" }, { value: 2, display: "bbb" }]
+      }
     },
-    methods:{
-      
+    methods: {
+
     },
     template: `
               <div>
@@ -155,18 +212,18 @@ storiesOf('Dropdown', module)
               </div>
               `,
 
-  }))  
+  }))
   .add('disabled', () => ({
     components: { TmVueDropdown },
-    data(){
+    data() {
       return {
-        disabled:true,
-        dropdown_value:1,
-        droplist:[{value:1,display:"aaa"},{value:2,display:"bbb"}]
-      }     
+        disabled: true,
+        dropdown_value: 1,
+        droplist: [{ value: 1, display: "aaa" }, { value: 2, display: "bbb" }]
+      }
     },
-    methods:{
-      
+    methods: {
+
     },
     template: `
               <div>
@@ -175,42 +232,41 @@ storiesOf('Dropdown', module)
               </div>
               `,
 
-  }));  
+  }));
 storiesOf('Radio & Check box', module)
-  .addDecorator(centered)
   .add('Check box group', () => ({
-    components: { TmVueCheckbox,TmVueCheckallCheckbox },
-    data(){
+    components: { TmVueCheckbox, TmVueCheckallCheckbox },
+    data() {
       return {
-        e_check_box:{disabled:false,value:1},
-        f_check_box:{disabled:false,value:2},
-        all_check_box:{disabled:false,name:"all",id:"checkbox_all",indeterminate:true},
-        checkbox_1:[1],
-        checkbox_all:false,
-      }     
+        e_check_box: { disabled: false, value: 1 },
+        f_check_box: { disabled: false, value: 2 },
+        all_check_box: { disabled: false, name: "all", id: "checkbox_all", indeterminate: true },
+        checkbox_1: [1],
+        checkbox_all: false,
+      }
     },
-    methods:{
-      getSelectRadio_3(value){
-        if(this.checkbox_1.length == 1){
+    methods: {
+      getSelectRadio_3(value) {
+        if (this.checkbox_1.length == 1) {
           this.all_check_box.indeterminate = true;
           this.checkbox_all = false;
-        }else if(this.checkbox_1.length == 2){
+        } else if (this.checkbox_1.length == 2) {
           this.all_check_box.indeterminate = false;
           this.checkbox_all = true;
-        }else{
+        } else {
           this.all_check_box.indeterminate = false;
           this.checkbox_all = false
         }
       },
-      getSelectRadio_4:function(value){
+      getSelectRadio_4: function (value) {
         this.checkbox_all = value;
         this.all_check_box.indeterminate = false;
-        if(this.checkbox_all){
-          this.checkbox_1 = [1,2];
-        }else{
+        if (this.checkbox_all) {
+          this.checkbox_1 = [1, 2];
+        } else {
           this.checkbox_1 = [];
         }
-      },      
+      },
     },
     template: `<div>
               select value:{{checkbox_1}}
@@ -222,15 +278,15 @@ storiesOf('Radio & Check box', module)
   }))
   .add('Single checkbox', () => ({
     components: { TmVueCheckbox },
-    data(){
+    data() {
       return {
-        e_check_box:{disabled:false},
-        f_check_box:{disabled:false},
-        checkbox_a:false,
-        checkbox_b:false
-      }     
+        e_check_box: { disabled: false },
+        f_check_box: { disabled: false },
+        checkbox_a: false,
+        checkbox_b: false
+      }
     },
-    methods:{
+    methods: {
     },
     template: `<div>
               checkbox test a:{{checkbox_a}}<br/>
@@ -242,15 +298,15 @@ storiesOf('Radio & Check box', module)
   }))
   .add('Radio', () => ({
     components: { TmVueRadio },
-    data(){
+    data() {
       return {
-        a_check_box:{disabled:false,value:1},
-        b_check_box:{disabled:false,value:2},
-        radio_checked_1:1
-      }     
+        a_check_box: { disabled: false, value: 1 },
+        b_check_box: { disabled: false, value: 2 },
+        radio_checked_1: 1
+      }
     },
-    methods:{
-      getSelectRadio_1(val){
+    methods: {
+      getSelectRadio_1(val) {
         console.log("change triggered");
       }
     },
@@ -262,7 +318,6 @@ storiesOf('Radio & Check box', module)
 
   }));
 storiesOf('Form', module)
-  .addDecorator(centered)
   .add('default', () => ({
     components: { TmVueForm, TmVueFormItem, TmVueButton, Icon },
     template: `<tm-vue-form ref="formInline" :model="formInline" :rules="ruleInline" inline >
@@ -316,7 +371,54 @@ storiesOf('Form', module)
                   <tm-vue-form-item label="data">
                       <tm-vue-input v-model="formItem.input" placeholder="Enter something..."></tm-vue-input>
                   </tm-vue-form-item>
-                  
+                  <tm-vue-form-item label="Select">
+                      <tm-vue-select v-model="formItem.select">
+                          <tm-vue-option value="beijing">New York</tm-vue-option>
+                          <tm-vue-option value="shanghai">London</tm-vue-option>
+                          <tm-vue-option value="shenzhen">Sydney</tm-vue-option>
+                      </tm-vue-select>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="DatePicker">
+                      <Row>
+                          <Col span="11">
+                              <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
+                          </Col>
+                          <Col span="2" style="text-align: center">-</Col>
+                          <Col span="11">
+                              <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
+                          </Col>
+                      </Row>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="Radio">
+                      <RadioGroup v-model="formItem.radio">
+                          <Radio label="male">Male</Radio>
+                          <Radio label="female">Female</Radio>
+                      </RadioGroup>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="Checkbox">
+                      <CheckboxGroup v-model="formItem.checkbox">
+                          <Checkbox label="Eat"></Checkbox>
+                          <Checkbox label="Sleep"></Checkbox>
+                          <Checkbox label="Run"></Checkbox>
+                          <Checkbox label="Movie"></Checkbox>
+                      </CheckboxGroup>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="Switch">
+                      <i-switch v-model="formItem.switch" size="large">
+                          <span slot="open">On</span>
+                          <span slot="close">Off</span>
+                      </i-switch>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="Slider">
+                      <Slider v-model="formItem.slider" range></Slider>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item label="Text">
+                      <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+                  </tm-vue-form-item>
+                  <tm-vue-form-item>
+                      <Button type="primary">Submit</Button>
+                      <Button type="ghost" style="margin-left: 8px">Cancel</Button>
+                  </tm-vue-form-item>
               </tm-vue-form>`,
     data() {
       return {
@@ -349,51 +451,3 @@ storiesOf('Form', module)
 /* eslint-enable react/react-in-jsx-scope */
 
 
-// <tm-vue-form-item label="Select">
-                  //     <Select v-model="formItem.select">
-                  //         <Option value="beijing">New York</Option>
-                  //         <Option value="shanghai">London</Option>
-                  //         <Option value="shenzhen">Sydney</Option>
-                  //     </Select>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="DatePicker">
-                  //     <Row>
-                  //         <Col span="11">
-                  //             <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
-                  //         </Col>
-                  //         <Col span="2" style="text-align: center">-</Col>
-                  //         <Col span="11">
-                  //             <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
-                  //         </Col>
-                  //     </Row>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="Radio">
-                  //     <RadioGroup v-model="formItem.radio">
-                  //         <Radio label="male">Male</Radio>
-                  //         <Radio label="female">Female</Radio>
-                  //     </RadioGroup>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="Checkbox">
-                  //     <CheckboxGroup v-model="formItem.checkbox">
-                  //         <Checkbox label="Eat"></Checkbox>
-                  //         <Checkbox label="Sleep"></Checkbox>
-                  //         <Checkbox label="Run"></Checkbox>
-                  //         <Checkbox label="Movie"></Checkbox>
-                  //     </CheckboxGroup>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="Switch">
-                  //     <i-switch v-model="formItem.switch" size="large">
-                  //         <span slot="open">On</span>
-                  //         <span slot="close">Off</span>
-                  //     </i-switch>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="Slider">
-                  //     <Slider v-model="formItem.slider" range></Slider>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item label="Text">
-                  //     <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-                  // </tm-vue-form-item>
-                  // <tm-vue-form-item>
-                  //     <Button type="primary">Submit</Button>
-                  //     <Button type="ghost" style="margin-left: 8px">Cancel</Button>
-                  // </tm-vue-form-item>

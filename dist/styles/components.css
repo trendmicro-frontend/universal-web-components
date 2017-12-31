@@ -1,3 +1,70 @@
+.uwc .badge {
+  display: inline-block;
+  min-width: 8px;
+  padding: 3px 5px;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  border-radius: 10px;
+}
+.uwc .badge:empty {
+  display: none;
+}
+.uwc .btn .badge {
+  position: relative;
+  top: -1px;
+}
+.uwc .btn-xs .badge, .uwc .btn-group-xs > .btn .badge {
+  top: 0;
+  padding: 1px 5px;
+}
+.uwc a.badge:hover, .uwc a.badge:focus {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.uwc .list-group-item.active > .badge, .uwc .nav-pills > .active > a > .badge {
+  color: link-color;
+  background-color: #ffffff;
+}
+.uwc .list-group-item > .badge {
+  float: right;
+}
+.uwc .list-group-item > .badge + .badge {
+  margin-right: 5px;
+}
+.uwc .nav-pills > li > a > .badge {
+  margin-left: 3px;
+}
+.uwc .badge-light-gray {
+  background-color: #e6e6e6;
+  color: #666666;
+}
+.uwc .badge-blue {
+  background-color: #4cb5db;
+}
+.uwc .badge-green {
+  background-color: #4cc383;
+}
+.uwc .badge-cyan {
+  background-color: #45cce7;
+}
+.uwc .badge-orange {
+  background-color: #fe9967;
+}
+.uwc .badge-red {
+  background-color: #e56669;
+}
+.uwc .badge-yellow {
+  background-color: #fcde78;
+  color: #666666;
+}
+.uwc .badge-dark {
+  background-color: #666666;
+}
 .uwc nav.affix {
   width: auto;
   left: 0;
