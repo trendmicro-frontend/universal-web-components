@@ -402,7 +402,7 @@ var Icon$1 = { render: function render() {
 
 var isServer = Vue.prototype.$isServer;
 // 判断参数是否是其中之一
-function oneOf$1(value, validList) {
+function oneOf(value, validList) {
     for (var i = 0; i < validList.length; i++) {
         if (value === validList[i]) {
             return true;
@@ -482,17 +482,17 @@ var TmVueButton$1 = { render: function render() {
   props: {
     type: {
       validator: function validator(value) {
-        return oneOf$1(value, ["primary", "danger", "border", "link", "default"]);
+        return oneOf(value, ["primary", "danger", "border", "link", "default"]);
       }
     },
     shape: {
       validator: function validator(value) {
-        return oneOf$1(value, ["circle", "circle-outline"]);
+        return oneOf(value, ["circle", "circle-outline"]);
       }
     },
     size: {
       validator: function validator(value) {
-        return oneOf$1(value, ["xs", "sm", "lg", "block"]);
+        return oneOf(value, ["xs", "sm", "lg", "block"]);
       }
     },
     loading: Boolean,
@@ -500,7 +500,7 @@ var TmVueButton$1 = { render: function render() {
     htmlType: {
       default: "button",
       validator: function validator(value) {
-        return oneOf$1(value, ["button", "submit", "reset"]);
+        return oneOf(value, ["button", "submit", "reset"]);
       }
     },
     icon: String,
@@ -971,7 +971,7 @@ var TmVueInput$1 = { render: function render() {
     props: {
         type: {
             validator: function validator(value) {
-                return oneOf$1(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
+                return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
             },
 
             default: 'text'
@@ -982,7 +982,7 @@ var TmVueInput$1 = { render: function render() {
         },
         size: {
             validator: function validator(value) {
-                return oneOf$1(value, ['small', 'large', 'default']);
+                return oneOf(value, ['small', 'large', 'default']);
             }
         },
         placeholder: {
@@ -1026,7 +1026,7 @@ var TmVueInput$1 = { render: function render() {
         },
         autocomplete: {
             validator: function validator(value) {
-                return oneOf$1(value, ['on', 'off']);
+                return oneOf(value, ['on', 'off']);
             },
 
             default: 'off'
@@ -1174,13 +1174,40 @@ var TmVueBadge$1 = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return ["" + prefixCls$6, prefixCls$6 + "-" + variant];
+      return ["" + prefixCls$6, prefixCls$6 + "-" + this.variant];
     }
   }
 };
 
 TmVueBadge$1.install = function (V, options) {
     V.component(TmVueBadge$1.name, TmVueBadge$1);
+};
+
+var prefixCls$7 = "label";
+var TmVueLabel$1 = { render: function render() {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.href ? _c('a', { class: _vm.classes, attrs: { "href": _vm.href, "target": "_self" } }, [_vm._t("default")], 2) : _c('span', { ref: "label", class: _vm.classes }, [_vm._t("default")], 2);
+  }, staticRenderFns: [],
+  name: "Label",
+  props: {
+    href: {
+      type: [Object, String]
+    },
+    variant: {
+      default: "blue",
+      validator: function validator(value) {
+        return oneOf(value, ["blue", "green", "cyan", "orange", "red", "indigo", "yellow", "light-gray", "gray", "dark"]);
+      }
+    }
+  },
+  computed: {
+    classes: function classes() {
+      return ["" + prefixCls$7, prefixCls$7 + "-" + this.variant];
+    }
+  }
+};
+
+TmVueLabel$1.install = function (V, options) {
+    V.component(TmVueLabel$1.name, TmVueLabel$1);
 };
 
 Vue.use(TmVueActionButton$1);
@@ -1194,5 +1221,6 @@ Vue.use(Breadcrumb);
 Vue.use(TmVueFilterTag$1);
 Vue.use(TmVueInput$1);
 Vue.use(TmVueBadge$1);
+Vue.use(TmVueLabel$1);
 
 });

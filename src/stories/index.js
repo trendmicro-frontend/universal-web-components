@@ -35,6 +35,7 @@ import TmVueRadio from '../components/vue-radio';
 import TmVueDropdown from '../components/vue-dropdown';
 
 import TmVueBadge from '../components/vue-badge';
+import TmVueLabel from '../components/vue-label';
 import uwcDecorator from './uwcDecorator'
 
 import "./ddei"
@@ -101,6 +102,74 @@ storiesOf('Badge', module)
     template: `<tm-vue-badge href="https://trendmicro.com">
                 badge
                </tm-vue-badge>`
+  }))
+
+  storiesOf('Label', module)
+  .add('blue', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="blue">
+                label
+               </tm-vue-label>`
+  }))
+  .add('green', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="green">
+                label
+               </tm-vue-label>`
+  }))
+  .add('cyan', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="cyan">
+                label
+               </tm-vue-label>`
+  }))
+  .add('orange', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="orange">
+                label
+               </tm-vue-label>`
+  }))
+  .add('red', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="red">
+                label
+               </tm-vue-label>`
+  }))
+  .add('indigo', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="indigo">
+                label
+               </tm-vue-label>`
+  }))
+  .add('yellow', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="yellow">
+                label
+               </tm-vue-label>`
+  }))
+  .add('light-gray', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="light-gray">
+                label
+               </tm-vue-label>`
+  }))
+  .add('gray', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="gray">
+                label
+               </tm-vue-label>`
+  }))
+  .add('dark', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label variant="dark">
+                label
+               </tm-vue-label>`
+  }))
+  .add('default link', () => ({
+    components: { TmVueLabel },
+    template: `<tm-vue-label href="https://trendmicro.com">
+                label
+               </tm-vue-label>`
   }))
 
 storiesOf('Breadcrumb', module)

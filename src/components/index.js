@@ -13,7 +13,7 @@ import TmVueFilterTag from './vue-filter-tag'
 import TmVueInput from './vue-input'
 
 import TmVueBadge from './vue-badge'
-
+import TmVueLabel from './vue-label'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
@@ -26,3 +26,4 @@ Vue.use(TmVueBreadcrumb)
 Vue.use(TmVueFilterTag)
 Vue.use(TmVueInput)
 Vue.use(TmVueBadge)
+Vue.use(TmVueLabel)
