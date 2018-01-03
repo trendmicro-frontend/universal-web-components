@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import TmVueActionButton from './vue-button-action'
 import TMVueRadio from './vue-radio'
+import { TmVueRadioEx, TmVueRadioGroup } from './vue-radio-ex'
 import TMVueCheckbox from './vue-checkbox'
 import TmVueCheckallCheckbox from './vue-checkbox-checkall'
 import TMVueDropdown from './vue-dropdown'
@@ -17,6 +18,8 @@ import TmVueLabel from './vue-label'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
+Vue.use(TmVueRadioEx)
+Vue.use(TmVueRadioGroup)
 Vue.use(TMVueCheckbox)
 Vue.use(TmVueCheckallCheckbox)
 Vue.use(TMVueDropdown)

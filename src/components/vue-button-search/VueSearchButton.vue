@@ -1,20 +1,17 @@
 <template>
-    <div :class="classes">
-        <div class="input-group has-clear" style="width:100%">
-            <div class="input-icon-group" style="width:100%">
-                <input type="text" class="form-control" :placeholder="placeholder"  style="width:100%" v-model="textVal" v-on:input="updated" v-on:keyup.enter="changed">
-                <span class="form-control-clear icon icon-cancel hidden"></span>
-            </div>
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-icon-only" v-on:click="changed"><span
-                        class="fa fa-search"></span></button>
-            </span>
-        </div>
-    </div>
+  <div class="input-group has-clear" style="width:100%">
+      <div class="input-icon-group" style="width:100%">
+          <input type="text" class="form-control" :placeholder="placeholder"  style="width:100%" v-model="textVal" v-on:input="updated" v-on:keyup.enter="changed">
+          <span class="form-control-clear icon icon-cancel hidden"></span>
+      </div>
+      <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-icon-only" v-on:click="changed"><span
+                  class="fa fa-search"></span></button>
+      </span>
+  </div>
 </template>
 
 <script>
-const prefixCls = "uwc";
 
 export default {
   name: "TmVueSearchButton",
@@ -60,11 +57,6 @@ export default {
         .trigger("propertychange")
         .focus();
     });
-  },
-  computed: {
-    classes() {
-      return [`${prefixCls}`];
-    }
   }
 };
 </script>

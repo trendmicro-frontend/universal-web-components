@@ -111,6 +111,293 @@ TmVueRadio.install = function (V, options) {
     V.component(TmVueRadio.name, TmVueRadio);
 };
 
+var isServer = Vue.prototype.$isServer;
+// 判断参数是否是其中之一
+function oneOf(value, validList) {
+    for (var i = 0; i < validList.length; i++) {
+        if (value === validList[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+// watch DOM change
+var MutationObserver = isServer ? false : window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false;
+
+// getStyle
+
+
+// Warn
+
+
+// scrollTop animation
+
+
+// Find components upward
+function findComponentUpward(context, componentName, componentNames) {
+    if (typeof componentName === 'string') {
+        componentNames = [componentName];
+    } else {
+        componentNames = componentName;
+    }
+
+    var parent = context.$parent;
+    var name = parent.$options.name;
+    while (parent && (!name || componentNames.indexOf(name) < 0)) {
+        parent = parent.$parent;
+        if (parent) name = parent.$options.name;
+    }
+    return parent;
+}
+// Find component downward
+
+
+// Find components downward
+function findComponentsDownward(context, componentName) {
+    return context.$children.reduce(function (components, child) {
+        if (child.$options.name === componentName) components.push(child);
+        var foundChilds = findComponentsDownward(child, componentName);
+        return components.concat(foundChilds);
+    }, []);
+}
+
+/* istanbul ignore next */
+
+
+/* istanbul ignore next */
+
+
+/* istanbul ignore next */
+
+function _broadcast(componentName, eventName, params) {
+    this.$children.forEach(function (child) {
+        var name = child.$options.name;
+
+        if (name === componentName) {
+            child.$emit.apply(child, [eventName].concat(params));
+        } else {
+            // todo 如果 params 是空数组，接收到的会是 undefined
+            _broadcast.apply(child, [componentName, eventName].concat([params]));
+        }
+    });
+}
+var Emitter = {
+    methods: {
+        dispatch: function dispatch(componentName, eventName, params) {
+            var parent = this.$parent || this.$root;
+            var name = parent.$options.name;
+
+            while (parent && (!name || name !== componentName)) {
+                parent = parent.$parent;
+
+                if (parent) {
+                    name = parent.$options.name;
+                }
+            }
+            if (parent) {
+                parent.$emit.apply(parent, [eventName].concat(params));
+            }
+        },
+        broadcast: function broadcast(componentName, eventName, params) {
+            _broadcast.call(this, componentName, eventName, params);
+        }
+    }
+};
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var prefixCls = "radio";
+var TmVueRadioEx = { render: function render() {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.group ? _c('div', { class: _vm.radioClasses }, [_c('input', { class: _vm.inputRadioClasses, attrs: { "type": "radio", "name": _vm.name, "id": _vm.id, "disabled": _vm.disabled }, domProps: { "checked": _vm.checked }, on: { "change": _vm.change } }), _vm._v(" "), _c('label', { attrs: { "for": _vm.id } }, [_vm._v(_vm._s(_vm.label))])]) : _c('div', { class: _vm.radioClasses }, [_c('input', { class: _vm.inputRadioClasses, attrs: { "type": "radio", "name": _vm.name, "id": _vm.id, "disabled": _vm.disabled }, domProps: { "checked": _vm.checked }, on: { "change": _vm.change } }), _vm._v(" "), _c('label', { attrs: { "for": _vm.id } }, [_vm._v(_vm._s(_vm.label))])]);
+  }, staticRenderFns: [],
+  name: "TmVueRadioEx",
+  props: {
+    value: {
+      type: [String, Number, Boolean],
+      default: false
+    },
+    name: {
+      type: String,
+      default: false
+    },
+    group: {
+      type: Boolean,
+      default: false
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    label: {
+      type: String
+    },
+    hover: {
+      type: Boolean,
+      default: false
+    },
+    checked: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      index: 0,
+      group: false,
+      parent: findComponentUpward(this, "TmVueRadioGroup")
+    };
+  },
+
+  computed: {
+    id: function id() {
+      return this.name + "-" + this.index;
+    },
+    radioClasses: function radioClasses() {
+      var _ref;
+
+      return [(_ref = {}, defineProperty(_ref, "" + prefixCls, !this.inline), defineProperty(_ref, prefixCls + "-inline", this.inline), defineProperty(_ref, "hover", this.hover), defineProperty(_ref, "disabled", this.disabled), _ref)];
+    },
+    inputRadioClasses: function inputRadioClasses() {
+      var _ref2;
+
+      return ["input-radio", (_ref2 = {}, defineProperty(_ref2, "disabled", this.disabled && !this.checked), defineProperty(_ref2, "checked", this.checked && !this.disabled), _ref2)];
+    }
+  },
+  methods: {
+    change: function change(event) {
+      if (this.disabled) {
+        return false;
+      }
+
+      var checked = event.target.checked;
+
+      this.$emit("input", checked);
+
+      if (this.group && this.label !== undefined) {
+        this.parent.change({
+          value: this.value,
+          checked: checked
+        });
+      }
+      if (!this.group) {
+        this.$emit("on-change", value);
+        this.dispatch("FormItem", "on-form-change", value);
+      }
+    }
+  }
+};
+
+var prefixCls$1 = "vue-radio-group";
+
+var TmVueRadioGroup = { render: function render() {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_vm._t("default")], 2);
+  }, staticRenderFns: [],
+  name: "TmVueRadioGroup",
+  mixins: [Emitter],
+  props: {
+    value: {
+      type: [String, Number],
+      default: ""
+    },
+    name: {
+      type: String,
+      default: ""
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      currentValue: this.value,
+      childrens: []
+    };
+  },
+
+  computed: {
+    classes: function classes() {
+      var _ref;
+
+      return ["" + prefixCls$1, (_ref = {}, defineProperty(_ref, prefixCls$1 + "-" + this.size, !!this.size), defineProperty(_ref, "ivu-radio-" + this.size, !!this.size), defineProperty(_ref, prefixCls$1 + "-" + this.type, !!this.type), defineProperty(_ref, prefixCls$1 + "-vertical", this.vertical), _ref)];
+    }
+  },
+  mounted: function mounted() {
+    this.updateValue();
+  },
+
+  methods: {
+    updateValue: function updateValue() {
+      var _this = this;
+
+      var value = this.value;
+      this.childrens = findComponentsDownward(this, "TmVueRadioEx");
+      var index = 0;
+      if (this.childrens) {
+        this.childrens.forEach(function (child) {
+          child.checked = value == child.value;
+          child.group = true;
+          child.name = _this.name;
+          child.index = index++;
+          child.inline = true;
+          child.disabled = _this.disabled;
+        });
+      }
+    },
+    change: function change(data) {
+      debugger;
+      this.value = data.value;
+      this.updateValue();
+      this.$emit("input", data.value);
+      this.$emit("on-change", data.value);
+      this.dispatch("FormItem", "on-form-change", data.value);
+    }
+  },
+  watch: {
+    value: function value() {
+      debugger;
+      this.updateValue();
+    },
+    disabled: function disabled() {
+      debugger;
+      this.updateValue();
+    }
+  }
+};
+
+TmVueRadioEx.install = function (V, options) {
+    V.component(TmVueRadioEx.name, TmVueRadioEx);
+};
+TmVueRadioGroup.install = function (V, options) {
+    V.component(TmVueRadioGroup.name, TmVueRadioGroup);
+};
+
 var TmVueCheckbox = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "checkbox", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-checkbox", class: { 'checked': _vm.isChecked, 'disabled': _vm.disabledClass }, attrs: { "type": "checkbox", "disabled": _vm.isDisabled }, domProps: { "value": _vm.value, "checked": Array.isArray(_vm.checked) ? _vm._i(_vm.checked, _vm.value) > -1 : _vm.checked }, on: { "change": [function ($event) {
                     var $$a = _vm.checked,
@@ -309,10 +596,8 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
-var prefixCls = "uwc";
-
 var TmVueSearchButton$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_c('div', { staticClass: "input-group has-clear", staticStyle: { "width": "100%" } }, [_c('div', { staticClass: "input-icon-group", staticStyle: { "width": "100%" } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.textVal, expression: "textVal" }], staticClass: "form-control", staticStyle: { "width": "100%" }, attrs: { "type": "text", "placeholder": _vm.placeholder }, domProps: { "value": _vm.textVal }, on: { "input": [function ($event) {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "input-group has-clear", staticStyle: { "width": "100%" } }, [_c('div', { staticClass: "input-icon-group", staticStyle: { "width": "100%" } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.textVal, expression: "textVal" }], staticClass: "form-control", staticStyle: { "width": "100%" }, attrs: { "type": "text", "placeholder": _vm.placeholder }, domProps: { "value": _vm.textVal }, on: { "input": [function ($event) {
           if ($event.target.composing) {
             return;
           }_vm.textVal = $event.target.value;
@@ -320,7 +605,7 @@ var TmVueSearchButton$1 = { render: function render() {
           if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
             return null;
           }_vm.changed($event);
-        } } }), _vm._v(" "), _c('span', { staticClass: "form-control-clear icon icon-cancel hidden" })]), _vm._v(" "), _c('span', { staticClass: "input-group-btn" }, [_c('button', { staticClass: "btn btn-default btn-icon-only", attrs: { "type": "button" }, on: { "click": _vm.changed } }, [_c('span', { staticClass: "fa fa-search" })])])])]);
+        } } }), _vm._v(" "), _c('span', { staticClass: "form-control-clear icon icon-cancel hidden" })]), _vm._v(" "), _c('span', { staticClass: "input-group-btn" }, [_c('button', { staticClass: "btn btn-default btn-icon-only", attrs: { "type": "button" }, on: { "click": _vm.changed } }, [_c('span', { staticClass: "fa fa-search" })])])]);
   }, staticRenderFns: [],
   name: "TmVueSearchButton",
   props: {
@@ -359,11 +644,6 @@ var TmVueSearchButton$1 = { render: function render() {
       self.textVal = "";
       $(this).siblings('input[type="text"]').val("").trigger("propertychange").focus();
     });
-  },
-  computed: {
-    classes: function classes() {
-      return ['' + prefixCls];
-    }
   }
 };
 
@@ -400,79 +680,7 @@ var Icon$1 = { render: function render() {
   }
 };
 
-var isServer = Vue.prototype.$isServer;
-// 判断参数是否是其中之一
-function oneOf(value, validList) {
-    for (var i = 0; i < validList.length; i++) {
-        if (value === validList[i]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-
-
-
-// watch DOM change
-var MutationObserver = isServer ? false : window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false;
-
-// getStyle
-
-
-// Warn
-
-
-// scrollTop animation
-
-
-// Find components upward
-function findComponentUpward(context, componentName, componentNames) {
-    if (typeof componentName === 'string') {
-        componentNames = [componentName];
-    } else {
-        componentNames = componentName;
-    }
-
-    var parent = context.$parent;
-    var name = parent.$options.name;
-    while (parent && (!name || componentNames.indexOf(name) < 0)) {
-        parent = parent.$parent;
-        if (parent) name = parent.$options.name;
-    }
-    return parent;
-}
-// Find component downward
-
-
-// Find components downward
-
-
-/* istanbul ignore next */
-
-
-/* istanbul ignore next */
-
-
-/* istanbul ignore next */
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-var prefixCls$1 = "btn";
+var prefixCls$2 = "btn";
 
 var TmVueButton$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { class: _vm.classes, attrs: { "type": _vm.htmlType, "disabled": _vm.disabled }, on: { "click": _vm.handleClick } }, [_vm.loading ? _c('Icon', { attrs: { "type": "loader loader-small" } }) : _vm._e(), _vm._v(" "), _vm.icon && !_vm.loading ? _c('Icon', { attrs: { "type": _vm.icon } }) : _vm._e(), _vm._v(" "), _vm.showSlot ? _c('span', { ref: "slot" }, [_vm._t("default")], 2) : _vm._e()], 1);
@@ -519,7 +727,7 @@ var TmVueButton$1 = { render: function render() {
     classes: function classes() {
       var _ref;
 
-      return ["" + prefixCls$1, (_ref = {}, defineProperty(_ref, prefixCls$1 + "-" + this.type, !!this.type), defineProperty(_ref, prefixCls$1 + "-" + this.size, !!this.size), defineProperty(_ref, prefixCls$1 + "-block", !!this.full), defineProperty(_ref, prefixCls$1 + "-icon-only", !this.showSlot && (!!this.icon || this.loading)), _ref)];
+      return ["" + prefixCls$2, (_ref = {}, defineProperty(_ref, prefixCls$2 + "-" + this.type, !!this.type), defineProperty(_ref, prefixCls$2 + "-" + this.size, !!this.size), defineProperty(_ref, prefixCls$2 + "-block", !!this.full), defineProperty(_ref, prefixCls$2 + "-icon-only", !this.showSlot && (!!this.icon || this.loading)), _ref)];
     }
   },
   methods: {
@@ -536,7 +744,7 @@ TmVueButton$1.install = function (V, options) {
     V.component(TmVueButton$1.name, TmVueButton$1);
 };
 
-var prefixCls$3 = "uwc";
+var prefixCls$4 = "uwc";
 
 var Breadcrumb = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_c('ol', { staticClass: "breadcrumb" }, [_vm._t("default")], 2)]);
@@ -550,7 +758,7 @@ var Breadcrumb = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return '' + prefixCls$3;
+      return '' + prefixCls$4;
     }
   },
   mounted: function mounted() {
@@ -580,7 +788,7 @@ var Breadcrumb = { render: function render() {
   }
 };
 
-var prefixCls$4 = "tm-vue-breadcrumb-item";
+var prefixCls$5 = "tm-vue-breadcrumb-item";
 
 var BreadcrumbItem = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.to ? _c('li', [_c('a', { class: _vm.linkClasses, attrs: { "href": _vm.to }, on: { "click": _vm.handleClick } }, [_vm._t("default")], 2)]) : _c('li', { staticClass: "active" }, [_vm._t("default")], 2);
@@ -600,7 +808,7 @@ var BreadcrumbItem = { render: function render() {
   },
   computed: {
     linkClasses: function linkClasses() {
-      return prefixCls$4 + '-link';
+      return prefixCls$5 + '-link';
     }
   },
   methods: {
@@ -918,42 +1126,7 @@ function calcTextareaHeight(targetNode) {
     };
 }
 
-function _broadcast(componentName, eventName, params) {
-    this.$children.forEach(function (child) {
-        var name = child.$options.name;
-
-        if (name === componentName) {
-            child.$emit.apply(child, [eventName].concat(params));
-        } else {
-            // todo 如果 params 是空数组，接收到的会是 undefined
-            _broadcast.apply(child, [componentName, eventName].concat([params]));
-        }
-    });
-}
-var Emitter = {
-    methods: {
-        dispatch: function dispatch(componentName, eventName, params) {
-            var parent = this.$parent || this.$root;
-            var name = parent.$options.name;
-
-            while (parent && (!name || name !== componentName)) {
-                parent = parent.$parent;
-
-                if (parent) {
-                    name = parent.$options.name;
-                }
-            }
-            if (parent) {
-                parent.$emit.apply(parent, [eventName].concat(params));
-            }
-        },
-        broadcast: function broadcast(componentName, eventName, params) {
-            _broadcast.call(this, componentName, eventName, params);
-        }
-    }
-};
-
-var prefixCls$5 = 'ivu-input';
+var prefixCls$6 = 'ivu-input';
 
 var TmVueInput$1 = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.wrapClasses }, [_vm.type !== 'textarea' ? [_vm.prepend ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-prepend'] }, [_vm._t("prepend")], 2) : _vm._e(), _vm._v(" "), _vm.icon ? _c('i', { staticClass: "ivu-icon", class: ['ivu-icon-' + _vm.icon, _vm.prefixCls + '-icon', _vm.prefixCls + '-icon-normal'], on: { "click": _vm.handleIconClick } }) : _vm._e(), _vm._v(" "), _c('transition', { attrs: { "name": "fade" } }, [!_vm.icon ? _c('i', { staticClass: "ivu-icon ivu-icon-load-c ivu-load-loop", class: [_vm.prefixCls + '-icon', _vm.prefixCls + '-icon-validate'] }) : _vm._e()]), _vm._v(" "), _c('input', { ref: "input", class: _vm.inputClasses, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "type": _vm.type, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "number": _vm.number, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
@@ -1038,7 +1211,7 @@ var TmVueInput$1 = { render: function render() {
     data: function data() {
         return {
             currentValue: this.value,
-            prefixCls: prefixCls$5,
+            prefixCls: prefixCls$6,
             prepend: true,
             append: true,
             slotReady: false,
@@ -1050,15 +1223,15 @@ var TmVueInput$1 = { render: function render() {
         wrapClasses: function wrapClasses() {
             var _ref;
 
-            return [prefixCls$5 + '-wrapper', (_ref = {}, defineProperty(_ref, prefixCls$5 + '-wrapper-' + this.size, !!this.size), defineProperty(_ref, prefixCls$5 + '-type', this.type), defineProperty(_ref, prefixCls$5 + '-group', this.prepend || this.append), defineProperty(_ref, prefixCls$5 + '-group-' + this.size, (this.prepend || this.append) && !!this.size), defineProperty(_ref, prefixCls$5 + '-group-with-prepend', this.prepend), defineProperty(_ref, prefixCls$5 + '-group-with-append', this.append), defineProperty(_ref, prefixCls$5 + '-hide-icon', this.append), _ref)];
+            return [prefixCls$6 + '-wrapper', (_ref = {}, defineProperty(_ref, prefixCls$6 + '-wrapper-' + this.size, !!this.size), defineProperty(_ref, prefixCls$6 + '-type', this.type), defineProperty(_ref, prefixCls$6 + '-group', this.prepend || this.append), defineProperty(_ref, prefixCls$6 + '-group-' + this.size, (this.prepend || this.append) && !!this.size), defineProperty(_ref, prefixCls$6 + '-group-with-prepend', this.prepend), defineProperty(_ref, prefixCls$6 + '-group-with-append', this.append), defineProperty(_ref, prefixCls$6 + '-hide-icon', this.append), _ref)];
         },
         inputClasses: function inputClasses() {
             var _ref2;
 
-            return ['' + prefixCls$5, (_ref2 = {}, defineProperty(_ref2, prefixCls$5 + '-' + this.size, !!this.size), defineProperty(_ref2, prefixCls$5 + '-disabled', this.disabled), _ref2)];
+            return ['' + prefixCls$6, (_ref2 = {}, defineProperty(_ref2, prefixCls$6 + '-' + this.size, !!this.size), defineProperty(_ref2, prefixCls$6 + '-disabled', this.disabled), _ref2)];
         },
         textareaClasses: function textareaClasses() {
-            return ['' + prefixCls$5, defineProperty({}, prefixCls$5 + '-disabled', this.disabled)];
+            return ['' + prefixCls$6, defineProperty({}, prefixCls$6 + '-disabled', this.disabled)];
         }
     },
     methods: {
@@ -1156,7 +1329,7 @@ TmVueInput$1.install = function (V, options) {
     V.component(TmVueInput$1.name, TmVueInput$1);
 };
 
-var prefixCls$6 = "badge";
+var prefixCls$7 = "badge";
 var TmVueBadge$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.href ? _c('a', { class: _vm.classes, attrs: { "href": _vm.href, "target": "_self" } }, [_vm._t("default")], 2) : _c('span', { ref: "badge", class: _vm.classes }, [_vm._t("default")], 2);
   }, staticRenderFns: [],
@@ -1174,7 +1347,7 @@ var TmVueBadge$1 = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return ["" + prefixCls$6, prefixCls$6 + "-" + this.variant];
+      return ["" + prefixCls$7, prefixCls$7 + "-" + this.variant];
     }
   }
 };
@@ -1183,7 +1356,7 @@ TmVueBadge$1.install = function (V, options) {
     V.component(TmVueBadge$1.name, TmVueBadge$1);
 };
 
-var prefixCls$7 = "label";
+var prefixCls$8 = "label";
 var TmVueLabel$1 = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.href ? _c('a', { class: _vm.classes, attrs: { "href": _vm.href, "target": "_self" } }, [_vm._t("default")], 2) : _c('span', { ref: "label", class: _vm.classes }, [_vm._t("default")], 2);
   }, staticRenderFns: [],
@@ -1201,7 +1374,7 @@ var TmVueLabel$1 = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return ["" + prefixCls$7, prefixCls$7 + "-" + this.variant];
+      return ["" + prefixCls$8, prefixCls$8 + "-" + this.variant];
     }
   }
 };
@@ -1212,6 +1385,8 @@ TmVueLabel$1.install = function (V, options) {
 
 Vue.use(TmVueActionButton$1);
 Vue.use(TmVueRadio);
+Vue.use(TmVueRadioEx);
+Vue.use(TmVueRadioGroup);
 Vue.use(TmVueCheckbox);
 Vue.use(TmVueCheckallCheckbox$1);
 Vue.use(TmVueDropdown);
