@@ -383,11 +383,170 @@
 .uwc .label-dark {
   background-color: #666666;
 }
-.uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after {
+.uwc .modal-open {
+  overflow: hidden;
+}
+.uwc .modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  text-align: center;
+}
+.uwc .modal.fade {
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+.uwc .modal.fade .modal-dialog {
+  /*.scale(0);
+    .transition-transform(~"0.3s ease-out");*/
+}
+.uwc .modal.in .modal-dialog {
+  /*.scale(1);
+    .transition-transform(~"0.2s");*/
+}
+.uwc .modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.uwc .modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+.uwc .modal-dialog {
+  position: relative;
+  width: 95%;
+  margin: 10px auto;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.uwc .modal-dialog.modal-lg, .uwc .modal-dialog.modal-md {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  max-height: 80%;
+}
+.uwc .modal-xs {
+  width: 400px;
+}
+.uwc .modal-content {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+  width: 100%;
+}
+.uwc .modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #222;
+}
+.uwc .modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.uwc .modal-backdrop.in {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+.uwc .modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #dddddd;
+}
+.uwc .modal-header.no-header {
+  border-bottom: 1px solid transparent;
+}
+.uwc .modal-header .close {
+  margin-top: 0;
+  opacity: .4;
+}
+.uwc .modal-header .close:hover {
+  opacity: 1;
+}
+.uwc .modal-header .close:focus {
+  outline: 0;
+}
+.uwc .modal-title {
+  margin: 0;
+  line-height: 1.2;
+}
+.uwc .modal-body {
+  position: relative;
+  padding: 16px 24px;
+}
+.uwc .modal-lg .modal-body, .uwc .modal-md .modal-body {
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.uwc .modal-body.body-xs {
+  min-height: 128px;
+}
+.uwc .modal-body.body-sm {
+  min-height: 192px;
+}
+.uwc .modal-footer {
+  padding: 12px 24px;
+  text-align: right;
+  border: 0;
+  background-color: #eeeeee;
+}
+.uwc .modal-footer .btn + .btn {
+  margin-left: 8px;
+  margin-bottom: 0;
+}
+.uwc .modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+.uwc .modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+.uwc .modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+@media (min-width: 600px) {
+  .uwc .modal-sm {
+    width: 544px;
+  }
+}
+@media (min-width: 768px) {
+  .uwc .modal-md {
+    width: 688px;
+  }
+}
+@media (min-width: 992px) {
+  .uwc .modal-lg {
+    width: 928px;
+  }
+}
+.uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after {
   content: " ";
   display: table;
 }
-.uwc .clearfix:after, .uwc .breadcrumb:after, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:after {
+.uwc .clearfix:after, .uwc .breadcrumb:after, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:after, .uwc .modal-footer:after {
   clear: both;
 }
 .uwc .center-block {

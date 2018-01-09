@@ -4,9 +4,7 @@ Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 jquery = jquery && jquery.hasOwnProperty('default') ? jquery['default'] : jquery;
 _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
 
-var TmVueActionButton$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { staticClass: "btn", class: _vm.buttonStatus, attrs: { "disabled": _vm.disabled }, on: { "click": _vm.clicked } }, [_c('span', { directives: [{ name: "show", rawName: "v-show", value: _vm.isLoading, expression: "isLoading" }], staticClass: "glyphicon-loader" }), _vm._v(_vm._s(_vm.val) + " ")]);
-  }, staticRenderFns: [],
+var TmVueActionButton$1 = { template: "<button class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
   name: "TmVueActionButton",
   props: {
     name: {
@@ -60,11 +58,7 @@ TmVueActionButton$1.install = function (V, options) {
     V.component(TmVueActionButton$1.name, TmVueActionButton$1);
 };
 
-var TmVueRadio = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "radio", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-radio", class: { 'disabled': _vm.disabledClass }, attrs: { "type": "radio", "disabled": _vm.isDisabled }, domProps: { "value": _vm.value, "checked": _vm._q(_vm.checked, _vm.value) }, on: { "change": [function ($event) {
-                    _vm.checked = _vm.value;
-                }, _vm.handleChange] } }), _vm._v(" "), _c('label', { on: { "click": _vm.labelClick } }, [_vm._t("default")], 2)]);
-    }, staticRenderFns: [],
+var TmVueRadio = { template: "<div class=\"radio\" :class=\"{'disabled':isDisabled}\"> <input type=\"radio\" :value=\"value\" @change=\"handleChange\" v-model=\"checked\" class=\"input-radio\" :disabled=\"isDisabled\" :class=\"{'disabled':disabledClass}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
     name: 'TmVueRadio',
     model: {
         prop: "checked",
@@ -113,7 +107,7 @@ TmVueRadio.install = function (V, options) {
 
 var isServer = Vue.prototype.$isServer;
 // 判断参数是否是其中之一
-function oneOf(value, validList) {
+function oneOf$1(value, validList) {
     for (var i = 0; i < validList.length; i++) {
         if (value === validList[i]) {
             return true;
@@ -225,9 +219,7 @@ var defineProperty = function (obj, key, value) {
 };
 
 var prefixCls = "radio";
-var TmVueRadioEx = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.group ? _c('div', { class: _vm.radioClasses }, [_c('input', { class: _vm.inputRadioClasses, attrs: { "type": "radio", "name": _vm.name, "id": _vm.id, "disabled": _vm.disabled }, domProps: { "checked": _vm.checked }, on: { "change": _vm.change } }), _vm._v(" "), _c('label', { attrs: { "for": _vm.id } }, [_vm._v(_vm._s(_vm.label))])]) : _c('div', { class: _vm.radioClasses }, [_c('input', { class: _vm.inputRadioClasses, attrs: { "type": "radio", "name": _vm.name, "id": _vm.id, "disabled": _vm.disabled }, domProps: { "checked": _vm.checked }, on: { "change": _vm.change } }), _vm._v(" "), _c('label', { attrs: { "for": _vm.id } }, [_vm._v(_vm._s(_vm.label))])]);
-  }, staticRenderFns: [],
+var TmVueRadioEx = { template: "<div v-if=\"group\" :class=\"radioClasses\"> <input type=\"radio\" :name=\"name\" :id=\"id\" :class=\"inputRadioClasses\" :checked=\"checked\" :disabled=\"disabled\" @change=\"change\"> <label :for=\"id\">{{label}}</label> </div> <div v-else :class=\"radioClasses\"> <input type=\"radio\" :name=\"name\" :id=\"id\" :class=\"inputRadioClasses\" :checked=\"checked\" :disabled=\"disabled\" @change=\"change\"> <label :for=\"id\">{{label}}</label> </div>",
   name: "TmVueRadioEx",
   props: {
     value: {
@@ -311,9 +303,7 @@ var TmVueRadioEx = { render: function render() {
 
 var prefixCls$1 = "vue-radio-group";
 
-var TmVueRadioGroup = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_vm._t("default")], 2);
-  }, staticRenderFns: [],
+var TmVueRadioGroup = { template: "<div :class=\"classes\"> <slot></slot> </div>",
   name: "TmVueRadioGroup",
   mixins: [Emitter],
   props: {
@@ -398,22 +388,7 @@ TmVueRadioGroup.install = function (V, options) {
     V.component(TmVueRadioGroup.name, TmVueRadioGroup);
 };
 
-var TmVueCheckbox = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "checkbox", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-checkbox", class: { 'checked': _vm.isChecked, 'disabled': _vm.disabledClass }, attrs: { "type": "checkbox", "disabled": _vm.isDisabled }, domProps: { "value": _vm.value, "checked": Array.isArray(_vm.checked) ? _vm._i(_vm.checked, _vm.value) > -1 : _vm.checked }, on: { "change": [function ($event) {
-                    var $$a = _vm.checked,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false;if (Array.isArray($$a)) {
-                        var $$v = _vm.value,
-                            $$i = _vm._i($$a, $$v);if ($$el.checked) {
-                            $$i < 0 && (_vm.checked = $$a.concat([$$v]));
-                        } else {
-                            $$i > -1 && (_vm.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-                        }
-                    } else {
-                        _vm.checked = $$c;
-                    }
-                }, _vm.handleChange] } }), _vm._v(" "), _c('label', { on: { "click": _vm.lableClick } }, [_vm._t("default")], 2)]);
-    }, staticRenderFns: [],
+var TmVueCheckbox = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" :value=\"value\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':isChecked,'disabled':disabledClass}\"> <label @click=\"lableClick\"><slot></slot></label> </div>",
     name: 'TmVueCheckbox',
     model: {
         prop: "checked",
@@ -478,22 +453,7 @@ TmVueCheckbox.install = function (V, options) {
     V.component(TmVueCheckbox.name, TmVueCheckbox);
 };
 
-var TmVueCheckallCheckbox$1 = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "checkbox", class: { 'disabled': _vm.isDisabled } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.checked, expression: "checked" }], staticClass: "input-checkbox", class: { 'checked': _vm.checked, 'disabled': _vm.disabledClass, 'checkbox-partical': this.indeterminate }, attrs: { "type": "checkbox", "disabled": _vm.isDisabled }, domProps: { "checked": Array.isArray(_vm.checked) ? _vm._i(_vm.checked, null) > -1 : _vm.checked }, on: { "change": [function ($event) {
-                    var $$a = _vm.checked,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false;if (Array.isArray($$a)) {
-                        var $$v = null,
-                            $$i = _vm._i($$a, $$v);if ($$el.checked) {
-                            $$i < 0 && (_vm.checked = $$a.concat([$$v]));
-                        } else {
-                            $$i > -1 && (_vm.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-                        }
-                    } else {
-                        _vm.checked = $$c;
-                    }
-                }, _vm.handleChange] } }), _vm._v(" "), _c('label', { on: { "click": _vm.labelClick } }, [_vm._t("default")], 2)]);
-    }, staticRenderFns: [],
+var TmVueCheckallCheckbox$1 = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':checked,'disabled':disabledClass,'checkbox-partical':this.indeterminate}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
     name: 'TmVueCheckallCheckbox',
     props: {
         checked: {
@@ -538,13 +498,7 @@ TmVueCheckallCheckbox$1.install = function (V, options) {
 
 window.jQuery = jquery;
 
-var TmVueDropdown = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "btn-group" }, [_c('button', { staticClass: "form-control btn btn-border dropdown-toggle", class: _vm.widthClass, attrs: { "type": "button", "title": _vm.selectedText, "data-toggle": "dropdown", "aria-expanded": "false", "disabled": _vm.isDisabled } }, [_c('span', { staticClass: "caret" }), _vm._v(_vm._s(_vm.selectedText))]), _vm._v(" "), _c('ul', { staticClass: "dropdown-menu" }, [_vm._l(_vm.list, function (item) {
-            return [_c('li', { on: { "click": function click($event) {
-                        _vm.handleChange(item.value);
-                    } } }, [_c('a', { attrs: { "href": "javascript:void(0)" } }, [_vm._v(_vm._s(item.display))])])];
-        })], 2)]);
-    }, staticRenderFns: [],
+var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button\" :title=\"selectedText\" class=\"form-control btn btn-border dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" :disabled=\"isDisabled\" :class=\"widthClass\"> <span class=\"caret\"></span>{{selectedText}}</button> <ul class=\"dropdown-menu\"> <template v-for=\"item in list\"> <li @click=\"handleChange(item.value)\"><a href=\"javascript:void(0)\">{{item.display}}</a></li> </template> </ul> </div>",
     name: 'TmVueDropdown',
     props: {
         value: {
@@ -596,17 +550,7 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
-var TmVueSearchButton$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "input-group has-clear", staticStyle: { "width": "100%" } }, [_c('div', { staticClass: "input-icon-group", staticStyle: { "width": "100%" } }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.textVal, expression: "textVal" }], staticClass: "form-control", staticStyle: { "width": "100%" }, attrs: { "type": "text", "placeholder": _vm.placeholder }, domProps: { "value": _vm.textVal }, on: { "input": [function ($event) {
-          if ($event.target.composing) {
-            return;
-          }_vm.textVal = $event.target.value;
-        }, _vm.updated], "keyup": function keyup($event) {
-          if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
-            return null;
-          }_vm.changed($event);
-        } } }), _vm._v(" "), _c('span', { staticClass: "form-control-clear icon icon-cancel hidden" })]), _vm._v(" "), _c('span', { staticClass: "input-group-btn" }, [_c('button', { staticClass: "btn btn-default btn-icon-only", attrs: { "type": "button" }, on: { "click": _vm.changed } }, [_c('span', { staticClass: "fa fa-search" })])])]);
-  }, staticRenderFns: [],
+var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\" style=\"width:100%\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div>",
   name: "TmVueSearchButton",
   props: {
     placeholder: {
@@ -651,9 +595,7 @@ TmVueSearchButton$1.install = function (V, options) {
     V.component(TmVueSearchButton$1.name, TmVueSearchButton$1);
 };
 
-var Icon$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('span', { class: _vm.classes, style: _vm.styles });
-  }, staticRenderFns: [],
+var Icon$1 = { template: "<span :class=\"classes\" :style=\"styles\"></span>",
   name: "Icon",
   props: {
     type: String,
@@ -682,25 +624,23 @@ var Icon$1 = { render: function render() {
 
 var prefixCls$2 = "btn";
 
-var TmVueButton$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('button', { class: _vm.classes, attrs: { "type": _vm.htmlType, "disabled": _vm.disabled }, on: { "click": _vm.handleClick } }, [_vm.loading ? _c('Icon', { attrs: { "type": "loader loader-small" } }) : _vm._e(), _vm._v(" "), _vm.icon && !_vm.loading ? _c('Icon', { attrs: { "type": _vm.icon } }) : _vm._e(), _vm._v(" "), _vm.showSlot ? _c('span', { ref: "slot" }, [_vm._t("default")], 2) : _vm._e()], 1);
-  }, staticRenderFns: [],
+var TmVueButton$1 = { template: "<button :type=\"htmlType\" :class=\"classes\" :disabled=\"disabled\" @click=\"handleClick\"> <Icon type=\"loader loader-small\" v-if=\"loading\"></Icon> <Icon :type=\"icon\" v-if=\"icon && !loading\"></Icon> <span v-if=\"showSlot\" ref=\"slot\"><slot></slot></span> </button>",
   name: "TmVueButton",
   components: { Icon: Icon$1 },
   props: {
     type: {
       validator: function validator(value) {
-        return oneOf(value, ["primary", "danger", "border", "link", "default"]);
+        return oneOf$1(value, ["primary", "danger", "border", "link", "default"]);
       }
     },
     shape: {
       validator: function validator(value) {
-        return oneOf(value, ["circle", "circle-outline"]);
+        return oneOf$1(value, ["circle", "circle-outline"]);
       }
     },
     size: {
       validator: function validator(value) {
-        return oneOf(value, ["xs", "sm", "lg", "block"]);
+        return oneOf$1(value, ["xs", "sm", "lg", "block"]);
       }
     },
     loading: Boolean,
@@ -708,7 +648,7 @@ var TmVueButton$1 = { render: function render() {
     htmlType: {
       default: "button",
       validator: function validator(value) {
-        return oneOf(value, ["button", "submit", "reset"]);
+        return oneOf$1(value, ["button", "submit", "reset"]);
       }
     },
     icon: String,
@@ -746,9 +686,7 @@ TmVueButton$1.install = function (V, options) {
 
 var prefixCls$4 = "uwc";
 
-var Breadcrumb = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.classes }, [_c('ol', { staticClass: "breadcrumb" }, [_vm._t("default")], 2)]);
-  }, staticRenderFns: [],
+var Breadcrumb = { template: "<div :class=\"classes\"> <ol class=\"breadcrumb\"> <slot></slot> </ol> </div>",
   name: "TmVueBreadcrumb",
   props: {
     separator: {
@@ -758,7 +696,7 @@ var Breadcrumb = { render: function render() {
   },
   computed: {
     classes: function classes() {
-      return '' + prefixCls$4;
+      return "" + prefixCls$4;
     }
   },
   mounted: function mounted() {
@@ -790,9 +728,7 @@ var Breadcrumb = { render: function render() {
 
 var prefixCls$5 = "tm-vue-breadcrumb-item";
 
-var BreadcrumbItem = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.to ? _c('li', [_c('a', { class: _vm.linkClasses, attrs: { "href": _vm.to }, on: { "click": _vm.handleClick } }, [_vm._t("default")], 2)]) : _c('li', { staticClass: "active" }, [_vm._t("default")], 2);
-  }, staticRenderFns: [],
+var BreadcrumbItem = { template: "<li v-if=\"to\"> <a :href=\"to\" :class=\"linkClasses\" @click=\"handleClick\"> <slot></slot> </a> </li> <li v-else class=\"active\"> <slot></slot> </li>",
   name: "TmVueBreadcrumbItem",
   props: {
     href: {
@@ -808,7 +744,7 @@ var BreadcrumbItem = { render: function render() {
   },
   computed: {
     linkClasses: function linkClasses() {
-      return prefixCls$5 + '-link';
+      return prefixCls$5 + "-link";
     }
   },
   methods: {
@@ -825,37 +761,7 @@ var BreadcrumbItem = { render: function render() {
 
 Breadcrumb.Item = BreadcrumbItem;
 
-var TmVueFilterTag$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "Tokenize tokenize", class: { disabled: _vm.disabled }, style: { width: _vm.width_display }, attrs: { "tabindex": "0" }, on: { "click": _vm.showInput } }, [_c('span', { directives: [{ name: "show", rawName: "v-show", value: _vm.selected_list.length > 0, expression: "selected_list.length > 0" }], staticClass: "icon icon-cancel", on: { "click": _vm.removeAll } }), _vm._v(" "), _c('ul', { staticClass: "TokensContainer tag-editor", attrs: { "tabindex": "0" } }, [_c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showPlaceholder, expression: "showPlaceholder" }], staticClass: "Placeholder placeholder" }, [_vm._v("Select...")]), _vm._v(" "), _vm._l(_vm.selected_list, function (item) {
-      return _c('li', { staticClass: "Token" }, [_c('a', { staticClass: "Close" }, [_c('span', { staticClass: "icon icon-cancel", attrs: { "tabindex": "0" }, on: { "click": function click($event) {
-            $event.stopPropagation();_vm.removeItem(item.id);
-          } } })]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.name))])]);
-    }), _vm._v(" "), _c('li', { staticClass: "TokenSearch" }, [_c('input', { directives: [{ name: "focus", rawName: "v-focus", value: _vm.focus, expression: "focus" }, { name: "model", rawName: "v-model", value: _vm.text_value, expression: "text_value" }], attrs: { "disabled": _vm.disabled, "size": "8" }, domProps: { "value": _vm.text_value }, on: { "keydown": [function ($event) {
-          if (!('button' in $event) && _vm._k($event.keyCode, "down", 40, $event.key)) {
-            return null;
-          }_vm.selectNextItem($event);
-        }, function ($event) {
-          if (!('button' in $event) && _vm._k($event.keyCode, "up", 38, $event.key)) {
-            return null;
-          }_vm.selectPreviousItem($event);
-        }], "keyup": function keyup($event) {
-          if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
-            return null;
-          }_vm.addSelectItem($event);
-        }, "focusout": function focusout($event) {
-          _vm.hideInput($event);
-        }, "input": function input($event) {
-          if ($event.target.composing) {
-            return;
-          }_vm.text_value = $event.target.value;
-        } } })])], 2), _vm._v(" "), _c('ul', { staticClass: "Dropdown dropdown-menu", style: { display: _vm.dropdown_display, width: _vm.width_display }, attrs: { "tabindex": "0" } }, [_vm._l(_vm.showInitList, function (item) {
-      return _c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showInitList.length > 0, expression: "showInitList.length>0" }], class: { Hover: item.hover }, attrs: { "tabindex": "0", "data": "for-select" }, on: { "mouseover": function mouseover($event) {
-            _vm.setHoverItem(item.id);
-          }, "mouseout": _vm.clearAllHover, "click": function click($event) {
-            $event.stopPropagation();_vm.addItem(item.id);
-          } } }, [_vm._v(_vm._s(item.name))]);
-    }), _vm._v(" "), _c('li', { directives: [{ name: "show", rawName: "v-show", value: _vm.showInitList.length == 0, expression: "showInitList.length==0" }], staticClass: "no-matches", attrs: { "tabindex": "0" } }, [_vm._v("No matches found")])], 2)]);
-  }, staticRenderFns: [], _scopeId: 'data-v-47dc18c2',
+var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showInput\" :style=\"{width:width_display}\"> <span v-show=\"selected_list.length > 0\" @click=\"removeAll\" class=\"icon icon-cancel\"></span> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">Select...</li> <li v-for=\"item in selected_list\" class=\"Token\"> <a class=\"Close\"> <span class=\"icon icon-cancel\" tabindex=\"0\" @click.stop=\"removeItem(item.id)\"></span> </a> <span>{{item.name}}</span> </li> <li class=\"TokenSearch\"> <input v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\" size=\"8\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"showInitList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItem(item.id)\" @mouseout=\"clearAllHover\" v-for=\"item in showInitList\" @click.stop=\"addItem(item.id)\">{{item.name}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"showInitList.length==0\">No matches found</li> </ul> </div>", _scopeId: 'data-v-47dc18c2',
   name: 'TmVueFilterTag',
   props: {
     initial_list: {
@@ -1128,23 +1034,13 @@ function calcTextareaHeight(targetNode) {
 
 var prefixCls$6 = 'ivu-input';
 
-var TmVueInput$1 = { render: function render() {
-        var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { class: _vm.wrapClasses }, [_vm.type !== 'textarea' ? [_vm.prepend ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-prepend'] }, [_vm._t("prepend")], 2) : _vm._e(), _vm._v(" "), _vm.icon ? _c('i', { staticClass: "ivu-icon", class: ['ivu-icon-' + _vm.icon, _vm.prefixCls + '-icon', _vm.prefixCls + '-icon-normal'], on: { "click": _vm.handleIconClick } }) : _vm._e(), _vm._v(" "), _c('transition', { attrs: { "name": "fade" } }, [!_vm.icon ? _c('i', { staticClass: "ivu-icon ivu-icon-load-c ivu-load-loop", class: [_vm.prefixCls + '-icon', _vm.prefixCls + '-icon-validate'] }) : _vm._e()]), _vm._v(" "), _c('input', { ref: "input", class: _vm.inputClasses, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "type": _vm.type, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "number": _vm.number, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
-                    if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
-                        return null;
-                    }_vm.handleEnter($event);
-                }, _vm.handleKeyup], "keypress": _vm.handleKeypress, "keydown": _vm.handleKeydown, "focus": _vm.handleFocus, "blur": _vm.handleBlur, "input": _vm.handleInput, "change": _vm.handleChange } }), _vm._v(" "), _vm.append ? _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.slotReady, expression: "slotReady" }], class: [_vm.prefixCls + '-group-append'] }, [_vm._t("append")], 2) : _vm._e()] : _c('textarea', { ref: "textarea", class: _vm.textareaClasses, style: _vm.textareaStyles, attrs: { "id": _vm.elementId, "autocomplete": _vm.autocomplete, "spellcheck": _vm.spellcheck, "placeholder": _vm.placeholder, "disabled": _vm.disabled, "rows": _vm.rows, "maxlength": _vm.maxlength, "readonly": _vm.readonly, "name": _vm.name, "autofocus": _vm.autofocus }, domProps: { "value": _vm.currentValue }, on: { "keyup": [function ($event) {
-                    if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
-                        return null;
-                    }_vm.handleEnter($event);
-                }, _vm.handleKeyup], "keypress": _vm.handleKeypress, "keydown": _vm.handleKeydown, "focus": _vm.handleFocus, "blur": _vm.handleBlur, "input": _vm.handleInput } })], 2);
-    }, staticRenderFns: [],
+var TmVueInput$1 = { template: "<div :class=\"wrapClasses\"> <template v-if=\"type !== 'textarea'\"> <div :class=\"[prefixCls + '-group-prepend']\" v-if=\"prepend\" v-show=\"slotReady\"><slot name=\"prepend\"></slot></div> <i class=\"ivu-icon\" :class=\"['ivu-icon-' + icon, prefixCls + '-icon', prefixCls + '-icon-normal']\" v-if=\"icon\" @click=\"handleIconClick\"></i> <transition name=\"fade\"> <i class=\"ivu-icon ivu-icon-load-c ivu-load-loop\" :class=\"[prefixCls + '-icon', prefixCls + '-icon-validate']\" v-if=\"!icon\"></i> </transition> <input :id=\"elementId\" :autocomplete=\"autocomplete\" :spellcheck=\"spellcheck\" ref=\"input\" :type=\"type\" :class=\"inputClasses\" :placeholder=\"placeholder\" :disabled=\"disabled\" :maxlength=\"maxlength\" :readonly=\"readonly\" :name=\"name\" :value=\"currentValue\" :number=\"number\" :autofocus=\"autofocus\" @keyup.enter=\"handleEnter\" @keyup=\"handleKeyup\" @keypress=\"handleKeypress\" @keydown=\"handleKeydown\" @focus=\"handleFocus\" @blur=\"handleBlur\" @input=\"handleInput\" @change=\"handleChange\"> <div :class=\"[prefixCls + '-group-append']\" v-if=\"append\" v-show=\"slotReady\"><slot name=\"append\"></slot></div> </template> <textarea v-else :id=\"elementId\" :autocomplete=\"autocomplete\" :spellcheck=\"spellcheck\" ref=\"textarea\" :class=\"textareaClasses\" :style=\"textareaStyles\" :placeholder=\"placeholder\" :disabled=\"disabled\" :rows=\"rows\" :maxlength=\"maxlength\" :readonly=\"readonly\" :name=\"name\" :value=\"currentValue\" :autofocus=\"autofocus\" @keyup.enter=\"handleEnter\" @keyup=\"handleKeyup\" @keypress=\"handleKeypress\" @keydown=\"handleKeydown\" @focus=\"handleFocus\" @blur=\"handleBlur\" @input=\"handleInput\">\n    </textarea> </div>",
     name: 'Input',
     mixins: [Emitter],
     props: {
         type: {
             validator: function validator(value) {
-                return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
+                return oneOf$1(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
             },
 
             default: 'text'
@@ -1155,7 +1051,7 @@ var TmVueInput$1 = { render: function render() {
         },
         size: {
             validator: function validator(value) {
-                return oneOf(value, ['small', 'large', 'default']);
+                return oneOf$1(value, ['small', 'large', 'default']);
             }
         },
         placeholder: {
@@ -1199,7 +1095,7 @@ var TmVueInput$1 = { render: function render() {
         },
         autocomplete: {
             validator: function validator(value) {
-                return oneOf(value, ['on', 'off']);
+                return oneOf$1(value, ['on', 'off']);
             },
 
             default: 'off'
@@ -1330,9 +1226,7 @@ TmVueInput$1.install = function (V, options) {
 };
 
 var prefixCls$7 = "badge";
-var TmVueBadge$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.href ? _c('a', { class: _vm.classes, attrs: { "href": _vm.href, "target": "_self" } }, [_vm._t("default")], 2) : _c('span', { ref: "badge", class: _vm.classes }, [_vm._t("default")], 2);
-  }, staticRenderFns: [],
+var TmVueBadge$1 = { template: "<a v-if=\"href\" :class=\"classes\" :href=\"href\" target=\"_self\"> <slot></slot> </a> <span v-else :class=\"classes\" ref=\"badge\"> <slot></slot> </span>",
   name: "Badge",
   props: {
     href: {
@@ -1341,7 +1235,7 @@ var TmVueBadge$1 = { render: function render() {
     variant: {
       default: "green",
       validator: function validator(value) {
-        return oneOf(value, ["light-gray", "blue", "green", "cyan", "orange", "red", "yellow", "dark"]);
+        return oneOf$1(value, ["light-gray", "blue", "green", "cyan", "orange", "red", "yellow", "dark"]);
       }
     }
   },
@@ -1357,9 +1251,7 @@ TmVueBadge$1.install = function (V, options) {
 };
 
 var prefixCls$8 = "label";
-var TmVueLabel$1 = { render: function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _vm.href ? _c('a', { class: _vm.classes, attrs: { "href": _vm.href, "target": "_self" } }, [_vm._t("default")], 2) : _c('span', { ref: "label", class: _vm.classes }, [_vm._t("default")], 2);
-  }, staticRenderFns: [],
+var TmVueLabel$1 = { template: "<a v-if=\"href\" :class=\"classes\" :href=\"href\" target=\"_self\"> <slot></slot> </a> <span v-else :class=\"classes\" ref=\"label\"> <slot></slot> </span>",
   name: "Label",
   props: {
     href: {
@@ -1368,7 +1260,7 @@ var TmVueLabel$1 = { render: function render() {
     variant: {
       default: "blue",
       validator: function validator(value) {
-        return oneOf(value, ["blue", "green", "cyan", "orange", "red", "indigo", "yellow", "light-gray", "gray", "dark"]);
+        return oneOf$1(value, ["blue", "green", "cyan", "orange", "red", "indigo", "yellow", "light-gray", "gray", "dark"]);
       }
     }
   },
@@ -1381,6 +1273,106 @@ var TmVueLabel$1 = { render: function render() {
 
 TmVueLabel$1.install = function (V, options) {
     V.component(TmVueLabel$1.name, TmVueLabel$1);
+};
+
+var prefixCls$9 = "modal";
+var TmVueModal$1 = { template: "<div> <div ref=\"modal\" :class=\"classes\" @click.self=\"close()\" @keyup.esc=\"close()\" tabindex=\"-1\" aria-hidden=\"true\"> <div class=\"modal-dialog\" :class=\"modalClasses\" role=\"document\"> <div class=\"modal-content\"> <div v-if=\"needHeader\" class=\"modal-header\"> <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"> <span aria-hidden=\"true\" class=\"icon icon-modal-close\"> </span> </button> <h3 class=\"modal-title\"> <slot name=\"title\"> {{title}} </slot> </h3> </div> <div class=\"modal-body\"> <slot></slot> </div> <div v-if=\"needFooter\" class=\"modal-footer\"> <slot name=\"footer\"> <button type=\"button\" class=\"btn btn-primary\" @click=\"ok\">{{okText}}</button> <button type=\"button\" class=\"btn btn-default\" @click=\"cancel\">{{cancelText}}</button> </slot> </div> </div> </div> </div> <div v-if=\"isShow\" class=\"modal-backdrop fade in\"></div> </div>",
+  name: "TmVueModal",
+  props: {
+    opened: {
+      type: Function,
+      default: function _default() {}
+    },
+    closed: {
+      type: Function,
+      default: function _default() {}
+    },
+    needHeader: {
+      type: Boolean,
+      default: true
+    },
+    needFooter: {
+      type: Boolean,
+      default: true
+    },
+    title: {
+      type: String,
+      default: "Modal"
+    },
+    type: {
+      default: "md",
+      validator: function validator(value) {
+        return oneOf(value, ["xs", "sm", "md", "lg"]);
+      }
+    },
+    okText: {
+      type: String,
+      default: "OK"
+    },
+    cancelText: {
+      type: String,
+      default: "Cancel"
+    }
+  },
+  data: function data() {
+    return {
+      isOpen: false,
+      isShow: false,
+      isOk: false,
+      lastKnownBodyStyle: {
+        overflow: "auto"
+      }
+    };
+  },
+
+  computed: {
+    classes: function classes() {
+      return ["" + prefixCls$9, {
+        in: this.isOpen,
+        show: this.isShow
+      }];
+    },
+    modalClasses: function modalClasses() {
+      return "modal-" + this.type;
+    }
+  },
+  methods: {
+    open: function open() {
+      this.isOk = false;
+      this.isShow = true;
+      this.$nextTick(function () {
+        this.isOpen = true;
+        this.$refs.modal.focus();
+        this.lastKnownBodyStyle.overflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        this.opened();
+      });
+    },
+    close: function close() {
+      this.isOpen = false;
+      this.$nextTick(function () {
+        var _this = this;
+
+        setTimeout(function () {
+          _this.isShow = false;
+          document.body.style.overflow = _this.lastKnownBodyStyle.overflow;
+          _this.closed();
+        }, 500);
+      });
+    },
+    ok: function ok() {
+      this.isOk = true;
+      this.close();
+    },
+    cancel: function cancel() {
+      this.isOk = false;
+      this.close();
+    }
+  }
+};
+
+TmVueModal$1.install = function (V, options) {
+    V.component(TmVueModal$1.name, TmVueModal$1);
 };
 
 Vue.use(TmVueActionButton$1);
@@ -1397,5 +1389,6 @@ Vue.use(TmVueFilterTag$1);
 Vue.use(TmVueInput$1);
 Vue.use(TmVueBadge$1);
 Vue.use(TmVueLabel$1);
+Vue.use(TmVueModal$1);
 
 });

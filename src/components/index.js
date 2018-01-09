@@ -15,6 +15,7 @@ import TmVueInput from './vue-input'
 
 import TmVueBadge from './vue-badge'
 import TmVueLabel from './vue-label'
+import TmVueModal from './vue-modal'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
@@ -30,3 +31,4 @@ Vue.use(TmVueFilterTag)
 Vue.use(TmVueInput)
 Vue.use(TmVueBadge)
 Vue.use(TmVueLabel)
+Vue.use(TmVueModal)

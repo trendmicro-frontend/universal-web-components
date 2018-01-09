@@ -23,7 +23,7 @@ const plugins = [
     vue({
         autoStyles: true,
         styleToImports: false,
-        compileTemplate: true,
+        compileTemplate: false,
         css(style, styles, compiler) {
             // fs.writeFileSync('dist/components.css', style.trim())
         }

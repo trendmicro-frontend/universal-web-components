@@ -1220,26 +1220,26 @@
 .uwc .template-snapshot + p:last-child {
   margin-bottom: 0;
 }
-.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(1), .uwc > tr > td:nth-child(1) {
+.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(1), .uwc .table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(1) {
   width: 35.3%;
 }
-.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(2), .uwc > tr > td:nth-child(2) {
+.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(2), .uwc .table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(2) {
   width: 23.53%;
 }
-.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(3), .uwc > tr > td:nth-child(3) {
+.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(3), .uwc .table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(3) {
   width: 11.76%;
   text-align: right;
 }
-.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(4), .uwc > tr > td:nth-child(4) {
+.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(4), .uwc .table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(4) {
   width: 17.64%;
 }
-.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(5), .uwc > tr > td:nth-child(5) {
+.uwc .table-with-scrollbar.sb-v .table > thead > tr > th:nth-child(5), .uwc .table-with-scrollbar.sb-v .table > tbody > tr > td:nth-child(5) {
   width: 11.77%;
 }
 .uwc .table-with-scrollbar.sb-h .table-horizontal-scrollable .table {
   table-layout: auto;
 }
-.uwc .table-with-scrollbar.sb-h .table-horizontal-scrollable .table > thead > tr > th, .uwc > tr > td {
+.uwc .table-with-scrollbar.sb-h .table-horizontal-scrollable .table > thead > tr > th, .uwc .table-with-scrollbar.sb-h .table-horizontal-scrollable .table > tbody > tr > td {
   white-space: nowrap;
   text-align: left;
 }
