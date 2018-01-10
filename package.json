@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "babel-plugin-lodash": "^3.3.2",
+    "blueimp-file-upload": "^9.19.2",
     "bootstrap": "^3.3.7",
     "bootstrap-loader": "^2.2.0",
     "gulp": "^3.9.1",
@@ -38,7 +39,7 @@
     "@storybook/vue": "^3.2.17",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-external-helpers": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-vue": "^2.0.0",

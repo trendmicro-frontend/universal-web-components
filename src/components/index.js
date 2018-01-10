@@ -17,6 +17,8 @@ import TmVueBadge from './vue-badge'
 import TmVueLabel from './vue-label'
 import TmVueModal from './vue-modal'
 
+import TmVueUpload from './vue-upload'
+
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
 Vue.use(TmVueRadioEx)
@@ -32,3 +34,4 @@ Vue.use(TmVueInput)
 Vue.use(TmVueBadge)
 Vue.use(TmVueLabel)
 Vue.use(TmVueModal)
+Vue.use(TmVueUpload)

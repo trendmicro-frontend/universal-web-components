@@ -30,9 +30,7 @@ const plugins = [
     }),
     stylus(),
     scss(),
-    babel({
-        plugins: ['external-helpers']
-    }),
+    // babel(),
     !production && livereload(),
     !production && serve('dist')
     // production && uglify()
@@ -49,7 +47,7 @@ export default {
     plugins: plugins,
     external: ['lodash', 'vue','jquery','bootstrap'],
     globals: {
-        jquery: '$',
+        jquery:'jQuery',
         lodash: '_',
         vue: 'Vue'
     }

@@ -10,8 +10,7 @@
     </div>
 </template>
 <script>
-    import '../jquery-global';
-    import 'bootstrap';
+    // import 'bootstrap';
     export default {
         name: 'TmVueDropdown',
         props:{

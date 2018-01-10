@@ -63,13 +63,12 @@ export default {
           child.group = true;
           child.name = this.name;
           child.index = index++;
-          child.inline = true;
+          child.inline = this.inline;
           child.disabled = this.disabled;
         });
       }
     },
     change(data) {
-       debugger;
       this.value = data.value;
       this.updateValue();
       this.$emit("input", data.value);
@@ -79,11 +78,9 @@ export default {
   },
   watch: {
     value() {
-      debugger;
       this.updateValue();
     },
     disabled() {
-       debugger;
       this.updateValue();
     }
   }
