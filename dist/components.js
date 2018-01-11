@@ -489,7 +489,6 @@ TmVueCheckallCheckbox$1.install = function (V, options) {
     V.component(TmVueCheckallCheckbox$1.name, TmVueCheckallCheckbox$1);
 };
 
-// import 'bootstrap';
 var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button\" :title=\"selectedText\" class=\"form-control btn btn-border dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" :disabled=\"isDisabled\" :class=\"widthClass\"> <span class=\"caret\"></span>{{selectedText}}</button> <ul class=\"dropdown-menu\"> <template v-for=\"item in list\"> <li @click=\"handleChange(item.value)\"><a href=\"javascript:void(0)\">{{item.display}}</a></li> </template> </ul> </div>",
     name: 'TmVueDropdown',
     props:{
@@ -515,6 +514,8 @@ var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button
             return this.disabled===true?true:false;//default disabled attribute is false
         },
         selectedText:function(){
+            if(this.list.length ==0)
+                return '';
             var index = 0;
             for(var i=0;i<this.list.length;i++){
                 if(this.list[i].value == this.value){
@@ -762,14 +763,14 @@ var BreadcrumbItem = { template: "<li v-if=\"to\"> <a :href=\"to\" :class=\"link
 
 Breadcrumb.Item = BreadcrumbItem;
 
-var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showInput\" :style=\"{width:width_display}\"> <span v-show=\"selected_list.length > 0\" @click=\"removeAll\" class=\"icon icon-cancel\"></span> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">Select...</li> <li v-for=\"item in selected_list\" class=\"Token\"> <a class=\"Close\"> <span class=\"icon icon-cancel\" tabindex=\"0\" @click.stop=\"removeItem(item.id)\"></span> </a> <span>{{item.name}}</span> </li> <li class=\"TokenSearch\"> <input v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\" size=\"8\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"showInitList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItem(item.id)\" @mouseout=\"clearAllHover\" v-for=\"item in showInitList\" @click.stop=\"addItem(item.id)\">{{item.name}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"showInitList.length==0\">No matches found</li> </ul> </div>",_scopeId: 'data-v-47dc18c2',
-      name: 'TmVueFilterTag',                                                                                       
+var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showInput\" :style=\"{width:width_display}\"> <span v-show=\"value.length > 0\" @click=\"removeAll\" class=\"icon icon-cancel\"></span> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li v-for=\"item in value\" class=\"Token\"> <a class=\"Close\" style=\"display:inline-block\"> <span class=\"icon icon-cancel\" tabindex=\"0\" @click.stop=\"removeItem(item)\"></span> </a> <span>{{selected_name(item)}}</span> </li> <li class=\"TokenSearch\"> <input v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\" size=\"8\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.id)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.id)\">{{item.name}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
+      name: 'TmVueFilterTag',                 
       props:{
+          value:{
+              type:[Array],
+              default:0
+          },          
           initial_list:{
-            type:Array,
-            default:[]
-          },
-          selected_list:{
             type:Array,
             default:[]
           },
@@ -780,6 +781,14 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
           width:{
             type:String,
             default:""
+          },
+          placeholder:{
+            type:String,
+            default:""
+          },
+          no_result:{
+            type:String,
+            default:""
           }
       },
       data:function(){
@@ -787,7 +796,7 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
           	focus:false,
           	text_value:'',
             current_hover_id:'',
-            new_init_list:_.map(this.initial_list,function(item){return _.extend({},item,{hover:false})})
+            new_init_list:_.map(this.initial_list,function(item){return _.extend({},item,{hover:false});})
       	}
       },
       computed:{
@@ -795,105 +804,104 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
       		return this.focus?'block':'none';
       	},
       	width_display(){
-      		return this.width?this.width:'100%';
+      		return this.width?this.width+'px':'100%';
       	},
       	showPlaceholder(){
-      		return (this.selected_list.length==0) && (this.text_value.length == 0);
+      		return (this.value.length==0) && (this.text_value.length == 0);
       	},
-        showInitList(){
-          let _this = this;
-          if(this.text_value.length==0)
-            return this.new_init_list;            
+        filterList(){
+          var _this = this;        
           let tmp = this.new_init_list.filter(function(item){
-            if(item.name.toLowerCase().startsWith(_this.text_value.toLowerCase()) === false)
-              return false;
-            else
-              return true;
+              if(_this.value.indexOf(item.id) !== -1 ){
+                return false;
+              }else{
+                return true;
+              }
+          }).filter(function(item){
+              if(item.name.toLowerCase().startsWith(_this.text_value.toLowerCase()) === false)
+                return false;
+              else 
+                return true;
+          }).sort(function(a,b){
+            if(a.name < b.name)
+              return -1;
+            if(a.name > b.name)
+              return 1;
+            return 0;
           });
           return tmp;
         }
-
       },
-      methods: {
+      methods:{
+          selected_name(id){
+             let item = _.find(this.new_init_list, function(item) {
+                return item.id == id; 
+             });
+             if(item)
+               return item.name;
+          },          
           addItem(id){
             if(this.disabled) return;
             this.text_value="";
-            let remove_item = _.find(this.showInitList, function(item) {
-              return item.id == id; 
-           });
-            let i = this.showInitList.map(item => item.id).indexOf(id); 
-            this.showInitList.splice(i, 1);
-            this.selected_list.push(remove_item);
-            this.returnList();
+            this.value.push(id);
           },
-          removeAll(value){
+          removeAll(){
+            let _this = this;
             if(this.disabled) return;
             this.text_value="";
-            let tmp = _.clone(this.selected_list);
-            for(let i=0;i<tmp.length;i++){
-              this.removeItem(tmp[i].id);
-            }
-          	this.selected_list= [];
-            this.returnList();
+            _.each(this.value,function(value){
+              _this.removeItem(value);               
+            });
           },
           removeItem(id){
             if(this.disabled) return;
             this.text_value="";
-            let remove_item = _.find(this.selected_list, function(item) {
-              return item.id == id; 
-           });
-            let i = this.selected_list.map(item => item.id).indexOf(id);
-            this.selected_list.splice(i, 1);        
-            this.showInitList.push(remove_item);
-            this.sortInitList();
-            this.returnList();
+            let index = _.findIndex(this.value,function(value){return value == id});
+            this.value.splice(index,1);
           },
           selectNextItem(){
-            if(this.showInitList.length > 0){
+            if(this.filterList.length > 0){
               let index = this.getHoverItemIndex();
               this.clearAllHover();
-              if(index == (this.showInitList.length - 1)){
+              if(index == (this.filterList.length - 1)){
                 index = 0;
               }else{
                 index = index+1;
               }
-              this.setHoverItemFlag(index);
+              this.setHoverItemById(this.filterList[index].id);
             }
           },
           selectPreviousItem(){
             let index = this.getHoverItemIndex();
             this.clearAllHover();
             if(index == 0 || index == -1){
-              index = this.showInitList.length -1;
+              index = this.filterList.length -1;
             }else{
               index = index-1;
             }
-            this.setHoverItemFlag(index);
+            this.setHoverItemById(this.filterList[index].id);
           },
-          setHoverItem(hover_id){
-            this.clearAllHover();
-            let index = this.getItemIndexById(hover_id,this.new_init_list);
-            this.setHoverItemFlag(index);
-          },
-          setHoverItemFlag(index){
+          setHoverItemById(id){
+            let index = _.findIndex(this.new_init_list,function(item){
+              return item.id == id
+            });
             let tmp_object = _.clone(this.new_init_list[index]);
             tmp_object.hover=true;
             this.new_init_list.splice(index, 1, tmp_object);
           },
-          getItemIndexById(item_id,list){
-            return _.findIndex(list,function(item) { return item.id == item_id });
-          },
           getHoverItemIndex(){
-            return _.findIndex(this.new_init_list,'hover');
+            return _.findIndex(this.filterList,'hover');
           },
           addSelectItem(){
             let index = this.getHoverItemIndex();
-            let id = this.new_init_list[index].id;
+            if(index == -1)
+              return;
+            let id = this.filterList[index].id;
             this.addItem(id);
-            this.returnList();
-          },
-          filterIintList(){
-            let tmp = this.showInitList;
+            this.clearAllHover();
+            if(this.filterList.length >0){
+              this.setHoverItemById(this.filterList[0].id);
+            }
           },
           showInput(){
             if(this.disabled) return;
@@ -901,11 +909,11 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
             //clear the focus before show init list.
             this.clearAllHover();     
             //hover on the first item when show the init list.
-            if(this.showInitList.length > 0){
-              this.setHoverItemFlag(0);
+            if(this.filterList.length > 0){
+              this.setHoverItemById(this.filterList[0].id);
             }
           },
-          hideInput(e){
+          hideInput(e){              
             if(this.disabled) return;
             if((e.relatedTarget == this.$el.getElementsByClassName("TokensContainer")[0]) || (e.relatedTarget == this.$el.getElementsByClassName("Dropdown")) || (e.relatedTarget && (e.relatedTarget.getAttribute("data")=="for-select"))){
               let _this = this;
@@ -913,24 +921,11 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
               return;
             }else{
               this.focus = false;
-            }
-            
+            }             
           },
           clearAllHover(){
             this.new_init_list = _.map(this.new_init_list,function(item){ item.hover = false; return item;});
-          },
-          sortInitList(){
-            this.showInitList.sort(function(a,b){
-              if(a.name < b.name)
-                return -1;
-              if(a.name > b.name)
-                return 1;
-              return 0;
-            });
-          },
-          returnList(){
-            this.$emit('change', this.selected_list);
-          },
+          }
       },
       directives: {
   			focus: {
@@ -940,10 +935,12 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
   					}
           }
   			}
-		},
-    mounted(){
-        this.sortInitList();
-    }             
+		  },
+      watch:{
+        value:function(){
+          this.$emit('input', this.value);
+       }
+    }
   }
 
 TmVueFilterTag$1.install = function (V, options) {
