@@ -235,16 +235,14 @@ storiesOf('Tag & Token', module)
     components: { TmVueFilterTag },
     data() {
       return {
-        selected_list: [{ name: "No DMARC record", id: 1 }, { name: "absdfew", id: 2 }, { name: "cdwerwd", id: 4 }],
-        initial_list: [{ name: "cdwerwerdf", id: 3 }, { name: "fdwerds", id: 5 }],
-        width: "512px",
+        selected_list: [ 1,3],
+        selected_list_1: [ 2,4],
+        initial_list: [{ name: "AAAA", id: 1 }, { name: "BBBB", id: 2 },{ name: "CCCC", id: 3 }, { name: "DDDD", id: 4 },{ name: "EEEE", id: 5 }],
+        width: "512",
         disabled: false,
       }
     },
     methods: {
-      getSelectList(list) {
-        this.selected_list = list;
-      },
       disableTag() {
         this.disabled = true;
       },
@@ -255,7 +253,9 @@ storiesOf('Tag & Token', module)
     template: `
               <div>
               select list is: {{selected_list}}
-              <tm-vue-filter-tag @change="getSelectList":disabled="disabled" :width="width" :initial_list="initial_list" :selected_list="selected_list"></tm-vue-filter-tag>
+              <tm-vue-filter-tag placeholder="Select..." no_result="No result match" v-model="selected_list" :disabled="disabled" :width="width" :initial_list="initial_list" ></tm-vue-filter-tag>
+              select list_1 is: {{selected_list_1}}
+              <tm-vue-filter-tag placeholder="Select..." no_result="No result match" v-model="selected_list_1" :disabled="disabled" :width="width" :initial_list="initial_list" ></tm-vue-filter-tag>
               <button @click="disableTag" type="button">disable tag</button><button @click="enableTag" type="button">enable tag</button>
               </div>
               `,

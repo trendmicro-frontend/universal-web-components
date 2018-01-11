@@ -10,7 +10,6 @@
     </div>
 </template>
 <script>
-    // import 'bootstrap';
     export default {
         name: 'TmVueDropdown',
         props:{
@@ -36,6 +35,8 @@
                 return this.disabled===true?true:false;//default disabled attribute is false
             },
             selectedText:function(){
+                if(this.list.length ==0)
+                    return '';
                 var index = 0;
                 for(var i=0;i<this.list.length;i++){
                     if(this.list[i].value == this.value){
