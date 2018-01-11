@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div v-if="needHeader" class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="icon icon-modal-close">
+                    <span aria-hidden="true" class="icon icon-modal-close" @click="close">
                     </span>
                   </button>
                   <h3 class="modal-title">
