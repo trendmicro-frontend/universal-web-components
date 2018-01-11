@@ -15,10 +15,13 @@ gulp.task('less', function () {
         .pipe(less())
         .pipe(postcss(processors))
         .pipe(gulp.dest('dist/styles'))
+    gulp.src('./assets/fonts/**/*')
+        .pipe(gulp.dest('dist/fonts'))
     gulp.src('./src/third-party/fonts/**/*')
         .pipe(gulp.dest('dist/fonts'))
     gulp.src('./src/third-party/images/**/*')
         .pipe(gulp.dest('dist/images'))
+
 });
 
 gulp.task('default', ['less']);
