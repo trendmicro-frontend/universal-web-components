@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="modal" :class="classes" @click.self="close()" @keyup.esc="close()" tabindex="-1" aria-hidden="true">
+    <div ref="modal" :class="classes" @keyup.esc="close()" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" :class="modalClasses" role="document">
             <div class="modal-content">
                 <div v-if="needHeader" class="modal-header">
@@ -112,7 +112,7 @@ export default {
           this.isShow = false;
           document.body.style.overflow = this.lastKnownBodyStyle.overflow;
           this.closed();
-        }, 500);
+        }, 0);
       });
     },
     ok() {
