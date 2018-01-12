@@ -1,8 +1,8 @@
 <template>
     <div class="btn-group">
-      <button type="button" :title="selectedText" class="form-control btn btn-border dropdown-toggle" data-toggle="dropdown" aria-expanded="false" :disabled="isDisabled" :class="widthClass">
+      <button type="button" :title="selectedText" class="form-control same-width btn btn-border dropdown-toggle" data-toggle="dropdown" aria-expanded="false" :disabled="isDisabled" :class="widthClass">
         <span class="caret"></span>{{selectedText}}</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu same-width">
           <template v-for="item in list">
             <li  @click="handleChange(item.value)"><a href="javascript:void(0)">{{item.display}}</a></li>
           </template>                               
