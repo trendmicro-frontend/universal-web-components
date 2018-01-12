@@ -11,6 +11,7 @@ import multiEntry from 'rollup-plugin-multi-entry'
 import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
 
+import commonjs from 'rollup-plugin-commonjs'
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -28,6 +29,9 @@ const plugins = [
             // fs.writeFileSync('dist/components.css', style.trim())
         }
     }),
+    // commonjs({
+    //     exclude: [ 'vendor/jquery.ui.widget.js' ]
+    // }),
     stylus(),
     scss(),
     // babel(),
@@ -40,14 +44,17 @@ export default {
     input: 'src/components/index',
     output: {
         file: 'dist/components.js',
-        format: 'amd'
+        format: 'umd',
+        amd: {
+            id: 'uwc'
+        }
     },
     sourceMap: false,
     name: 'TM',
     plugins: plugins,
-    external: ['lodash', 'vue','jquery','bootstrap'],
+    external: ['lodash', 'vue', 'jquery', 'bootstrap'],
     globals: {
-        jquery:'jQuery',
+        jquery: 'jQuery',
         lodash: '_',
         vue: 'Vue'
     }

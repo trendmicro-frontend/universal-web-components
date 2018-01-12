@@ -1,4 +1,8 @@
-define(['vue', 'lodash', 'jquery'], function (Vue, _, $$1) { 'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('vue'), require('lodash'), require('jquery')) :
+	typeof define === 'function' && define.amd ? define('uwc', ['vue', 'lodash', 'jquery'], factory) :
+	(factory(global.Vue,global._,global.jQuery));
+}(this, (function (Vue,_,$$1) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
@@ -3012,4 +3016,4 @@ Vue.use(TmVueLabel$1);
 Vue.use(TmVueModal$1);
 Vue.use(TmVueUpload$1);
 
-});
+})));
