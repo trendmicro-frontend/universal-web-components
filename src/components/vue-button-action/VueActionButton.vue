@@ -1,5 +1,5 @@
 <template>
-    <button class="btn" :class="buttonStatus" :disabled="disabled" v-on:click="clicked">
+    <button type="button" class="btn" :class="buttonStatus" :disabled="disabled" v-on:click="clicked">
         <span class="glyphicon-loader" v-show="isLoading"></span>{{ val }}
     </button>
 </template>

@@ -8,7 +8,7 @@ Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
 $$1 = $$1 && $$1.hasOwnProperty('default') ? $$1['default'] : $$1;
 
-var TmVueActionButton$1 = { template: "<button class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
+var TmVueActionButton$1 = { template: "<button type=\"button\" class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
   name: "TmVueActionButton",
   props: {
     name: {
