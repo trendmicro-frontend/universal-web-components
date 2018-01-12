@@ -29,9 +29,9 @@ const plugins = [
             // fs.writeFileSync('dist/components.css', style.trim())
         }
     }),
-    // commonjs({
-    //     exclude: [ 'vendor/jquery.ui.widget.js' ]
-    // }),
+    commonjs({
+        exclude: [ 'vendor/jquery.ui.widget.js' ]
+    }),
     stylus(),
     scss(),
     // babel(),
@@ -44,17 +44,15 @@ export default {
     input: 'src/components/index',
     output: {
         file: 'dist/components.js',
-        format: 'umd',
-        amd: {
-            id: 'uwc'
-        }
+        format: 'umd'
     },
+    
     sourceMap: false,
     name: 'TM',
     plugins: plugins,
-    external: ['lodash', 'vue', 'jquery', 'bootstrap'],
+    external: ['lodash', 'vue','jquery','bootstrap'],
     globals: {
-        jquery: 'jQuery',
+        jquery:'jQuery',
         lodash: '_',
         vue: 'Vue'
     }
