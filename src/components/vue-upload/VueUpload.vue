@@ -30,29 +30,31 @@ export default {
       type: Boolean,
       default: true
     },
-    option: {
+    options: {
       type: Object,
-      default() {
-        return {
+      default(){
+         return {
+          autoUpload:false,
           url: "",
           singleFileUploads: true,
           paramName: "file",
           sequentialUploads: true,
-          formData: {},
-          done
-        };
+          formData: {}
+        } 
       }
     },
     done: {
       type: Function,
       default: () => {}
-    }
+    },
+    
   },
   data() {
     return {
       fileName: null,
       fileSize: null,
       showInfo: false,
+      files:null,
       status:"NONE"
     };
   },
@@ -84,8 +86,9 @@ export default {
   mounted() {
     var _self = this;
     $(`#${this.id}`)
-      .fileupload(this.option)
+      .fileupload(this.options)
       .on("fileuploadadd", function(e, data) {
+        _self.files = data.files;
         _self.fileName = data.files[0].name;
         _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
         _self.showInfo = true;

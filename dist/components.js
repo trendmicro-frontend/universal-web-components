@@ -111,7 +111,7 @@ TmVueRadio.install = function (V, options) {
 
 const isServer = Vue.prototype.$isServer;
 // 判断参数是否是其中之一
-function oneOf$1 (value, validList) {
+function oneOf (value, validList) {
     for (let i = 0; i < validList.length; i++) {
         if (value === validList[i]) {
             return true;
@@ -633,17 +633,17 @@ var TmVueButton$1 = { template: "<button :type=\"htmlType\" :class=\"classes\" :
   props: {
     type: {
       validator(value) {
-        return oneOf$1(value, ["primary", "danger", "border", "link", "default"]);
+        return oneOf(value, ["primary", "danger", "border", "link", "default"]);
       }
     },
     shape: {
       validator(value) {
-        return oneOf$1(value, ["circle", "circle-outline"]);
+        return oneOf(value, ["circle", "circle-outline"]);
       }
     },
     size: {
       validator(value) {
-        return oneOf$1(value, ["xs", "sm", "lg", "block"]);
+        return oneOf(value, ["xs", "sm", "lg", "block"]);
       }
     },
     loading: Boolean,
@@ -651,7 +651,7 @@ var TmVueButton$1 = { template: "<button :type=\"htmlType\" :class=\"classes\" :
     htmlType: {
       default: "button",
       validator(value) {
-        return oneOf$1(value, ["button", "submit", "reset"]);
+        return oneOf(value, ["button", "submit", "reset"]);
       }
     },
     icon: String,
@@ -1068,7 +1068,7 @@ var TmVueInput$1 = { template: "<div :class=\"wrapClasses\"> <template v-if=\"ty
     props: {
         type: {
             validator (value) {
-                return oneOf$1(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
+                return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date']);
             },
             default: 'text'
         },
@@ -1078,7 +1078,7 @@ var TmVueInput$1 = { template: "<div :class=\"wrapClasses\"> <template v-if=\"ty
         },
         size: {
             validator (value) {
-                return oneOf$1(value, ['small', 'large', 'default']);
+                return oneOf(value, ['small', 'large', 'default']);
             }
         },
         placeholder: {
@@ -1122,7 +1122,7 @@ var TmVueInput$1 = { template: "<div :class=\"wrapClasses\"> <template v-if=\"ty
         },
         autocomplete: {
             validator (value) {
-                return oneOf$1(value, ['on', 'off']);
+                return oneOf(value, ['on', 'off']);
             },
             default: 'off'
         },
@@ -1276,7 +1276,7 @@ var TmVueBadge$1 = { template: "<a v-if=\"href\" :class=\"classes\" :href=\"href
     variant: {
       default: "green",
       validator(value) {
-        return oneOf$1(value, [
+        return oneOf(value, [
           "light-gray",
           "blue",
           "green",
@@ -1310,7 +1310,7 @@ var TmVueLabel$1 = { template: "<a v-if=\"href\" :class=\"classes\" :href=\"href
     variant: {
       default: "blue",
       validator(value) {
-        return oneOf$1(value, [
+        return oneOf(value, [
           "blue",
           "green",
           "cyan",
@@ -3503,29 +3503,31 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       type: Boolean,
       default: true
     },
-    option: {
+    options: {
       type: Object,
-      default() {
-        return {
+      default(){
+         return {
+          autoUpload:false,
           url: "",
           singleFileUploads: true,
           paramName: "file",
           sequentialUploads: true,
-          formData: {},
-          done
-        };
+          formData: {}
+        } 
       }
     },
     done: {
       type: Function,
       default: () => {}
-    }
+    },
+    
   },
   data() {
     return {
       fileName: null,
       fileSize: null,
       showInfo: false,
+      files:null,
       status:"NONE"
     };
   },
@@ -3557,8 +3559,9 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
   mounted() {
     var _self = this;
     $$1(`#${this.id}`)
-      .fileupload(this.option)
+      .fileupload(this.options)
       .on("fileuploadadd", function(e, data) {
+        _self.files = data.files;
         _self.fileName = data.files[0].name;
         _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
         _self.showInfo = true;

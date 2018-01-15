@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+import { oneOf } from "../../utils/assist";
 const prefixCls = "modal";
 export default {
   name: "TmVueModal",
