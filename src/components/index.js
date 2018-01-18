@@ -18,6 +18,7 @@ import TmVueLabel from './vue-label'
 import TmVueModal from './vue-modal'
 
 import TmVueUpload from './vue-upload'
+import TmVueTag from './vue-tag'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
@@ -35,3 +36,4 @@ Vue.use(TmVueBadge)
 Vue.use(TmVueLabel)
 Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
+Vue.use(TmVueTag)
