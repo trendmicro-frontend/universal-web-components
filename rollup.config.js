@@ -44,16 +44,15 @@ export default {
     input: 'src/components/index',
     output: {
         file: 'dist/components.js',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: false,
+        name: 'TM',
+        globals: {
+            jquery:'jQuery',
+            lodash: '_',
+            vue: 'Vue'
+        }
     },
-    
-    sourceMap: false,
-    name: 'TM',
     plugins: plugins,
-    external: ['lodash', 'vue','jquery','bootstrap'],
-    globals: {
-        jquery:'jQuery',
-        lodash: '_',
-        vue: 'Vue'
-    }
+    external: ['lodash', 'vue','jquery','bootstrap']
 };
