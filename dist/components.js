@@ -4038,8 +4038,10 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
   },
   props: {
     initialTags: {
-      type: Array,
-      default: []
+      type: [String, Array],
+      default() {
+        return [];
+      }
     },
     delimiter: {
       type: String,
@@ -4051,16 +4053,20 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
     }
   },
   mounted() {
-    debugger;
     $(this.$el).tagEditor({
-      initialTags: this.initialTags,
+      initialTags: _.isString(this.initialTags)?this.initialTags.split(this.initialTags,this.delimiter):this.initialTags,
       delimiter: this.delimiter /* space and comma */,
       placeholder: this.placeholder,
       animateDelete: 0,
+      sortable: false,
       beforeTagSave: function(field, editor, tags, val) {
         editor.find(".tag-editor-tag").scrollLeft(0);
+        $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
       }
     });
+    // tag editor patch
+    this.$el.nextSibling.firstChild.remove();
+    $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
   }
 };
 
