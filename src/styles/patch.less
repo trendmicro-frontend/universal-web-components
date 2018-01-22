@@ -26,3 +26,21 @@
 		background: none;
 	}
 }
+
+.tag-editor.disabled {
+	cursor: not-allowed;
+	.tag-editor-tag {
+		color: grey;
+	}
+	.tag-editor-delete {
+		cursor: not-allowed;
+		.icon-cancel {
+			&:hover {
+				opacity: 0.4;
+			}
+		}
+	}
+	input {
+		cursor: not-allowed;
+	}
+}

@@ -4031,6 +4031,24 @@ TmVueUpload$1.install = function (V, options) {
     };
 }(jQuery));
 
+function MaskIt(obj) {
+  var hoverdiv =
+    '<div class="divMask" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; background: #fff; opacity: 0; filter: alpha(opacity=0);z-index:5;cursor:not-allowed;"></div>';
+  $(obj).wrap('<div class="position:relative;"></div>');
+  $(obj).before(hoverdiv);
+  $(obj).data("mask", true);
+}
+function UnMaskIt(obj) {
+  if ($(obj).data("mask") == true) {
+    $(obj)
+      .parent()
+      .find(".divMask")
+      .remove();
+    $(obj).unwrap();
+    $(obj).data("mask", false);
+  }
+  $(obj).data("mask", false);
+}
 var TmVueTag$1 = { template: "<input type=\"text\">",
   name: "TmVueTag",
   props: {
@@ -4045,11 +4063,26 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
     placeholder: {
       type: String,
       default: "Enter tags ..."
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     initialTags: function() {
       return this.value;
+    }
+  },
+  watch: {
+    disabled: function(disabled) {
+      if (disabled) {
+        MaskIt(this.nextSibling);
+        // $(this.$el.nextSibling).addClass("disabled");
+      } else {
+        UnMaskIt(this.nextSibling);
+        // $(this.$el.nextSibling).removeClass("disabled");
+      }
     }
   },
   mounted() {
@@ -4068,11 +4101,20 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
       },
       onChange: function(field, editor, tags) {
         _self.value = tags.join(_self.delimiter);
-        _self.$emit('input', _self.value);
+        _self.$emit("input", _self.value);
       }
     });
     // tag editor patch
     this.$el.nextSibling.firstChild.remove();
+    this.nextSibling= this.$el.nextSibling;
+    if (this.disabled) {
+      this.nextSibling= this.$el.nextSibling;
+      MaskIt(this.nextSibling);
+      // $(this.$el.nextSibling).addClass("disabled");
+    } else {
+      UnMaskIt(this.nextSibling);
+      // $(this.$el.nextSibling).removeClass("disabled");
+    }
     $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
   }
 };
