@@ -66,8 +66,6 @@ export default {
       }
     },
     init: function() {
-
-      debugger;
       var _self = this;
       $(this.$el).tagEditor({
         initialTags: _.isString(this.initialTags)
