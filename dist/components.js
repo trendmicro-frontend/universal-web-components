@@ -4033,15 +4033,10 @@ TmVueUpload$1.install = function (V, options) {
 
 var TmVueTag$1 = { template: "<input type=\"text\">",
   name: "TmVueTag",
-  model: {
-    prop: "initialTags"
-  },
   props: {
-    initialTags: {
+    value: {
       type: [String, Array],
-      default() {
-        return [];
-      }
+      default: ""
     },
     delimiter: {
       type: String,
@@ -4052,9 +4047,17 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
       default: "Enter tags ..."
     }
   },
+  computed: {
+    initialTags: function() {
+      return this.value;
+    }
+  },
   mounted() {
+    var _self = this;
     $(this.$el).tagEditor({
-      initialTags: _.isString(this.initialTags)?this.initialTags.split(this.initialTags,this.delimiter):this.initialTags,
+      initialTags: _.isString(this.initialTags)
+        ? this.initialTags.split(this.delimiter)
+        : this.initialTags,
       delimiter: this.delimiter /* space and comma */,
       placeholder: this.placeholder,
       animateDelete: 0,
@@ -4062,6 +4065,10 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
       beforeTagSave: function(field, editor, tags, val) {
         editor.find(".tag-editor-tag").scrollLeft(0);
         $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
+      },
+      onChange: function(field, editor, tags) {
+        _self.value = tags.join(_self.delimiter);
+        _self.$emit('input', _self.value);
       }
     });
     // tag editor patch
