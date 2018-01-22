@@ -291,8 +291,8 @@ var TmVueRadioEx = { template: "<div v-if=\"group\" :class=\"radioClasses\"> <in
         });
       }
       if (!this.group) {
-        this.$emit("on-change", value);
-        this.dispatch("FormItem", "on-form-change", value);
+        this.$emit("on-change", this.value);
+        this.dispatch("FormItem", "on-form-change", this.value);
       }
     }
   }

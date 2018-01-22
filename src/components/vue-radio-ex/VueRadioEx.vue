@@ -97,8 +97,8 @@ export default {
         });
       }
       if (!this.group) {
-        this.$emit("on-change", value);
-        this.dispatch("FormItem", "on-form-change", value);
+        this.$emit("on-change", this.value);
+        this.dispatch("FormItem", "on-form-change", this.value);
       }
     }
   }
