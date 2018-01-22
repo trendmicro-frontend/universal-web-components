@@ -44,6 +44,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    init: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -60,39 +64,46 @@ export default {
         UnMaskIt(this.nextSibling);
         // $(this.$el.nextSibling).removeClass("disabled");
       }
+    },
+    init: function() {
+
+      debugger;
+      var _self = this;
+      $(this.$el).tagEditor({
+        initialTags: _.isString(this.initialTags)
+          ? this.initialTags.split(this.delimiter)
+          : this.initialTags,
+        delimiter: this.delimiter /* space and comma */,
+        placeholder: this.placeholder,
+        animateDelete: 0,
+        sortable: false,
+        beforeTagSave: function(field, editor, tags, val) {
+          editor.find(".tag-editor-tag").scrollLeft(0);
+          $(".tag-editor-delete").html(
+            "<span class='icon icon-cancel'></span>"
+          );
+        },
+        onChange: function(field, editor, tags) {
+          _self.value = tags.join(_self.delimiter);
+          _self.$emit("input", _self.value);
+        }
+      });
+      // tag editor patch
+      this.$el.nextSibling.firstChild.remove();
+      this.nextSibling = this.$el.nextSibling;
+      if (this.disabled) {
+        this.nextSibling = this.$el.nextSibling;
+        MaskIt(this.nextSibling);
+        // $(this.$el.nextSibling).addClass("disabled");
+      } else {
+        UnMaskIt(this.nextSibling);
+        // $(this.$el.nextSibling).removeClass("disabled");
+      }
+      $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
     }
   },
-  mounted() {
-    var _self = this;
-    $(this.$el).tagEditor({
-      initialTags: _.isString(this.initialTags)
-        ? this.initialTags.split(this.delimiter)
-        : this.initialTags,
-      delimiter: this.delimiter /* space and comma */,
-      placeholder: this.placeholder,
-      animateDelete: 0,
-      sortable: false,
-      beforeTagSave: function(field, editor, tags, val) {
-        editor.find(".tag-editor-tag").scrollLeft(0);
-        $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
-      },
-      onChange: function(field, editor, tags) {
-        _self.value = tags.join(_self.delimiter);
-        _self.$emit("input", _self.value);
-      }
-    });
-    // tag editor patch
-    this.$el.nextSibling.firstChild.remove();
-    this.nextSibling= this.$el.nextSibling;
-    if (this.disabled) {
-      this.nextSibling= this.$el.nextSibling;
-      MaskIt(this.nextSibling);
-      // $(this.$el.nextSibling).addClass("disabled");
-    } else {
-      UnMaskIt(this.nextSibling);
-      // $(this.$el.nextSibling).removeClass("disabled");
-    }
-    $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
+  mounted:function(){
+    debugger;
   }
 };
 </script>

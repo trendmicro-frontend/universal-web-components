@@ -60,7 +60,6 @@ export default {
   },
   watch:{
     status(){
-      debugger;
       $(`#${this.id}`).fileupload();
     }
   },
