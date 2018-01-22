@@ -4657,6 +4657,12 @@
 .uwc .btn-group .dropdown-menu.same-width {
   width: 256px;
 }
+.uwc .tokenize.disabled * {
+  cursor: not-allowed;
+}
+.uwc .tokenize.disabled .tag-editor:after {
+  cursor: not-allowed;
+}
 .uwc .tag-editor .tag-editor-spacer {
   padding: 0;
   width: 8px;
