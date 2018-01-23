@@ -17,6 +17,7 @@ const production = process.env.NODE_ENV === 'production';
 
 const plugins = [
     resolve({
+        module:true,
         jsnext: false,
         main: true,
         browser: true
@@ -30,6 +31,7 @@ const plugins = [
         }
     }),
     commonjs({
+        include:'node_modules/**',
         exclude: [ 'vendor/jquery.ui.widget.js' ]
     }),
     stylus(),

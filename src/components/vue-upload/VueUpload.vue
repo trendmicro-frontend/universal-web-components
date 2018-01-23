@@ -32,34 +32,41 @@ export default {
     },
     options: {
       type: Object,
-      default(){
-         return {
-          autoUpload:false,
+      default() {
+        return {
+          maxFileSize: "@",
+          acceptFileTypes: "@",
+          dataType: "json",
+          autoUpload: false,
           url: "",
           singleFileUploads: true,
           paramName: "file",
           sequentialUploads: true,
           formData: {}
-        } 
+        };
       }
+    },
+    add: {
+      type: Function,
+      default: () => {}
     },
     done: {
       type: Function,
       default: () => {}
-    },
-    
+    }
   },
+
   data() {
     return {
       fileName: null,
       fileSize: null,
       showInfo: false,
-      files:null,
-      status:"NONE"
+      files: null,
+      status: "NONE"
     };
   },
-  watch:{
-    status(){
+  watch: {
+    status() {
       $(`#${this.id}`).fileupload();
     }
   },
@@ -84,6 +91,8 @@ export default {
   },
   mounted() {
     var _self = this;
+    var ERROR_FILE_TYPE = -1;
+    var ERROR_FILE_SIZE = -2;
     $(`#${this.id}`)
       .fileupload(this.options)
       .on("fileuploadadd", function(e, data) {
@@ -91,9 +100,31 @@ export default {
         _self.fileName = data.files[0].name;
         _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
         _self.showInfo = true;
+        var uploadErrors = [];
+        var acceptFileTypes = _self.options.acceptFileTypes;
+        if (acceptFileTypes) {
+          if (
+            data.originalFiles[0]["type"].length &&
+            !acceptFileTypes.test(data.originalFiles[0]["type"])
+          ) {
+            uploadErrors.push(ERROR_FILE_TYPE);
+          }
+        }
+        if (
+          data.originalFiles[0]["size"] &&
+          data.originalFiles[0]["size"] > _self.options.maxFileSize
+        ) {
+          uploadErrors.push(ERROR_FILE_SIZE);
+        }
+        if (uploadErrors.length > 0) {
+          _self.add(uploadErrors);
+          return false;
+        } else {
+          return true;
+        }
       })
-      .on("fileuploaddone",function(e,data){
-        _self.done();
+      .on("fileuploaddone", function(e, data) {
+        _self.done(e, data);
       });
   }
 };

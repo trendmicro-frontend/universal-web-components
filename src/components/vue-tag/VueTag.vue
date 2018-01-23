@@ -99,9 +99,6 @@ export default {
       }
       $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
     }
-  },
-  mounted:function(){
-    debugger;
   }
 };
 </script>

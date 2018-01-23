@@ -19,6 +19,7 @@ import TmVueModal from './vue-modal'
 
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
+import './vue-clipboard'
 
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
