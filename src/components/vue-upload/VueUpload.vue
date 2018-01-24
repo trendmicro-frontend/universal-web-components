@@ -2,7 +2,7 @@
     <div ref="upload">
         <div v-if="single" class="control-wrapper" style="padding-left:0px">
             <input :id="id" type="file" name="file" data-file-upload="singleFile">
-            <label :for="id" class="btn btn-default">Select Files...</label>
+            <label :for="id" class="btn btn-default">{{title}}</label>
             <div v-show="showInfo" class="file-info-container">
                 <span>{{fileName}}</span>
                 <span class="file-size">{{fileSize}}</span>
@@ -22,6 +22,10 @@ import "blueimp-file-upload";
 export default {
   name: "TmVueUpload",
   props: {
+    title: {
+      type: String,
+      default: "Select Files..."
+    },
     id: {
       type: String,
       default: ""

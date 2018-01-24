@@ -3500,9 +3500,13 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
 }));
 });
 
-var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class=\"control-wrapper\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <label :for=\"id\" class=\"btn btn-default\">Select Files...</label> <div v-show=\"showInfo\" class=\"file-info-container\"> <span>{{fileName}}</span> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
+var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class=\"control-wrapper\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <label :for=\"id\" class=\"btn btn-default\">{{title}}</label> <div v-show=\"showInfo\" class=\"file-info-container\"> <span>{{fileName}}</span> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
   name: "TmVueUpload",
   props: {
+    title: {
+      type: String,
+      default: "Select Files..."
+    },
     id: {
       type: String,
       default: ""
