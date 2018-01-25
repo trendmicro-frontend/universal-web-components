@@ -3538,7 +3538,11 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
     done: {
       type: Function,
       default: () => {}
-    }
+    },
+    reset: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data() {
@@ -3551,6 +3555,9 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
     };
   },
   watch: {
+    reset(){
+      this.cancel();
+    },
     status() {
       $$1(`#${this.id}`).fileupload();
     }
@@ -3569,14 +3576,15 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel() {
+      debugger;
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
+      this.files = null;
     }
   },
   mounted() {
     var _self = this;
-    var ERROR_FILE_TYPE = -1;
     var ERROR_FILE_SIZE = -2;
     $$1(`#${this.id}`)
       .fileupload(this.options)
@@ -3587,14 +3595,14 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
         _self.showInfo = true;
         var uploadErrors = [];
         var acceptFileTypes = _self.options.acceptFileTypes;
-        if (acceptFileTypes) {
-          if (
-            data.originalFiles[0]["type"].length &&
-            !acceptFileTypes.test(data.originalFiles[0]["type"])
-          ) {
-            uploadErrors.push(ERROR_FILE_TYPE);
-          }
-        }
+        // if (acceptFileTypes) {
+        //   if (
+        //     data.originalFiles[0]["type"].length &&
+        //     !acceptFileTypes.test(data.originalFiles[0]["type"])
+        //   ) {
+        //     uploadErrors.push(ERROR_FILE_TYPE);
+        //   }
+        // }
         if (
           data.originalFiles[0]["size"] &&
           data.originalFiles[0]["size"] > _self.options.maxFileSize
@@ -3609,6 +3617,8 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
         }
       })
       .on("fileuploaddone", function(e, data) {
+        debugger;
+        _self.cancel();
         _self.done(e, data);
       });
   }

@@ -57,7 +57,11 @@ export default {
     done: {
       type: Function,
       default: () => {}
-    }
+    },
+    reset: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data() {
@@ -70,6 +74,9 @@ export default {
     };
   },
   watch: {
+    reset(){
+      this.cancel();
+    },
     status() {
       $(`#${this.id}`).fileupload();
     }
@@ -91,6 +98,7 @@ export default {
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
+      this.files = null;
     }
   },
   mounted() {
@@ -106,14 +114,14 @@ export default {
         _self.showInfo = true;
         var uploadErrors = [];
         var acceptFileTypes = _self.options.acceptFileTypes;
-        if (acceptFileTypes) {
-          if (
-            data.originalFiles[0]["type"].length &&
-            !acceptFileTypes.test(data.originalFiles[0]["type"])
-          ) {
-            uploadErrors.push(ERROR_FILE_TYPE);
-          }
-        }
+        // if (acceptFileTypes) {
+        //   if (
+        //     data.originalFiles[0]["type"].length &&
+        //     !acceptFileTypes.test(data.originalFiles[0]["type"])
+        //   ) {
+        //     uploadErrors.push(ERROR_FILE_TYPE);
+        //   }
+        // }
         if (
           data.originalFiles[0]["size"] &&
           data.originalFiles[0]["size"] > _self.options.maxFileSize
@@ -128,6 +136,8 @@ export default {
         }
       })
       .on("fileuploaddone", function(e, data) {
+        debugger;
+        _self.cancel();
         _self.done(e, data);
       });
   }
