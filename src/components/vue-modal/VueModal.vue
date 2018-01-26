@@ -4,8 +4,8 @@
         <div class="modal-dialog" :class="modalClasses" role="document">
             <div class="modal-content">
                 <div v-if="needHeader" class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="icon icon-modal-close" @click="close">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
+                    <span aria-hidden="true" class="icon icon-modal-close">
                     </span>
                   </button>
                   <h3 class="modal-title">
@@ -107,6 +107,7 @@ export default {
       });
     },
     close() {
+      debugger;
       this.isOpen = false;
       this.$nextTick(function() {
         setTimeout(() => {

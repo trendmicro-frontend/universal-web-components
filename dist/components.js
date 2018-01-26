@@ -1337,7 +1337,7 @@ TmVueLabel$1.install = function (V, options) {
 };
 
 const prefixCls$9 = "modal";
-var TmVueModal$1 = { template: "<div> <div ref=\"modal\" :class=\"classes\" @keyup.esc=\"close()\" tabindex=\"-1\" aria-hidden=\"true\"> <div class=\"modal-dialog\" :class=\"modalClasses\" role=\"document\"> <div class=\"modal-content\"> <div v-if=\"needHeader\" class=\"modal-header\"> <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"> <span aria-hidden=\"true\" class=\"icon icon-modal-close\" @click=\"close\"> </span> </button> <h3 class=\"modal-title\"> <slot name=\"title\"> {{title}} </slot> </h3> </div> <div class=\"modal-body\"> <slot></slot> </div> <div v-if=\"needFooter\" class=\"modal-footer\"> <slot name=\"footer\"> <button type=\"button\" class=\"btn btn-primary\" @click=\"ok\">{{okText}}</button> <button type=\"button\" class=\"btn btn-default\" @click=\"cancel\">{{cancelText}}</button> </slot> </div> </div> </div> </div> <div v-if=\"isShow\" class=\"modal-backdrop fade in\"></div> </div>",
+var TmVueModal$1 = { template: "<div> <div ref=\"modal\" :class=\"classes\" @keyup.esc=\"close()\" tabindex=\"-1\" aria-hidden=\"true\"> <div class=\"modal-dialog\" :class=\"modalClasses\" role=\"document\"> <div class=\"modal-content\"> <div v-if=\"needHeader\" class=\"modal-header\"> <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\" @click=\"close\"> <span aria-hidden=\"true\" class=\"icon icon-modal-close\"> </span> </button> <h3 class=\"modal-title\"> <slot name=\"title\"> {{title}} </slot> </h3> </div> <div class=\"modal-body\"> <slot></slot> </div> <div v-if=\"needFooter\" class=\"modal-footer\"> <slot name=\"footer\"> <button type=\"button\" class=\"btn btn-primary\" @click=\"ok\">{{okText}}</button> <button type=\"button\" class=\"btn btn-default\" @click=\"cancel\">{{cancelText}}</button> </slot> </div> </div> </div> </div> <div v-if=\"isShow\" class=\"modal-backdrop fade in\"></div> </div>",
   name: "TmVueModal",
   props: {
     opened: {
@@ -1412,6 +1412,7 @@ var TmVueModal$1 = { template: "<div> <div ref=\"modal\" :class=\"classes\" @key
       });
     },
     close() {
+      debugger;
       this.isOpen = false;
       this.$nextTick(function() {
         setTimeout(() => {
@@ -3576,7 +3577,6 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel() {
-      debugger;
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
@@ -3617,7 +3617,6 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
         }
       })
       .on("fileuploaddone", function(e, data) {
-        debugger;
         _self.cancel();
         _self.done(e, data);
       });

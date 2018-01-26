@@ -136,7 +136,6 @@ export default {
         }
       })
       .on("fileuploaddone", function(e, data) {
-        debugger;
         _self.cancel();
         _self.done(e, data);
       });
