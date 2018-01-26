@@ -107,7 +107,6 @@ export default {
       });
     },
     close() {
-      debugger;
       this.isOpen = false;
       this.$nextTick(function() {
         setTimeout(() => {

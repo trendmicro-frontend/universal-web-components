@@ -1412,7 +1412,6 @@ var TmVueModal$1 = { template: "<div> <div ref=\"modal\" :class=\"classes\" @key
       });
     },
     close() {
-      debugger;
       this.isOpen = false;
       this.$nextTick(function() {
         setTimeout(() => {
