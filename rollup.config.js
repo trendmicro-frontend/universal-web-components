@@ -10,7 +10,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import multiEntry from 'rollup-plugin-multi-entry'
 import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
-
+import replace from 'rollup-plugin-replace'
 import commonjs from 'rollup-plugin-commonjs'
 
 const production = process.env.NODE_ENV === 'production';
@@ -21,6 +21,9 @@ const plugins = [
         jsnext: false,
         main: true,
         browser: true
+    }),
+    replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     vue({
         autoStyles: true,
