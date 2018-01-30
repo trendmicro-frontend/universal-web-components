@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 import TmVueActionButton from './vue-button-action'
 import TMVueRadio from './vue-radio'
 import { TmVueRadioEx, TmVueRadioGroup } from './vue-radio-ex'
@@ -20,7 +21,10 @@ import TmVueModal from './vue-modal'
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
 import './vue-clipboard'
+import './i18n.js'
 
+import TmVueLicenseInactive from './vue-license-inactive'
+Vue.use(VueI18n)
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
 Vue.use(TmVueRadioEx)
@@ -38,3 +42,4 @@ Vue.use(TmVueLabel)
 Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
+Vue.use(TmVueLicenseInactive)

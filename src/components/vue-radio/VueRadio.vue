@@ -34,8 +34,8 @@
                 return this.isDisabled && (this.checked != this.value);//only add disabled class for the unchecked radio to stop hover color change.
             }
         },
-        methods: {
-            handleChange() {
+        methods:{
+            handleChange:function() {
                 this.$nextTick(function(){
                     this.$emit('change', this.checked);
                 });
