@@ -12,6 +12,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-lodash": "^3.3.2",
     "blueimp-file-upload": "^9.19.2",
     "bootstrap": "^3.3.7",

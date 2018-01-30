@@ -36,7 +36,7 @@ const plugins = [
     }),
     stylus(),
     scss(),
-    // babel(),
+    babel(),
     !production && livereload(),
     !production && serve('dist')
     // production && uglify()

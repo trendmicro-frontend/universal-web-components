@@ -8,7 +8,7 @@
     ],
     "vue"
   ],
-  "ignore": [
-    "node_modules/**"
+  "plugins": [
+    "external-helpers"
   ]
 }
