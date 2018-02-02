@@ -1,0 +1,1 @@
+window.locale = "en";

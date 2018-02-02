@@ -21,6 +21,7 @@ import TmVueModal from './vue-modal'
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
 import './vue-clipboard'
+import './locale.js'
 import './i18n.js'
 
 import TmVueLicenseInactive from './vue-license-inactive'

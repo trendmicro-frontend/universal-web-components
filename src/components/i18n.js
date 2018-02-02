@@ -1,5 +1,5 @@
 window.i18n = {
-  locale: 'en',
+  locale: locale,
 	messages: {
 	  en: {
 	    license_in_active: {
