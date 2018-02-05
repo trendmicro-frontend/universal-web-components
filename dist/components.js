@@ -2,11 +2,11 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('vue'), require('lodash'), require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['vue', 'lodash', 'jquery'], factory) :
 	(factory(global.Vue,global._,global.jQuery));
-}(this, (function (Vue,_,$$1) { 'use strict';
+}(this, (function (Vue,_,require$$0) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
-$$1 = $$1 && $$1.hasOwnProperty('default') ? $$1['default'] : $$1;
+require$$0 = require$$0 && require$$0.hasOwnProperty('default') ? require$$0['default'] : require$$0;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -2906,7 +2906,7 @@ var jquery_ui_widget = createCommonjsModule(function (module, exports) {
 		} else {
 
 			// Node/CommonJS
-			factory($$1);
+			factory(require$$0);
 		}
 	})(function ($) {
 		/*!
@@ -3454,7 +3454,7 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
             undefined(['jquery', 'jquery-ui/ui/widget'], factory);
         } else {
             // Node/CommonJS:
-            factory($$1, jquery_ui_widget);
+            factory(require$$0, jquery_ui_widget);
         }
     })(function ($) {
         $.support.fileInput = !(new RegExp(
@@ -4754,6 +4754,262 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
     });
 });
 
+var jquery_fileuploadProcess = createCommonjsModule(function (module, exports) {
+    /*
+     * jQuery File Upload Processing Plugin
+     * https://github.com/blueimp/jQuery-File-Upload
+     *
+     * Copyright 2012, Sebastian Tschan
+     * https://blueimp.net
+     *
+     * Licensed under the MIT license:
+     * https://opensource.org/licenses/MIT
+     */
+
+    /* jshint nomen:false */
+    /* global define, require, window */
+
+    (function (factory) {
+        if (typeof undefined === 'function' && undefined.amd) {
+            // Register as an anonymous AMD module:
+            undefined(['jquery', './jquery.fileupload'], factory);
+        } else {
+            // Node/CommonJS:
+            factory(require$$0, jquery_fileupload);
+        }
+    })(function ($) {
+        var originalAdd = $.blueimp.fileupload.prototype.options.add;
+
+        // The File Upload Processing plugin extends the fileupload widget
+        // with file processing functionality:
+        $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+
+            options: {
+                // The list of processing actions:
+                processQueue: [
+                    /*
+                    {
+                        action: 'log',
+                        type: 'debug'
+                    }
+                    */
+                ],
+                add: function add(e, data) {
+                    var $this = $(this);
+                    data.process(function () {
+                        return $this.fileupload('process', data);
+                    });
+                    originalAdd.call(this, e, data);
+                }
+            },
+
+            processActions: {
+                /*
+                log: function (data, options) {
+                    console[options.type](
+                        'Processing "' + data.files[data.index].name + '"'
+                    );
+                }
+                */
+            },
+
+            _processFile: function _processFile(data, originalData) {
+                var that = this,
+                    dfd = $.Deferred().resolveWith(that, [data]),
+                    chain = dfd.promise();
+                this._trigger('process', null, data);
+                $.each(data.processQueue, function (i, settings) {
+                    var func = function func(data) {
+                        if (originalData.errorThrown) {
+                            return $.Deferred().rejectWith(that, [originalData]).promise();
+                        }
+                        return that.processActions[settings.action].call(that, data, settings);
+                    };
+                    chain = chain.then(func, settings.always && func);
+                });
+                chain.done(function () {
+                    that._trigger('processdone', null, data);
+                    that._trigger('processalways', null, data);
+                }).fail(function () {
+                    that._trigger('processfail', null, data);
+                    that._trigger('processalways', null, data);
+                });
+                return chain;
+            },
+
+            // Replaces the settings of each processQueue item that
+            // are strings starting with an "@", using the remaining
+            // substring as key for the option map,
+            // e.g. "@autoUpload" is replaced with options.autoUpload:
+            _transformProcessQueue: function _transformProcessQueue(options) {
+                var processQueue = [];
+                $.each(options.processQueue, function () {
+                    var settings = {},
+                        action = this.action,
+                        prefix = this.prefix === true ? action : this.prefix;
+                    $.each(this, function (key, value) {
+                        if ($.type(value) === 'string' && value.charAt(0) === '@') {
+                            settings[key] = options[value.slice(1) || (prefix ? prefix + key.charAt(0).toUpperCase() + key.slice(1) : key)];
+                        } else {
+                            settings[key] = value;
+                        }
+                    });
+                    processQueue.push(settings);
+                });
+                options.processQueue = processQueue;
+            },
+
+            // Returns the number of files currently in the processsing queue:
+            processing: function processing() {
+                return this._processing;
+            },
+
+            // Processes the files given as files property of the data parameter,
+            // returns a Promise object that allows to bind callbacks:
+            process: function process(data) {
+                var that = this,
+                    options = $.extend({}, this.options, data);
+                if (options.processQueue && options.processQueue.length) {
+                    this._transformProcessQueue(options);
+                    if (this._processing === 0) {
+                        this._trigger('processstart');
+                    }
+                    $.each(data.files, function (index) {
+                        var opts = index ? $.extend({}, options) : options,
+                            func = function func() {
+                            if (data.errorThrown) {
+                                return $.Deferred().rejectWith(that, [data]).promise();
+                            }
+                            return that._processFile(opts, data);
+                        };
+                        opts.index = index;
+                        that._processing += 1;
+                        that._processingQueue = that._processingQueue.then(func, func).always(function () {
+                            that._processing -= 1;
+                            if (that._processing === 0) {
+                                that._trigger('processstop');
+                            }
+                        });
+                    });
+                }
+                return this._processingQueue;
+            },
+
+            _create: function _create() {
+                this._super();
+                this._processing = 0;
+                this._processingQueue = $.Deferred().resolveWith(this).promise();
+            }
+
+        });
+    });
+});
+
+var jquery_fileuploadValidate = createCommonjsModule(function (module, exports) {
+    /*
+     * jQuery File Upload Validation Plugin
+     * https://github.com/blueimp/jQuery-File-Upload
+     *
+     * Copyright 2013, Sebastian Tschan
+     * https://blueimp.net
+     *
+     * Licensed under the MIT license:
+     * https://opensource.org/licenses/MIT
+     */
+
+    /* global define, require, window */
+
+    (function (factory) {
+        if (typeof undefined === 'function' && undefined.amd) {
+            // Register as an anonymous AMD module:
+            undefined(['jquery', './jquery.fileupload-process'], factory);
+        } else {
+            // Node/CommonJS:
+            factory(require$$0, jquery_fileuploadProcess);
+        }
+    })(function ($) {
+        $.blueimp.fileupload.prototype.options.processQueue.push({
+            action: 'validate',
+            // Always trigger this action,
+            // even if the previous action was rejected:
+            always: true,
+            // Options taken from the global options map:
+            acceptFileTypes: '@',
+            maxFileSize: '@',
+            minFileSize: '@',
+            maxNumberOfFiles: '@',
+            disabled: '@disableValidation'
+        });
+
+        // The File Upload Validation plugin extends the fileupload widget
+        // with file validation functionality:
+        $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+
+            options: {
+                /*
+                // The regular expression for allowed file types, matches
+                // against either file type or file name:
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                // The maximum allowed file size in bytes:
+                maxFileSize: 10000000, // 10 MB
+                // The minimum allowed file size in bytes:
+                minFileSize: undefined, // No minimal file size
+                // The limit of files to be uploaded:
+                maxNumberOfFiles: 10,
+                */
+
+                // Function returning the current number of files,
+                // has to be overriden for maxNumberOfFiles validation:
+                getNumberOfFiles: $.noop,
+
+                // Error and info messages:
+                messages: {
+                    maxNumberOfFiles: 'Maximum number of files exceeded',
+                    acceptFileTypes: 'File type not allowed',
+                    maxFileSize: 'File is too large',
+                    minFileSize: 'File is too small'
+                }
+            },
+
+            processActions: {
+
+                validate: function validate(data, options) {
+                    if (options.disabled) {
+                        return data;
+                    }
+                    var dfd = $.Deferred(),
+                        settings = this.options,
+                        file = data.files[data.index],
+                        fileSize;
+                    if (options.minFileSize || options.maxFileSize) {
+                        fileSize = file.size;
+                    }
+                    if ($.type(options.maxNumberOfFiles) === 'number' && (settings.getNumberOfFiles() || 0) + data.files.length > options.maxNumberOfFiles) {
+                        file.error = settings.i18n('maxNumberOfFiles');
+                    } else if (options.acceptFileTypes && !(options.acceptFileTypes.test(file.type) || options.acceptFileTypes.test(file.name))) {
+                        file.error = settings.i18n('acceptFileTypes');
+                    } else if (fileSize > options.maxFileSize) {
+                        file.error = settings.i18n('maxFileSize');
+                    } else if ($.type(fileSize) === 'number' && fileSize < options.minFileSize) {
+                        file.error = settings.i18n('minFileSize');
+                    } else {
+                        delete file.error;
+                    }
+                    if (file.error || data.files.error) {
+                        data.files.error = true;
+                        dfd.rejectWith(this, [data]);
+                    } else {
+                        dfd.resolveWith(this, [data]);
+                    }
+                    return dfd.promise();
+                }
+
+            }
+
+        });
+    });
+});
+
 var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class=\"control-wrapper\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <label :for=\"id\" class=\"btn btn-default\">{{title}}</label> <div v-show=\"showInfo\" class=\"file-info-container\"> <span>{{fileName}}</span> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
   name: "TmVueUpload",
   props: {
@@ -4781,7 +5037,11 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
           singleFileUploads: true,
           paramName: "file",
           sequentialUploads: true,
-          formData: {}
+          formData: {},
+          processstart: function processstart(e, data) {},
+          processstop: function processstop(e, data) {},
+          processfail: function processfail(e, data) {},
+          processdone: function processdone(e, data) {}
         };
       }
     },
@@ -4804,17 +5064,13 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       fileName: null,
       fileSize: null,
       showInfo: false,
-      files: null,
-      status: "NONE"
+      files: null
     };
   },
 
   watch: {
     reset: function reset() {
       this.cancel();
-    },
-    status: function status() {
-      $$1("#" + this.id).fileupload();
     }
   },
   methods: {
@@ -4838,32 +5094,27 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
     }
   },
   mounted: function mounted() {
+    var messagesMap = {
+      "Maximum number of files exceeded": "MAXNUMBEROFFILES",
+      "File type not allowed": "ACCEPTFILETYPES",
+      "File is too large": "MAXFILESIZE",
+      "File is too small": "MINFILESIZE"
+    };
     var _self = this;
-    var ERROR_FILE_SIZE = -2;
-    $$1("#" + this.id).fileupload(this.options).on("fileuploadadd", function (e, data) {
+    this.options = this.options || {};
+
+    var originalProcessFail = this.options.processfail || function () {};
+    this.options.processfail = function (e, data) {
+      data.files.forEach(function (file) {
+        file.errorType = messagesMap[file.error];
+      });
+      originalProcessFail(e, data);
+    };
+    require$$0("#" + this.id).fileupload(this.options).on("fileuploadadd", function (e, data) {
       _self.files = data.files;
       _self.fileName = data.files[0].name;
       _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
       _self.showInfo = true;
-      var uploadErrors = [];
-      var acceptFileTypes = _self.options.acceptFileTypes;
-      // if (acceptFileTypes) {
-      //   if (
-      //     data.originalFiles[0]["type"].length &&
-      //     !acceptFileTypes.test(data.originalFiles[0]["type"])
-      //   ) {
-      //     uploadErrors.push(ERROR_FILE_TYPE);
-      //   }
-      // }
-      if (data.originalFiles[0]["size"] && data.originalFiles[0]["size"] > _self.options.maxFileSize) {
-        uploadErrors.push(ERROR_FILE_SIZE);
-      }
-      if (uploadErrors.length > 0) {
-        _self.add(uploadErrors);
-        return false;
-      } else {
-        return true;
-      }
     }).on("fileuploaddone", function (e, data) {
       _self.cancel();
       _self.done(e, data);
