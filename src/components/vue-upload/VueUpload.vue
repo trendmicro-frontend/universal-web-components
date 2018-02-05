@@ -18,6 +18,9 @@
 <script>
 import $ from "jquery";
 import "blueimp-file-upload";
+import "blueimp-file-upload/js/jquery.fileupload-validate";
+import "blueimp-file-upload/js/jquery.fileupload-process";
+import "blueimp-file-upload/js/vendor/jquery.ui.widget";
 
 export default {
   name: "TmVueUpload",
@@ -46,7 +49,11 @@ export default {
           singleFileUploads: true,
           paramName: "file",
           sequentialUploads: true,
-          formData: {}
+          formData: {},
+          processstart: function(e, data) {},
+          processstop: function(e, data) {},
+          processfail: function(e, data) {},
+          processdone: function(e, data) {}
         };
       }
     },
@@ -61,7 +68,7 @@ export default {
     reset: {
       type: Boolean,
       default: false
-    },
+    }
   },
 
   data() {
@@ -69,16 +76,12 @@ export default {
       fileName: null,
       fileSize: null,
       showInfo: false,
-      files: null,
-      status: "NONE"
+      files: null
     };
   },
   watch: {
-    reset(){
+    reset() {
       this.cancel();
-    },
-    status() {
-      $(`#${this.id}`).fileupload();
     }
   },
   methods: {
@@ -102,9 +105,25 @@ export default {
     }
   },
   mounted() {
+    var messagesMap = {
+      "Maximum number of files exceeded": "MAXNUMBEROFFILES",
+      "File type not allowed": "ACCEPTFILETYPES",
+      "File is too large": "MAXFILESIZE",
+      "File is too small": "MINFILESIZE"
+    };
     var _self = this;
     var ERROR_FILE_TYPE = -1;
     var ERROR_FILE_SIZE = -2;
+    this.options = this.options || {};
+
+    var originalProcessFail = this.options.processfail || function(){};
+    this.options.processfail = function(e, data)
+    {
+      data.files.forEach(file => {
+        file.errorType = messagesMap[file.error];
+      });
+      originalProcessFail(e,data);
+    };
     $(`#${this.id}`)
       .fileupload(this.options)
       .on("fileuploadadd", function(e, data) {
@@ -112,28 +131,6 @@ export default {
         _self.fileName = data.files[0].name;
         _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
         _self.showInfo = true;
-        var uploadErrors = [];
-        var acceptFileTypes = _self.options.acceptFileTypes;
-        // if (acceptFileTypes) {
-        //   if (
-        //     data.originalFiles[0]["type"].length &&
-        //     !acceptFileTypes.test(data.originalFiles[0]["type"])
-        //   ) {
-        //     uploadErrors.push(ERROR_FILE_TYPE);
-        //   }
-        // }
-        if (
-          data.originalFiles[0]["size"] &&
-          data.originalFiles[0]["size"] > _self.options.maxFileSize
-        ) {
-          uploadErrors.push(ERROR_FILE_SIZE);
-        }
-        if (uploadErrors.length > 0) {
-          _self.add(uploadErrors);
-          return false;
-        } else {
-          return true;
-        }
       })
       .on("fileuploaddone", function(e, data) {
         _self.cancel();
