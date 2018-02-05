@@ -78,7 +78,7 @@
                   return true;
                 }
             }).filter(function(item){
-                if(item.name.toLowerCase().startsWith(_this.text_value.toLowerCase()) === false)
+                if(_.startsWith(item.name.toLowerCase(),_this.text_value.toLowerCase()) === false)
                   return false;
                 else 
                   return true;

@@ -2330,7 +2330,7 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
           return true;
         }
       }).filter(function (item) {
-        if (item.name.toLowerCase().startsWith(_this.text_value.toLowerCase()) === false) return false;else return true;
+        if (_.startsWith(item.name.toLowerCase(), _this.text_value.toLowerCase()) === false) return false;else return true;
       }).sort(function (a, b) {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
