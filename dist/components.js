@@ -5683,7 +5683,7 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
     init: function init() {
       var _self = this;
       $(this.$el).tagEditor({
-        initialTags: _.isString(this.initialTags) ? this.initialTags.split(this.delimiter) : this.initialTags,
+        initialTags: _.isEmpty(this.initialTags) ? this.initialTags.split(this.delimiter) : this.initialTags,
         delimiter: this.delimiter /* space and comma */
         , placeholder: this.placeholder,
         animateDelete: 0,
