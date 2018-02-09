@@ -69,8 +69,8 @@ export default {
       var _self = this;
       $(this.$el).tagEditor({
         initialTags: _.isEmpty(this.initialTags)
-          ? this.initialTags.split(this.delimiter)
-          : this.initialTags,
+          ? []
+          : this.initialTags.split(this.delimiter),
         delimiter: this.delimiter /* space and comma */,
         placeholder: this.placeholder,
         animateDelete: 0,
