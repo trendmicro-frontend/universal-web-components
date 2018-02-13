@@ -17,6 +17,7 @@ import TmVueInput from './vue-input'
 import TmVueBadge from './vue-badge'
 import TmVueLabel from './vue-label'
 import TmVueModal from './vue-modal'
+import TmVueAutosizeTextarea from './vue-autosize-textarea'
 
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
@@ -44,3 +45,4 @@ Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
 Vue.use(TmVueLicenseInactive)
+Vue.use(TmVueAutosizeTextarea)
