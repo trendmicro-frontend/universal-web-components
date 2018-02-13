@@ -41,6 +41,10 @@ export default {
       type: String,
       default: "Enter tags ..."
     },
+    forceLowercase: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -73,6 +77,7 @@ export default {
           : this.initialTags.split(this.delimiter),
         delimiter: this.delimiter /* space and comma */,
         placeholder: this.placeholder,
+        forceLowercase: this.forceLowercase,
         animateDelete: 0,
         sortable: false,
         beforeTagSave: function(field, editor, tags, val) {

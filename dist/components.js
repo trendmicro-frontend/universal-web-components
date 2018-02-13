@@ -5960,6 +5960,10 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
       type: String,
       default: "Enter tags ..."
     },
+    forceLowercase: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -5990,6 +5994,7 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
         initialTags: _.isEmpty(this.initialTags) ? [] : this.initialTags.split(this.delimiter),
         delimiter: this.delimiter /* space and comma */
         , placeholder: this.placeholder,
+        forceLowercase: this.forceLowercase,
         animateDelete: 0,
         sortable: false,
         beforeTagSave: function beforeTagSave(field, editor, tags, val) {
