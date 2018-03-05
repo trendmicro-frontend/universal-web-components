@@ -2098,6 +2098,7 @@ var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" styl
 
     $(".form-control-clear").click(function () {
       self.textVal = "";
+      self.updated();
       $(this).siblings('input[type="text"]').val("").trigger("propertychange").focus();
     });
   }
@@ -5964,6 +5965,10 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
       type: Boolean,
       default: false
     },
+    removeDuplicates: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -5995,6 +6000,7 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
         delimiter: this.delimiter /* space and comma */
         , placeholder: this.placeholder,
         forceLowercase: this.forceLowercase,
+        removeDuplicates: this.removeDuplicates,
         animateDelete: 0,
         sortable: false,
         beforeTagSave: function beforeTagSave(field, editor, tags, val) {

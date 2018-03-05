@@ -45,6 +45,10 @@ export default {
       type: Boolean,
       default: false
     },
+    removeDuplicates:{
+      type: Boolean,
+      default:false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -78,6 +82,7 @@ export default {
         delimiter: this.delimiter /* space and comma */,
         placeholder: this.placeholder,
         forceLowercase: this.forceLowercase,
+        removeDuplicates: this.removeDuplicates,
         animateDelete: 0,
         sortable: false,
         beforeTagSave: function(field, editor, tags, val) {

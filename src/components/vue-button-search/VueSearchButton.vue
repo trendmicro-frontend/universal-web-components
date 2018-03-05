@@ -51,6 +51,7 @@ export default {
 
     $(".form-control-clear").click(function() {
       self.textVal = "";
+      self.updated();
       $(this)
         .siblings('input[type="text"]')
         .val("")
