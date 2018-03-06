@@ -6005,11 +6005,11 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
         sortable: false,
         beforeTagSave: function beforeTagSave(field, editor, tags, val) {
           editor.find(".tag-editor-tag").scrollLeft(0);
-          $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
         },
         onChange: function onChange(field, editor, tags) {
           _self.value = tags.join(_self.delimiter);
           _self.$emit("input", _self.value);
+          $(".tag-editor-delete").html("<span class='icon icon-cancel'></span>");
         }
       });
       // tag editor patch
