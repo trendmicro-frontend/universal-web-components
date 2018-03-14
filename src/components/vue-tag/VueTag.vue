@@ -11,7 +11,7 @@ const prefixCls = "tag";
 function MaskIt(obj) {
   var hoverdiv =
     '<div class="divMask" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; background: #fff; opacity: 0; filter: alpha(opacity=0);z-index:5;cursor:not-allowed;"></div>';
-  $(obj).wrap('<div class="position:relative;"></div>');
+  $(obj).wrap('<div style="position:relative;"></div>');
   $(obj).before(hoverdiv);
   $(obj).data("mask", true);
 }
