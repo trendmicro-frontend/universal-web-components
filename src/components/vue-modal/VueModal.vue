@@ -4,10 +4,12 @@
         <div class="modal-dialog" :class="modalClasses" role="document">
             <div class="modal-content">
                 <div v-if="needHeader" class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
-                    <span aria-hidden="true" class="icon icon-modal-close">
-                    </span>
-                  </button>
+                  <slot name="header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
+                      <span aria-hidden="true" class="icon icon-modal-close">
+                      </span>
+                    </button>
+                  </slot>
                   <h3 class="modal-title">
                       <slot name="title">
                           {{title}}
