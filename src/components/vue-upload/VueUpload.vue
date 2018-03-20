@@ -37,6 +37,10 @@ export default {
       type: Boolean,
       default: true
     },
+    hide: {
+      type:Boolean,
+      default: true
+    },
     options: {
       type: Object,
       default() {
@@ -133,7 +137,9 @@ export default {
         _self.showInfo = true;
       })
       .on("fileuploaddone", function(e, data) {
-        _self.cancel();
+        if(_self.hide){
+          _self.cancel();
+        }
         _self.done(e, data);
       });
   }

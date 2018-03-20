@@ -5330,6 +5330,10 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       type: Boolean,
       default: true
     },
+    hide: {
+      type: Boolean,
+      default: true
+    },
     options: {
       type: Object,
       default: function _default() {
@@ -5421,7 +5425,9 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
       _self.showInfo = true;
     }).on("fileuploaddone", function (e, data) {
-      _self.cancel();
+      if (_self.hide) {
+        _self.cancel();
+      }
       _self.done(e, data);
     });
   }
