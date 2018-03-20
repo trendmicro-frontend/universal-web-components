@@ -5015,12 +5015,19 @@
 .uwc .tokenize.disabled .tag-editor:after {
   cursor: not-allowed;
 }
+.uwc .tag-editor {
+  padding-bottom: 4px;
+  padding-top: 1px;
+}
 .uwc .tag-editor .tag-editor-spacer {
   padding: 0;
   width: 8px;
   overflow: hidden;
   color: transparent;
   background: none;
+}
+.uwc .tag-editor .TokenSearch {
+  padding: 2px 0;
 }
 .uwc .tag-editor.disabled {
   cursor: not-allowed;
