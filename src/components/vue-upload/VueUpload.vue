@@ -1,6 +1,6 @@
 <template>
     <div ref="upload">
-        <div v-if="single" class="control-wrapper" style="padding-left:0px">
+        <div v-if="single" style="padding-left:0px">
             <input :id="id" type="file" name="file" data-file-upload="singleFile">
             <div class="upload-container">
               <div class="left">
