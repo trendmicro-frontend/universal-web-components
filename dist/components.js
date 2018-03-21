@@ -5365,6 +5365,10 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
     reset: {
       type: Boolean,
       default: false
+    },
+    canceled: {
+      type: Function,
+      default: function _default() {}
     }
   },
 
@@ -5379,7 +5383,10 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
 
   watch: {
     reset: function reset() {
-      this.cancel();
+      this.showInfo = false;
+      this.fileName = "";
+      this.fileSize = "";
+      this.files = null;
     }
   },
   methods: {
@@ -5396,10 +5403,8 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" class
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel: function cancel() {
-      this.showInfo = false;
-      this.fileName = "";
-      this.fileSize = "";
-      this.files = null;
+      this.reset = !this.reset;
+      this.canceled();
     }
   },
   mounted: function mounted() {

@@ -78,6 +78,10 @@ export default {
     reset: {
       type: Boolean,
       default: false
+    },
+    canceled: {
+      type: Function,
+      default:()=>{}
     }
   },
 
@@ -91,7 +95,10 @@ export default {
   },
   watch: {
     reset() {
-      this.cancel();
+      this.showInfo = false;
+      this.fileName = "";
+      this.fileSize = "";
+      this.files = null;
     }
   },
   methods: {
@@ -108,10 +115,8 @@ export default {
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel() {
-      this.showInfo = false;
-      this.fileName = "";
-      this.fileSize = "";
-      this.files = null;
+      this.reset = !this.reset;
+      this.canceled();
     }
   },
   mounted() {
