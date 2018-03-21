@@ -5044,6 +5044,32 @@
 .uwc .tag-editor.disabled input {
   cursor: not-allowed;
 }
+.uwc .upload-container {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  display: inline-block;
+}
+.uwc .left {
+  width: 90px;
+  float: left;
+}
+.uwc .right {
+  width: 100px;
+  float: right;
+}
+.uwc .autowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.uwc .center {
+  overflow: auto;
+  max-width: 100%;
+  float: none;
+}
 .uwc .license {
   margin: 10px 0;
 }
