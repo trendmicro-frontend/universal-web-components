@@ -5383,6 +5383,7 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style
 
   watch: {
     reset: function reset() {
+      console.log("reset called");
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
@@ -5403,7 +5404,11 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel: function cancel() {
-      this.reset = !this.reset;
+      this.showInfo = false;
+      this.fileName = "";
+      this.fileSize = "";
+      this.files = null;
+
       this.canceled();
     }
   },

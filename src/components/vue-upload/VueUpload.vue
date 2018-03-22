@@ -95,6 +95,7 @@ export default {
   },
   watch: {
     reset() {
+      console.log("reset called");
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
@@ -115,7 +116,11 @@ export default {
       return (bytes / 1000).toFixed(2) + " KB";
     },
     cancel() {
-      this.reset = !this.reset;
+      this.showInfo = false;
+      this.fileName = "";
+      this.fileSize = "";
+      this.files = null;
+
       this.canceled();
     }
   },
