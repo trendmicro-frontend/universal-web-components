@@ -5070,6 +5070,9 @@
   max-width: 100%;
   float: none;
 }
+.uwc .modal-dialog {
+  overflow: hidden;
+}
 .uwc .license {
   margin: 10px 0;
 }
