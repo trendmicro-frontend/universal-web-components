@@ -3188,6 +3188,14 @@ var TmVueAutosizeTextarea$1 = { template: "<textarea>{{value}}</textarea>",
       default: ""
     }
   },
+  watch: {
+    value: function value() {
+      autosize.update(this.$el);
+    }
+  },
+  updated: function updated() {
+    autosize.update(this.$el);
+  },
   mounted: function mounted() {
     autosize(this.$el);
   }

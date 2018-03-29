@@ -13,6 +13,14 @@ export default {
       default: ""
     }
   },
+  watch:{
+    value:function(){
+      autosize.update(this.$el);
+    }
+  },
+  updated() {
+    autosize.update(this.$el);
+  },
   mounted() {
     autosize(this.$el);
   }
