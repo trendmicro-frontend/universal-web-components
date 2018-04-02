@@ -5254,10 +5254,6 @@
   width: 81px;
   float: left;
 }
-.uwc .right {
-  width: 100px;
-  float: right;
-}
 .uwc .autowrap {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -6,7 +6,7 @@
               <div class="left">
                 <label :for="id" class="btn btn-default">{{title}}</label>
               </div>
-              <div v-show="showInfo" class="file-info-container right">
+              <div v-show="showInfo" class="file-info-container">
                 <span class="file-size">{{fileSize}}</span>
                 <span class="icon icon-cancel" @click="cancel"></span>
               </div>
