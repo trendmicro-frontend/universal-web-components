@@ -2009,7 +2009,7 @@ TmVueCheckallCheckbox$1.install = function (V, options) {
     V.component(TmVueCheckallCheckbox$1.name, TmVueCheckallCheckbox$1);
 };
 
-var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button\" :title=\"selectedText\" class=\"form-control same-width btn btn-border dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" :disabled=\"isDisabled\" :class=\"widthClass\"> <span class=\"caret\"></span>{{selectedText}}</button> <ul class=\"dropdown-menu same-width\"> <template v-for=\"item in list\"> <li @click=\"handleChange(item.value)\"><a href=\"javascript:void(0)\">{{item.display}}</a></li> </template> </ul> </div>",
+var TmVueDropdown = { template: "<div class=\"btn-group\" :style=\"widthStyle\"> <button type=\"button\" :title=\"selectedText\" class=\"form-control btn btn-border dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" :disabled=\"isDisabled\" :class=\"widthClass\" :style=\"widthStyle\"> <span class=\"caret\"></span>{{selectedText}}</button> <ul class=\"dropdown-menu\" :class=\"widthClass\" :style=\"widthStyle\"> <template v-for=\"item in list\"> <li @click=\"handleChange(item.value)\"><a href=\"javascript:void(0)\">{{item.display}}</a></li> </template> </ul> </div>",
     name: 'TmVueDropdown',
     props: {
         value: {
@@ -2029,6 +2029,12 @@ var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button
             default: 'default'
         }
     },
+    data: function data() {
+        var class_list = { "mini": "input-width-mini", "sm": "input-width-sm", "default": "input-width-default", "md": "input-width-md", "lg": "input-width-lg" };
+        return {
+            widthStyle: { width: class_list[this.width] ? "" : this.width }
+        };
+    },
     computed: {
         isDisabled: function isDisabled() {
             return this.disabled === true ? true : false; //default disabled attribute is false
@@ -2044,9 +2050,11 @@ var TmVueDropdown = { template: "<div class=\"btn-group\"> <button type=\"button
             return this.list[index].display;
         },
         widthClass: function widthClass() {
-            var class_list = { "mini": "input-width-mini", "sm": "input-width-sm", "default": "input-width-default", "md": "input-width-md", "lg": "input-width-lg", "auto": "" };
-            return class_list[this.width ? this.width : 'default'];
+            var class_list = { "mini": "input-width-mini", "sm": "input-width-sm", "default": "input-width-default", "md": "input-width-md", "lg": "input-width-lg" };
+
+            return class_list[this.width] || "";
         }
+
     },
     methods: {
         handleChange: function handleChange(value) {
