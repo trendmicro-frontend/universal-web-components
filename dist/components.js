@@ -2410,6 +2410,12 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
       return _.findIndex(this.filterList, 'hover');
     },
     addSelectItem: function addSelectItem() {
+      if (this.filterList.length == 0) {
+        this.text_value = '';
+        this.clearAllHover();
+        this.setHoverItemById(this.filterList[0].id);
+        return;
+      }
       var index = this.getHoverItemIndex();
       if (index == -1) return;
       var id = this.filterList[index].id;

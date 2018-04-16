@@ -153,6 +153,12 @@
               return _.findIndex(this.filterList,'hover');
             },
             addSelectItem(){
+              if(this.filterList.length == 0){
+                this.text_value ='';
+                this.clearAllHover();
+                this.setHoverItemById(this.filterList[0].id);
+                return;
+              }
               let index = this.getHoverItemIndex();
               if(index == -1)
                 return;
