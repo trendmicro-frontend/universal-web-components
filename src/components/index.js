@@ -11,6 +11,7 @@ import TmVueSearchButton from './vue-button-search'
 import TmVueButton from './vue-button'
 import TmVueBreadcrumb from './vue-breadcrumb'
 import TmVueFilterTag from './vue-filter-tag'
+import TmVueStepProcess from './vue-step-process'
 
 import TmVueInput from './vue-input'
 
@@ -46,3 +47,4 @@ Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
 Vue.use(TmVueLicenseInactive)
 Vue.use(TmVueAutosizeTextarea)
+Vue.use(TmVueStepProcess)

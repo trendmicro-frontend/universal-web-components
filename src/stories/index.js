@@ -33,6 +33,7 @@ import TmVueCheckbox from '../components/vue-checkbox';
 import TmVueCheckallCheckbox from '../components/vue-checkbox-checkall';
 import TmVueRadio from '../components/vue-radio';
 import TmVueDropdown from '../components/vue-dropdown';
+import TmVueStepProcess from '../components/vue-step-process';
 
 import TmVueBadge from '../components/vue-badge';
 import TmVueLabel from '../components/vue-label';
@@ -302,6 +303,121 @@ storiesOf('Dropdown', module)
               `,
 
   }));
+
+storiesOf('Step process ', module)
+  .add('first', () => ({
+    components: { TmVueStepProcess },
+    data() {
+      return {
+        processes: [{step:1,action:"Uploading","description":"DDEI is uploading your upgrade package."},{step:2,action:"Installing","description":"DDEI is installing upgrade package. Please do not leave this page, otherwise you will lose your data."},{step:3,action:"Configuring","description":"DDEI is configuring and preparing restart. It might take some times according to your size of data."}],
+        percent: 10,
+        current: 1
+      }
+    },
+    methods: {
+        first(){
+          this.current = 1;
+          this.percent = 50;
+        },
+        second(){
+          this.current = 2;
+          this.percent = 70;
+        },
+        third(){
+          this.current = 3;
+          this.percent = 100;
+        },
+    },
+    template: `
+              <div>
+              <button @click="first">first</button>&nbsp;<button @click="second">second</button>&nbsp;<button @click="third">third</button>
+              <tm-vue-step-process  :processes="processes" :percent="percent" :current="current" ></tm-vue-step-process>
+              </div>
+              `,
+
+  }))
+    .add('second', () => ({
+    components: { TmVueStepProcess },
+    data() {
+      return {
+        processes: [{step:1,action:"Uploading","description":"DDEI is uploading your upgrade package."},{step:2,action:"Installing","description":"DDEI is installing upgrade package. Please do not leave this page, otherwise you will lose your data."},{step:3,action:"Configuring","description":"DDEI is configuring and preparing restart. It might take some times according to your size of data."}],
+        percent: 60,
+        current: 2
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              
+              <tm-vue-step-process  :processes="processes" :percent="percent" :current="current" ></tm-vue-step-process>
+              </div>
+              `,
+
+  }))
+    .add('third', () => ({
+    components: { TmVueStepProcess },
+    data() {
+      return {
+        processes: [{step:1,action:"Uploading","description":"DDEI is uploading your upgrade package."},{step:2,action:"Installing","description":"DDEI is installing upgrade package. Please do not leave this page, otherwise you will lose your data."},{step:3,action:"Configuring","description":"DDEI is configuring and preparing restart. It might take some times according to your size of data."}],
+        percent: 90,
+        current: 3
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              
+              <tm-vue-step-process  :processes="processes" :percent="percent" :current="current" ></tm-vue-step-process>
+              </div>
+              `,
+
+  })) 
+  .add('Only two step first', () => ({
+    components: { TmVueStepProcess },
+    data() {
+      return {
+        processes: [{step:1,action:"Uploading","description":"DDEI is uploading your upgrade package."},{step:2,action:"Installing","description":"DDEI is installing upgrade package. Please do not leave this page, otherwise you will lose your data."}],
+        percent: 10,
+        current: 1
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              
+              <tm-vue-step-process  :processes="processes" :percent="percent" :current="current" ></tm-vue-step-process>
+              </div>
+              `,
+
+  }))
+  .add('Only two step second', () => ({
+    components: { TmVueStepProcess },
+    data() {
+      return {
+        processes: [{step:1,action:"Uploading","description":"DDEI is uploading your upgrade package."},{step:2,action:"Installing","description":"DDEI is installing upgrade package. Please do not leave this page, otherwise you will lose your data."}],
+        percent: 80,
+        current: 2
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              
+              <tm-vue-step-process  :processes="processes" :percent="percent" :current="current" ></tm-vue-step-process>
+              </div>
+              `,
+
+  }))  
+  ;
+
 storiesOf('Radio & Check box', module)
   .add('Check box group', () => ({
     components: { TmVueCheckbox, TmVueCheckallCheckbox },

@@ -1768,21 +1768,21 @@
   background-color: #666666;
 }
 @-webkit-keyframes spinner {
-  .uwc 0% {
+  0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-  .uwc 100% {
+  100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
 }
 @keyframes spinner {
-  .uwc 0% {
+  0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-  .uwc 100% {
+  100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
@@ -2549,85 +2549,85 @@
   right: 16px;
 }
 @-webkit-keyframes progress-bar-animated {
-  .uwc 0% {
+  0% {
     width: 0%;
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 20% {
+  20% {
     width: 40%;
   }
-  .uwc 30% {
+  30% {
     width: 45%;
   }
-  .uwc 40% {
+  40% {
     width: 55%;
   }
-  .uwc 50% {
+  50% {
     width: 68%;
   }
-  .uwc 65% {
+  65% {
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 100% {
+  100% {
     width: 100%;
     opacity: 0;
     filter: alpha(opacity=0);
   }
 }
 @keyframes progress-bar-animated {
-  .uwc 0% {
+  0% {
     width: 0%;
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 20% {
+  20% {
     width: 40%;
   }
-  .uwc 30% {
+  30% {
     width: 45%;
   }
-  .uwc 40% {
+  40% {
     width: 55%;
   }
-  .uwc 50% {
+  50% {
     width: 68%;
   }
-  .uwc 65% {
+  65% {
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 100% {
+  100% {
     width: 100%;
     opacity: 0;
     filter: alpha(opacity=0);
   }
 }
 @-webkit-keyframes progress-bar-indeterminate {
-  .uwc 0% {
+  0% {
     width: 20%;
     margin-left: 0%;
   }
-  .uwc 80% {
+  80% {
     width: 35%;
     margin-left: 65%;
   }
-  .uwc 100% {
+  100% {
     width: 0%;
     margin-left: 100%;
   }
 }
 @keyframes progress-bar-indeterminate {
-  .uwc 0% {
+  0% {
     width: 20%;
     margin-left: 0%;
   }
-  .uwc 80% {
+  80% {
     width: 35%;
     margin-left: 65%;
   }
-  .uwc 100% {
+  100% {
     width: 0%;
     margin-left: 100%;
   }
@@ -5046,7 +5046,6 @@
   display: inline-block;
 }
 .uwc .left {
-  width: 81px;
   float: left;
 }
 .uwc .autowrap {
@@ -5077,6 +5076,80 @@
 .uwc .license .icon-name {
   line-height: 24px;
   margin-left: 5px;
+}
+.uwc .process {
+  width: 100%;
+  text-align: center;
+}
+.uwc .process .description {
+  text-align: center;
+  line-height: 30px;
+  height: 30px;
+  margin-top: 10px;
+}
+.uwc .process .percent {
+  text-align: center;
+  line-height: 30px;
+  height: 30px;
+}
+.uwc .process .percent .percent_number {
+  display: inline-block;
+  margin-left: 10px;
+}
+.uwc .process .step-3 {
+  width: 600px;
+}
+.uwc .process .step-2 {
+  width: 400px;
+}
+.uwc .process .step_item {
+  display: inline-block;
+  height: 40px;
+  line-heigh: 40px;
+}
+.uwc .process .step_item .bar.disabled {
+  border-color: #555 !important;
+}
+.uwc .process .step_item .step_icon {
+  float: left;
+}
+.uwc .process .step_item .step_icon.disabled * {
+  color: #555 !important;
+  border-color: #555 !important;
+}
+.uwc .process .step_item .step_icon .circle {
+  border: 2px solid #0066ff;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 60px;
+  vertical-align: middle;
+}
+.uwc .process .step_item .step_icon .circle .number {
+  position: absolute;
+  left: 11px;
+  top: 9px;
+  color: #0066ff;
+  font-weight: bold;
+}
+.uwc .process .step_item .step_icon .circle .text {
+  position: absolute;
+  top: 40px;
+  left: -12px;
+  color: #0066ff;
+}
+.uwc .process .step_item .bar {
+  float: left;
+  border: 1px solid #0066ff;
+}
+.uwc .process .step_item .bar-2-length {
+  width: 330px;
+  margin: 14px 5px;
+}
+.uwc .process .step_item .bar-3-length {
+  width: 244px;
+  margin: 14px 5px;
 }
 .uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after, .uwc .nav:before, .uwc .nav:after, .uwc .navbar:before, .uwc .navbar:after, .uwc .navbar-header:before, .uwc .navbar-header:after, .uwc .navbar-collapse:before, .uwc .navbar-collapse:after, .uwc .panel-body:before, .uwc .panel-body:after {
   content: " ";

@@ -1,0 +1,74 @@
+    .process{
+        width:100%;
+        text-align:center;
+        .description{
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+            margin-top: 10px;
+        }
+        .percent{
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+            .percent_number{
+                display:inline-block;
+                margin-left:10px;
+            }       
+        }
+        .step-3{
+            width:600px;
+        } 
+        .step-2{
+            width:400px;
+        }      
+        .step_item{
+            .bar.disabled{
+                border-color:#555 !important;
+            }
+            display:inline-block;
+            height:40px;
+            line-heigh:40px;
+            .step_icon{
+                float: left;
+                &.disabled *{
+                    color:#555 !important;
+                    border-color:#555 !important;
+                }
+                .circle{
+                    border: 2px solid #0066ff;
+                    position: relative;
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 60px;
+                    vertical-align: middle;
+                    .number{
+                        position: absolute;
+                        left: 11px;
+                        top: 9px;
+                        color:#0066ff;
+                        font-weight: bold;
+                    }
+                    .text{
+                        position: absolute;
+                        top:40px;
+                        left:-12px;
+                        color:#0066ff;
+                    }
+                }                
+            }
+            .bar{
+                float: left;
+                border:1px solid #0066ff;
+            }
+            .bar-2-length{
+                width: 330px;
+                margin: 14px 5px;
+            }
+            .bar-3-length{
+                width: 244px;
+                margin: 14px 5px;
+            }            
+        }
+    }

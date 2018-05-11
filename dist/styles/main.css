@@ -5494,21 +5494,21 @@ yx-axis
   background-color: #666666;
 }
 @-webkit-keyframes spinner {
-  .uwc 0% {
+  0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-  .uwc 100% {
+  100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
 }
 @keyframes spinner {
-  .uwc 0% {
+  0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-  .uwc 100% {
+  100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
@@ -6275,85 +6275,85 @@ yx-axis
   right: 16px;
 }
 @-webkit-keyframes progress-bar-animated {
-  .uwc 0% {
+  0% {
     width: 0%;
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 20% {
+  20% {
     width: 40%;
   }
-  .uwc 30% {
+  30% {
     width: 45%;
   }
-  .uwc 40% {
+  40% {
     width: 55%;
   }
-  .uwc 50% {
+  50% {
     width: 68%;
   }
-  .uwc 65% {
+  65% {
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 100% {
+  100% {
     width: 100%;
     opacity: 0;
     filter: alpha(opacity=0);
   }
 }
 @keyframes progress-bar-animated {
-  .uwc 0% {
+  0% {
     width: 0%;
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 20% {
+  20% {
     width: 40%;
   }
-  .uwc 30% {
+  30% {
     width: 45%;
   }
-  .uwc 40% {
+  40% {
     width: 55%;
   }
-  .uwc 50% {
+  50% {
     width: 68%;
   }
-  .uwc 65% {
+  65% {
     opacity: 0.3;
     filter: alpha(opacity=30);
   }
-  .uwc 100% {
+  100% {
     width: 100%;
     opacity: 0;
     filter: alpha(opacity=0);
   }
 }
 @-webkit-keyframes progress-bar-indeterminate {
-  .uwc 0% {
+  0% {
     width: 20%;
     margin-left: 0%;
   }
-  .uwc 80% {
+  80% {
     width: 35%;
     margin-left: 65%;
   }
-  .uwc 100% {
+  100% {
     width: 0%;
     margin-left: 100%;
   }
 }
 @keyframes progress-bar-indeterminate {
-  .uwc 0% {
+  0% {
     width: 20%;
     margin-left: 0%;
   }
-  .uwc 80% {
+  80% {
     width: 35%;
     margin-left: 65%;
   }
-  .uwc 100% {
+  100% {
     width: 0%;
     margin-left: 100%;
   }
