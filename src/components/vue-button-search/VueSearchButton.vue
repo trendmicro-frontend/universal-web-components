@@ -1,7 +1,7 @@
 <template>
   <div class="input-group has-clear" style="width:100%">
       <div class="input-icon-group" style="width:100%">
-          <input type="text" class="form-control" :placeholder="placeholder"  style="width:100%" v-model="textVal" v-on:input="updated" v-on:keyup.enter="changed">
+          <input type="text" class="form-control vue-search" :placeholder="placeholder"  style="width:100%" v-model="textVal" v-on:input="updated" v-on:keyup.enter="changed">
           <span class="form-control-clear icon icon-cancel hidden"></span>
       </div>
       <span class="input-group-btn">
