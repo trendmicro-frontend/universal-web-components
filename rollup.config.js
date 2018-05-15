@@ -49,7 +49,7 @@ export default {
     input: 'src/components/index',
     output: {
         file: 'dist/components.js',
-        format: 'umd',
+        format: 'amd',
         sourcemap: false,
         name: 'TM',
         globals: {
