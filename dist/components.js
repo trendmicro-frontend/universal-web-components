@@ -1,8 +1,4 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('vue'), require('lodash'), require('jquery')) :
-	typeof define === 'function' && define.amd ? define(['vue', 'lodash', 'jquery'], factory) :
-	(factory(global.Vue,global._,global.jQuery));
-}(this, (function (Vue,_,require$$0) { 'use strict';
+define(['vue', 'lodash', 'jquery'], function (Vue, _, require$$0) { 'use strict';
 
 Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
@@ -2101,7 +2097,7 @@ TmVueDropdown.install = function (V, options) {
     V.component(TmVueDropdown.name, TmVueDropdown);
 };
 
-var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\" style=\"width:100%\"> <input type=\"text\" class=\"form-control\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div>",
+var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" style=\"width:100%\"> <div class=\"input-icon-group\" style=\"width:100%\"> <input type=\"text\" class=\"form-control vue-search\" :placeholder=\"placeholder\" style=\"width:100%\" v-model=\"textVal\" v-on:input=\"updated\" v-on:keyup.enter=\"changed\"> <span class=\"form-control-clear icon icon-cancel hidden\"></span> </div> <span class=\"input-group-btn\"> <button type=\"button\" class=\"btn btn-default btn-icon-only\" v-on:click=\"changed\"><span class=\"fa fa-search\"></span></button> </span> </div>",
   name: "TmVueSearchButton",
   props: {
     placeholder: {
@@ -5585,50 +5581,269 @@ var jquery_fileuploadValidate = createCommonjsModule(function (module, exports) 
     });
 });
 
-var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <div class=\"upload-container\"> <div class=\"left\"> <label :for=\"id\" class=\"btn btn-default\">{{title}}</label> </div> <div v-show=\"showInfo\" class=\"file-info-container\"> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> <div v-show=\"showInfo\" class=\"file-info-container center\"> <div class=\"autowrap\">{{fileName}}</div> </div> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
+var jquery_iframeTransport = createCommonjsModule(function (module, exports) {
+    /*
+     * jQuery Iframe Transport Plugin
+     * https://github.com/blueimp/jQuery-File-Upload
+     *
+     * Copyright 2011, Sebastian Tschan
+     * https://blueimp.net
+     *
+     * Licensed under the MIT license:
+     * https://opensource.org/licenses/MIT
+     */
+
+    /* global define, require, window, document, JSON */
+
+    (function (factory) {
+        if (typeof undefined === 'function' && undefined.amd) {
+            // Register as an anonymous AMD module:
+            undefined(['jquery'], factory);
+        } else {
+            // Node/CommonJS:
+            factory(require$$0);
+        }
+    })(function ($) {
+        var counter = 0,
+            jsonAPI = $,
+            jsonParse = 'parseJSON';
+
+        if ('JSON' in window && 'parse' in JSON) {
+            jsonAPI = JSON;
+            jsonParse = 'parse';
+        }
+
+        // The iframe transport accepts four additional options:
+        // options.fileInput: a jQuery collection of file input fields
+        // options.paramName: the parameter name for the file form data,
+        //  overrides the name property of the file input field(s),
+        //  can be a string or an array of strings.
+        // options.formData: an array of objects with name and value properties,
+        //  equivalent to the return data of .serializeArray(), e.g.:
+        //  [{name: 'a', value: 1}, {name: 'b', value: 2}]
+        // options.initialIframeSrc: the URL of the initial iframe src,
+        //  by default set to "javascript:false;"
+        $.ajaxTransport('iframe', function (options) {
+            if (options.async) {
+                // javascript:false as initial iframe src
+                // prevents warning popups on HTTPS in IE6:
+                /*jshint scripturl: true */
+                var initialIframeSrc = options.initialIframeSrc || 'javascript:false;',
+
+                /*jshint scripturl: false */
+                form,
+                    iframe,
+                    addParamChar;
+                return {
+                    send: function send(_$$1, completeCallback) {
+                        form = $('<form style="display:none;"></form>');
+                        form.attr('accept-charset', options.formAcceptCharset);
+                        addParamChar = /\?/.test(options.url) ? '&' : '?';
+                        // XDomainRequest only supports GET and POST:
+                        if (options.type === 'DELETE') {
+                            options.url = options.url + addParamChar + '_method=DELETE';
+                            options.type = 'POST';
+                        } else if (options.type === 'PUT') {
+                            options.url = options.url + addParamChar + '_method=PUT';
+                            options.type = 'POST';
+                        } else if (options.type === 'PATCH') {
+                            options.url = options.url + addParamChar + '_method=PATCH';
+                            options.type = 'POST';
+                        }
+                        // IE versions below IE8 cannot set the name property of
+                        // elements that have already been added to the DOM,
+                        // so we set the name along with the iframe HTML markup:
+                        counter += 1;
+                        iframe = $('<iframe src="' + initialIframeSrc + '" name="iframe-transport-' + counter + '"></iframe>').bind('load', function () {
+                            var fileInputClones,
+                                paramNames = $.isArray(options.paramName) ? options.paramName : [options.paramName];
+                            iframe.unbind('load').bind('load', function () {
+                                var response;
+                                // Wrap in a try/catch block to catch exceptions thrown
+                                // when trying to access cross-domain iframe contents:
+                                try {
+                                    response = iframe.contents();
+                                    // Google Chrome and Firefox do not throw an
+                                    // exception when calling iframe.contents() on
+                                    // cross-domain requests, so we unify the response:
+                                    if (!response.length || !response[0].firstChild) {
+                                        throw new Error();
+                                    }
+                                } catch (e) {
+                                    response = undefined;
+                                }
+                                // The complete callback returns the
+                                // iframe content document as response object:
+                                completeCallback(200, 'success', { 'iframe': response });
+                                // Fix for IE endless progress bar activity bug
+                                // (happens on form submits to iframe targets):
+                                $('<iframe src="' + initialIframeSrc + '"></iframe>').appendTo(form);
+                                window.setTimeout(function () {
+                                    // Removing the form in a setTimeout call
+                                    // allows Chrome's developer tools to display
+                                    // the response result
+                                    form.remove();
+                                }, 0);
+                            });
+                            form.prop('target', iframe.prop('name')).prop('action', options.url).prop('method', options.type);
+                            if (options.formData) {
+                                $.each(options.formData, function (index, field) {
+                                    $('<input type="hidden"/>').prop('name', field.name).val(field.value).appendTo(form);
+                                });
+                            }
+                            if (options.fileInput && options.fileInput.length && options.type === 'POST') {
+                                fileInputClones = options.fileInput.clone();
+                                // Insert a clone for each file input field:
+                                options.fileInput.after(function (index) {
+                                    return fileInputClones[index];
+                                });
+                                if (options.paramName) {
+                                    options.fileInput.each(function (index) {
+                                        $(this).prop('name', paramNames[index] || options.paramName);
+                                    });
+                                }
+                                // Appending the file input fields to the hidden form
+                                // removes them from their original location:
+                                form.append(options.fileInput).prop('enctype', 'multipart/form-data')
+                                // enctype must be set as encoding for IE:
+                                .prop('encoding', 'multipart/form-data');
+                                // Remove the HTML5 form attribute from the input(s):
+                                options.fileInput.removeAttr('form');
+                            }
+                            form.submit();
+                            // Insert the file input fields at their original location
+                            // by replacing the clones with the originals:
+                            if (fileInputClones && fileInputClones.length) {
+                                options.fileInput.each(function (index, input) {
+                                    var clone = $(fileInputClones[index]);
+                                    // Restore the original name and form properties:
+                                    $(input).prop('name', clone.prop('name')).attr('form', clone.attr('form'));
+                                    clone.replaceWith(input);
+                                });
+                            }
+                        });
+                        form.append(iframe).appendTo(document.body);
+                    },
+                    abort: function abort() {
+                        if (iframe) {
+                            // javascript:false as iframe src aborts the request
+                            // and prevents warning popups on HTTPS in IE6.
+                            // concat is used to avoid the "Script URL" JSLint error:
+                            iframe.unbind('load').prop('src', initialIframeSrc);
+                        }
+                        if (form) {
+                            form.remove();
+                        }
+                    }
+                };
+            }
+        });
+
+        // The iframe transport returns the iframe content document as response.
+        // The following adds converters from iframe to text, json, html, xml
+        // and script.
+        // Please note that the Content-Type for JSON responses has to be text/plain
+        // or text/html, if the browser doesn't include application/json in the
+        // Accept header, else IE will show a download dialog.
+        // The Content-Type for XML responses on the other hand has to be always
+        // application/xml or text/xml, so IE properly parses the XML response.
+        // See also
+        // https://github.com/blueimp/jQuery-File-Upload/wiki/Setup#content-type-negotiation
+        $.ajaxSetup({
+            converters: {
+                'iframe text': function iframeText(iframe) {
+                    return iframe && $(iframe[0].body).text();
+                },
+                'iframe json': function iframeJson(iframe) {
+                    return iframe && jsonAPI[jsonParse]($(iframe[0].body).text());
+                },
+                'iframe html': function iframeHtml(iframe) {
+                    return iframe && $(iframe[0].body).html();
+                },
+                'iframe xml': function iframeXml(iframe) {
+                    var xmlDoc = iframe && iframe[0];
+                    return xmlDoc && $.isXMLDoc(xmlDoc) ? xmlDoc : $.parseXML(xmlDoc.XMLDocument && xmlDoc.XMLDocument.xml || $(xmlDoc.body).html());
+                },
+                'iframe script': function iframeScript(iframe) {
+                    return iframe && $.globalEval($(iframe[0].body).text());
+                }
+            }
+        });
+    });
+});
+
+var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUploads\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <div class=\"upload-container\"> <div class=\"left\"> <label :for=\"id\" class=\"btn btn-default\">{{title}}</label> </div> <div v-show=\"showInfo\" class=\"file-info-container\"> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> <div v-show=\"showInfo\" class=\"file-info-container center\"> <div class=\"autowrap\">{{fileName}}</div> </div> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
   name: "TmVueUpload",
   props: {
     title: {
       type: String,
       default: "Select Files..."
     },
-    id: {
+    maxFileSize: {
+      type: String,
+      default: "@"
+    },
+    acceptFileTypes: {
+      type: String,
+      default: null
+    },
+    dataType: {
+      type: String,
+      default: "json"
+    },
+    autoUpload: {
+      type: Boolean,
+      default: false
+    },
+    upload: {
+      type: Boolean,
+      default: false
+    },
+    formData: {
+      type: Object,
+      default: {}
+    },
+    url: {
       type: String,
       default: ""
     },
-    single: {
+    singleFileUploads: {
       type: Boolean,
       default: true
+    },
+    paramName: {
+      type: String,
+      default: "file"
+    },
+    sequentialUploads: {
+      type: Boolean,
+      default: true
+    },
+    id: {
+      type: String,
+      default: ""
     },
     hide: {
       type: Boolean,
       default: true
     },
-    options: {
-      type: Object,
-      default: function _default() {
-        return {
-          maxFileSize: "@",
-          acceptFileTypes: "@",
-          dataType: "json",
-          autoUpload: false,
-          url: "",
-          singleFileUploads: true,
-          paramName: "file",
-          sequentialUploads: true,
-          formData: {},
-          processstart: function processstart(e, data) {},
-          processstop: function processstop(e, data) {},
-          processfail: function processfail(e, data) {},
-          processdone: function processdone(e, data) {}
-        };
-      }
-    },
-    add: {
+    fileuploadadd: {
       type: Function,
       default: function _default() {}
     },
-    done: {
+    fileuploadstart: {
+      type: Function,
+      default: function _default() {}
+    },
+    fileuploaddone: {
+      type: Function,
+      default: function _default() {}
+    },
+    fileuploadfail: {
+      type: Function,
+      default: function _default() {}
+    },
+    fileuploadprocessfail: {
       type: Function,
       default: function _default() {}
     },
@@ -5653,11 +5868,14 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style
 
   watch: {
     reset: function reset() {
-      console.log("reset called");
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
       this.files = null;
+      this.data = null;
+    },
+    upload: function upload() {
+      this.data.submit();
     }
   },
   methods: {
@@ -5678,7 +5896,6 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style
       this.fileName = "";
       this.fileSize = "";
       this.files = null;
-
       this.canceled();
     }
   },
@@ -5690,25 +5907,77 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"single\" style
       "File is too small": "MINFILESIZE"
     };
     var _self = this;
-    this.options = this.options || {};
+    var options = {
+      maxFileSize: this.maxFileSize,
+      acceptFileTypes: this.acceptFileTypes,
+      dataType: this.dataType,
+      autoUpload: this.autoUpload,
+      url: this.url,
+      singleFileUploads: this.singleFileUploads,
+      paramName: this.paramName,
+      sequentialUploads: this.sequentialUploads
+    };
+    options.iframe = true;
+    options.forceIframeTransport = true;
 
-    var originalProcessFail = this.options.processfail || function () {};
-    this.options.processfail = function (e, data) {
+    require$$0("#" + this.id).fileupload(options).on("fileuploadprocessfail", function (e, data) {
       data.files.forEach(function (file) {
         file.errorType = messagesMap[file.error];
       });
-      originalProcessFail(e, data);
-    };
-    require$$0("#" + this.id).fileupload(this.options).on("fileuploadadd", function (e, data) {
+      _self.fileuploadprocessfail(e, data);
+    }).on("fileuploadprocessdone", function (e, data) {
+      if (_self.autoUpload) {
+        data.submit();
+      }
+    }).on("fileuploadadd", function (e, data) {
       _self.files = data.files;
       _self.fileName = data.files[0].name;
-      _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
+      if (typeof data.files[0].size != "undefined") {
+        _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
+      } else {
+        _self.fileSize = "";
+      }
       _self.showInfo = true;
+      _self.data = data;
+
+      _self.fileuploadadd(e, data);
+    }).on("fileuploadsubmit", function (e, data) {
+      data.formData = _self.formData;
+    }).on("fileuploadsend", function (e, data) {
+      /* ... */
     }).on("fileuploaddone", function (e, data) {
       if (_self.hide) {
         _self.cancel();
       }
-      _self.done(e, data);
+      _self.fileuploaddone(e, data);
+    }).on("fileuploadfail", function (e, data) {
+      _self.fileuploadfail(e, data);
+    }).on("fileuploadalways", function (e, data) {
+      /* ... */
+    }).on("fileuploadprogress", function (e, data) {
+      /* ... */
+    }).on("fileuploadprogressall", function (e, data) {
+      /* ... */
+    }).on("fileuploadstart", function (e) {
+      _self.fileuploadstart(e);
+    }).on("fileuploadstop", function (e) {
+      /* ... */
+    }).on("fileuploadchange", function (e, data) {
+      /* ... */
+    }).on("fileuploadpaste", function (e, data) {
+      /* ... */
+    }).on("fileuploaddrop", function (e, data) {
+      /* ... */
+    }).on("fileuploaddragover", function (e) {
+      /* ... */
+    }).on("fileuploadchunksend", function (e, data) {
+      /* ... */
+    }).on("fileuploadchunkdone", function (e, data) {
+      /* ... */
+    }).on("fileuploadchunkfail", function (e, data) {
+      /* ... */
+    }).on("fileuploadchunkalways", function (e, data) {
+      /* ... */
     });
   }
 };
@@ -7249,4 +7518,4 @@ Vue.use(TmVueLicenseInactive$1);
 Vue.use(TmVueAutosizeTextarea$1);
 Vue.use(TmVueStepProcess$1);
 
-})));
+});

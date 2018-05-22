@@ -1,6 +1,6 @@
 <template>
     <div ref="upload">
-        <div v-if="single" style="padding-left:0px">
+        <div v-if="singleFileUploads" style="padding-left:0px">
             <input :id="id" type="file" name="file" data-file-upload="singleFile">
             <div class="upload-container">
               <div class="left">
@@ -27,7 +27,7 @@ import "blueimp-file-upload";
 import "blueimp-file-upload/js/jquery.fileupload-validate";
 import "blueimp-file-upload/js/jquery.fileupload-process";
 import "blueimp-file-upload/js/vendor/jquery.ui.widget";
-
+import "blueimp-file-upload/js/jquery.iframe-transport";
 export default {
   name: "TmVueUpload",
   props: {
@@ -35,43 +35,71 @@ export default {
       type: String,
       default: "Select Files..."
     },
+    maxFileSize: {
+      type: String,
+      default: "@"
+    },
+    acceptFileTypes: {
+      type: String,
+      default: null
+    },
+    dataType: {
+      type: String,
+      default: "json"
+    },
+    autoUpload: {
+      type: Boolean,
+      default: false
+    },
+    upload: {
+      type: Boolean,
+      default: false
+    },
+    formData: {
+      type: Object,
+      default: {}
+    },
+    url: {
+      type: String,
+      default: ""
+    },
+    singleFileUploads: {
+      type: Boolean,
+      default: true
+    },
+    paramName: {
+      type: String,
+      default: "file"
+    },
+    sequentialUploads: {
+      type: Boolean,
+      default: true
+    },
     id: {
       type: String,
       default: ""
     },
-    single: {
+    hide: {
       type: Boolean,
       default: true
     },
-    hide: {
-      type:Boolean,
-      default: true
-    },
-    options: {
-      type: Object,
-      default() {
-        return {
-          maxFileSize: "@",
-          acceptFileTypes: "@",
-          dataType: "json",
-          autoUpload: false,
-          url: "",
-          singleFileUploads: true,
-          paramName: "file",
-          sequentialUploads: true,
-          formData: {},
-          processstart: function(e, data) {},
-          processstop: function(e, data) {},
-          processfail: function(e, data) {},
-          processdone: function(e, data) {}
-        };
-      }
-    },
-    add: {
+    fileuploadadd: {
       type: Function,
       default: () => {}
     },
-    done: {
+    fileuploadstart: {
+      type: Function,
+      default: () => {}
+    },
+    fileuploaddone: {
+      type: Function,
+      default: () => {}
+    },
+    fileuploadfail: {
+      type: Function,
+      default: () => {}
+    },
+    fileuploadprocessfail: {
       type: Function,
       default: () => {}
     },
@@ -81,7 +109,7 @@ export default {
     },
     canceled: {
       type: Function,
-      default:()=>{}
+      default: () => {}
     }
   },
 
@@ -95,11 +123,14 @@ export default {
   },
   watch: {
     reset() {
-      console.log("reset called");
       this.showInfo = false;
       this.fileName = "";
       this.fileSize = "";
       this.files = null;
+      this.data = null;
+    },
+    upload() {
+      this.data.submit();
     }
   },
   methods: {
@@ -120,7 +151,6 @@ export default {
       this.fileName = "";
       this.fileSize = "";
       this.files = null;
-
       this.canceled();
     }
   },
@@ -134,29 +164,99 @@ export default {
     var _self = this;
     var ERROR_FILE_TYPE = -1;
     var ERROR_FILE_SIZE = -2;
-    this.options = this.options || {};
 
-    var originalProcessFail = this.options.processfail || function(){};
-    this.options.processfail = function(e, data)
-    {
-      data.files.forEach(file => {
-        file.errorType = messagesMap[file.error];
-      });
-      originalProcessFail(e,data);
+    var options = {
+      maxFileSize: this.maxFileSize,
+      acceptFileTypes: this.acceptFileTypes,
+      dataType: this.dataType,
+      autoUpload: this.autoUpload,
+      url: this.url,
+      singleFileUploads: this.singleFileUploads,
+      paramName: this.paramName,
+      sequentialUploads: this.sequentialUploads
     };
+    options.iframe = true;
+    options.forceIframeTransport = true;
+
     $(`#${this.id}`)
-      .fileupload(this.options)
+      .fileupload(options)
+      .on("fileuploadprocessfail", function(e, data) {
+        data.files.forEach(file => {
+          file.errorType = messagesMap[file.error];
+        });
+        _self.fileuploadprocessfail(e, data);
+      })
+      .on("fileuploadprocessdone", function(e, data) {
+        if (_self.autoUpload) {
+          data.submit();
+        }
+      })
       .on("fileuploadadd", function(e, data) {
         _self.files = data.files;
         _self.fileName = data.files[0].name;
-        _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
+        if (typeof data.files[0].size != "undefined") {
+          _self.fileSize = "(" + _self.formatFileSize(data.files[0].size) + ")";
+        } else {
+          _self.fileSize = "";
+        }
         _self.showInfo = true;
+        _self.data = data;
+
+        _self.fileuploadadd(e, data);
+      })
+      .on("fileuploadsubmit", function(e, data) {
+        data.formData = _self.formData;
+      })
+      .on("fileuploadsend", function(e, data) {
+        /* ... */
       })
       .on("fileuploaddone", function(e, data) {
-        if(_self.hide){
+        if (_self.hide) {
           _self.cancel();
         }
-        _self.done(e, data);
+        _self.fileuploaddone(e, data);
+      })
+      .on("fileuploadfail", function(e, data) {
+        _self.fileuploadfail(e, data);
+      })
+      .on("fileuploadalways", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadprogress", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadprogressall", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadstart", function(e) {
+        _self.fileuploadstart(e);
+      })
+      .on("fileuploadstop", function(e) {
+        /* ... */
+      })
+      .on("fileuploadchange", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadpaste", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploaddrop", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploaddragover", function(e) {
+        /* ... */
+      })
+      .on("fileuploadchunksend", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadchunkdone", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadchunkfail", function(e, data) {
+        /* ... */
+      })
+      .on("fileuploadchunkalways", function(e, data) {
+        /* ... */
       });
   }
 };
