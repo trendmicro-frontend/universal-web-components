@@ -5918,7 +5918,6 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUplo
       sequentialUploads: this.sequentialUploads
     };
     options.iframe = true;
-    options.forceIframeTransport = true;
 
     require$$0("#" + this.id).fileupload(options).on("fileuploadprocessfail", function (e, data) {
       data.files.forEach(function (file) {

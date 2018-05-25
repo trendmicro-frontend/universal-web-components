@@ -176,7 +176,6 @@ export default {
       sequentialUploads: this.sequentialUploads
     };
     options.iframe = true;
-    options.forceIframeTransport = true;
 
     $(`#${this.id}`)
       .fileupload(options)
