@@ -17,13 +17,15 @@ const production = process.env.NODE_ENV === 'production';
 
 const plugins = [
     resolve({
-        module:true,
+        module: true,
         jsnext: false,
         main: true,
         browser: true
     }),
     replace({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        "require('./vendor/jquery.ui.widget')": "",
+        delimiters: ['', '']
     }),
     vue({
         autoStyles: true,
@@ -34,8 +36,9 @@ const plugins = [
         }
     }),
     commonjs({
-        include:'node_modules/**',
+        include: 'node_modules/**',
         exclude: [ 'vendor/jquery.ui.widget.js' ]
+
     }),
     stylus(),
     scss(),
@@ -53,11 +56,11 @@ export default {
         sourcemap: false,
         name: 'TM',
         globals: {
-            jquery:'jQuery',
+            jquery: 'jQuery',
             lodash: '_',
             vue: 'Vue'
         }
     },
     plugins: plugins,
-    external: ['lodash', 'vue','jquery','bootstrap']
+    external: ['lodash', 'vue', 'jquery', 'bootstrap']
 };

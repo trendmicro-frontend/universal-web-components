@@ -26,7 +26,6 @@ import $ from "jquery";
 import "blueimp-file-upload";
 import "blueimp-file-upload/js/jquery.fileupload-validate";
 import "blueimp-file-upload/js/jquery.fileupload-process";
-import "blueimp-file-upload/js/vendor/jquery.ui.widget";
 import "blueimp-file-upload/js/jquery.iframe-transport";
 export default {
   name: "TmVueUpload",
