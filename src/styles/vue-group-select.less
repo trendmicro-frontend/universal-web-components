@@ -1,0 +1,59 @@
+.ms-container {
+  width: 700px;
+	overflow:hidden;
+	height:220px;
+}
+.ms-container .ms-selectable, .ms-container .ms-selection {
+    background: #fff;
+    float: left;
+    width: 334px;
+}
+.ms-container .exchange{
+	width:30px;
+	float:left;
+}
+.ms-container ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+.ms-container p{
+    line-height: 15px;
+    height: 15px;
+    margin-bottom: 5px;
+}
+.ms-container .ms-list {
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+    height: 185px;
+    padding: 8px 0;
+    overflow-y: auto;
+}
+.ms-container .ms-selectable li, .ms-container .ms-selection li {
+    padding: 4px 12px;
+}
+.ms-container .ms-selectable li:hover,
+.ms-container .ms-selection li:hover {
+  cursor: pointer;
+  color: #222222;
+  text-decoration: none;
+  background-color: #eee;
+}
+.ms-container .ms-selectable li.disabledLi,
+.ms-container .ms-selection li.disabledLi {
+  cursor: default;
+  color: #888888;
+}
+
+.ms-container .ms-selectable li.disabledLi:hover,
+.ms-container .ms-selection li.disabledLi:hover {
+  cursor: default;
+  color: #888888;
+}
+
+.ms-container .ms-selectable li.child,
+.ms-container .ms-selection li.child {
+  padding-left:30px;
+}

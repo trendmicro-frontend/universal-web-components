@@ -5062,6 +5062,9 @@
 .uwc .modal-dialog {
   overflow: hidden;
 }
+.uwc input.vue-search::-ms-clear {
+  display: none;
+}
 .uwc .license {
   margin: 10px 0;
 }
@@ -5150,6 +5153,62 @@
 .uwc .process .step_item .bar-3-length {
   width: 244px;
   margin: 14px 5px;
+}
+.uwc .ms-container {
+  width: 700px;
+  overflow: hidden;
+  height: 220px;
+}
+.uwc .ms-container .ms-selectable, .uwc .ms-container .ms-selection {
+  background: #fff;
+  float: left;
+  width: 334px;
+}
+.uwc .ms-container .exchange {
+  width: 30px;
+  float: left;
+}
+.uwc .ms-container ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+.uwc .ms-container p {
+  line-height: 15px;
+  height: 15px;
+  margin-bottom: 5px;
+}
+.uwc .ms-container .ms-list {
+  -webkit-transition: border linear 0.2s, -webkit-box-shadow linear 0.2s;
+  transition: border linear 0.2s, -webkit-box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s, -webkit-box-shadow linear 0.2s;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  position: relative;
+  height: 185px;
+  padding: 8px 0;
+  overflow-y: auto;
+}
+.uwc .ms-container .ms-selectable li, .uwc .ms-container .ms-selection li {
+  padding: 4px 12px;
+}
+.uwc .ms-container .ms-selectable li:hover, .uwc .ms-container .ms-selection li:hover {
+  cursor: pointer;
+  color: #222222;
+  text-decoration: none;
+  background-color: #eee;
+}
+.uwc .ms-container .ms-selectable li.disabledLi, .uwc .ms-container .ms-selection li.disabledLi {
+  cursor: default;
+  color: #888888;
+}
+.uwc .ms-container .ms-selectable li.disabledLi:hover, .uwc .ms-container .ms-selection li.disabledLi:hover {
+  cursor: default;
+  color: #888888;
+}
+.uwc .ms-container .ms-selectable li.child, .uwc .ms-container .ms-selection li.child {
+  padding-left: 30px;
 }
 .uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after, .uwc .nav:before, .uwc .nav:after, .uwc .navbar:before, .uwc .navbar:after, .uwc .navbar-header:before, .uwc .navbar-header:after, .uwc .navbar-collapse:before, .uwc .navbar-collapse:after, .uwc .panel-body:before, .uwc .panel-body:after {
   content: " ";
