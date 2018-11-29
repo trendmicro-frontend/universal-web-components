@@ -3328,12 +3328,13 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
                 return;
             }
             if (this.arr_find(this.right, object)) {
-                this.$emit('item-exit', "");
+                this.$emit('item-exist', object);
                 return false;
             }
-            this.left = this.left.filter(function (item) {
+            //keep the item in left list
+            /*this.left = this.left.filter(function(item){
                 return !(item.value == object.value);
-            });
+            });*/
             this.right = this.right.concat(object).sort(this.compare);
             this.$emit('change-selected', this.right);
         },
@@ -3384,11 +3385,67 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
         show_child: function show_child(object) {
             return object.expand;
         }
+    },
+    watch: {
+        left_list: {
+            handler: function handler() {
+                this.left = _.map(this.left_list, _.clone);
+                this.left = this.left.sort(this.compare);
+                console.log(this.left);
+            },
+
+            deep: true
+        }
     }
 };
 
 TmVueGroupSelect$1.install = function (V, options) {
     V.component(TmVueGroupSelect$1.name, TmVueGroupSelect$1);
+};
+
+var TmVueNotification$1 = { template: "<div class=\"alert fade in\" :class=\"class_type\" role=\"alert\"> <a href=\"#\" class=\"cancel\" data-dismiss=\"alert\" aria-label=\"close\"><span @click.prevent=\"hide_alert\" class=\"icon icon-cancel\"></span></a> <span class=\"icon\" :class=\"icon_type\"></span> <slot></slot> </div>",
+    name: 'TmVueNotification',
+    props: {
+        type: {
+            type: String,
+            default: "error"
+        }
+    },
+    data: function data() {
+        return {
+            show_alert: false
+        };
+    },
+
+    computed: {
+        class_type: function class_type() {
+            if (this.type == 'error') {
+                return "alert-danger";
+            } else if (this.type == "warning") {
+                return "alert-warning";
+            } else {
+                return "alert-info";
+            }
+        },
+        icon_type: function icon_type() {
+            if (this.type == 'error') {
+                return "icon-danger";
+            } else if (this.type == "warning") {
+                return "icon-warn";
+            } else {
+                return "icon-info";
+            }
+        }
+    },
+    methods: {
+        hide_alert: function hide_alert() {
+            this.$emit("hide-notification");
+        }
+    }
+};
+
+TmVueNotification$1.install = function (V, options) {
+    V.component(TmVueNotification$1.name, TmVueNotification$1);
 };
 
 var jquery_fileupload = createCommonjsModule(function (module, exports) {
@@ -6904,5 +6961,6 @@ Vue.use(TmVueLicenseInactive$1);
 Vue.use(TmVueAutosizeTextarea$1);
 Vue.use(TmVueStepProcess$1);
 Vue.use(TmVueGroupSelect$1);
+Vue.use(TmVueNotification$1);
 
 });

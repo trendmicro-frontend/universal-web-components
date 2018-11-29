@@ -40,6 +40,7 @@ import TmVueLabel from '../components/vue-label';
 import uwcDecorator from './uwcDecorator'
 
 import TmVueGroupSelect from '../components/vue-group-select';
+import TmVueNotification from '../components/vue-notification';
 
 
 import "./ddei"
@@ -551,6 +552,60 @@ storiesOf('Multiple Select', module)
 
   }));
 
+storiesOf('Notifications', module)
+  .add('Notification', () => ({
+    components: { TmVueNotification },
+    data() {
+      return {
+        error: "This is error notification test.",
+        warning: "This is warning notification test",
+        info: "This is info notification test",
+        showInfo:true,
+        showError:true,
+        showWarning:true
+      }
+    },
+    methods: {
+      button_click(){
+        alert("do what you want");
+      },
+      hide_error(){
+        this.showError=false;
+      },
+      show_error(){
+        this.showError=true;
+      },
+      hide_warning(){
+        this.showWarning=false;
+      },
+      show_waring(){
+        this.showWarning = true;
+      },
+      hide_info(){
+        this.showInfo=false;
+      },
+      show_info(){
+        this.showInfo = true;
+      }
+    },
+    template: `<div style="width:100%">
+              <button @click="show_error">Show error</button>
+              <button @click="show_waring">Show warning</button>
+              <button @click="show_info">Show info</button>
+              <br/>
+              <br/>
+              <tm-vue-notification v-show="showError" v-on:hide-notification="hide_error" type="error">
+                {{error}}<button class="btn btn-border btn-xs" @click="button_click"> click me</button>
+              </tm-vue-notification>
+              <tm-vue-notification v-show="showWarning" v-on:hide-notification="hide_warning" type="warning">
+                {{warning}}
+              </tm-vue-notification>
+              <tm-vue-notification v-show="showInfo" v-on:hide-notification="hide_info" type="info">
+                {{info}}
+              </tm-vue-notification>
+              </div>`,
+
+  }));
 
 storiesOf('Form', module)
   .add('default', () => ({

@@ -20,6 +20,7 @@ import TmVueLabel from './vue-label'
 import TmVueModal from './vue-modal'
 import TmVueAutosizeTextarea from './vue-autosize-textarea'
 import TmVueGroupSelect from './vue-group-select';
+import TmVueNotification from './vue-notification';
 
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
@@ -50,3 +51,4 @@ Vue.use(TmVueLicenseInactive)
 Vue.use(TmVueAutosizeTextarea)
 Vue.use(TmVueStepProcess)
 Vue.use(TmVueGroupSelect)
+Vue.use(TmVueNotification)
