@@ -513,8 +513,9 @@ storiesOf('Multiple Select', module)
     components: { TmVueGroupSelect },
     data() {
       return {
-        left_list: [{"value": "US", "name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}] },
-        {"value": "CN", "name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}]}
+        left_list: [
+          {"value": "US", "name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}] },
+          {"value": "CN", "name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}]}
         ],
         left_title: "Type for select",
         right_list: [],
@@ -545,7 +546,14 @@ storiesOf('Multiple Select', module)
               <div>select value:{{selected_list}}</div>
               <button @click="oneLayer">one layer</button>
               <button @click="twoLayer">two layer</button>
-              <tm-vue-group-select v-on:change-selected="changeSelected" v-on:item-exist="itemExist" :disabled="disabled" :left_list="left_list" :left_title="left_title" :right_list="right_list" :right_title="right_title">
+              <tm-vue-group-select 
+              v-on:change-selected="changeSelected" 
+              v-on:item-exist="itemExist" 
+              :disabled="disabled" 
+              :left_list="left_list" 
+              :left_title="left_title" 
+              :right_list="right_list" 
+              :right_title="right_title">
               </tm-vue-group-select>
 
               </div>`,
