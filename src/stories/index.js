@@ -513,10 +513,11 @@ storiesOf('Multiple Select', module)
     components: { TmVueGroupSelect },
     data() {
       return {
-        left_list: [
-          {"value": "US", "name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}] },
-          {"value": "CN", "name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}]}
-        ],
+        left_list: {
+          "CN":{"name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
+          "Borlin":{"name": "Borlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
+          "US":{"name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}],expand:false } 
+        },
         left_title: "Type for select",
         right_list: [],
         right_title: "Selected type",
@@ -532,14 +533,25 @@ storiesOf('Multiple Select', module)
         alert(object+'already exist in the right list');
       },
       oneLayer(){
-        this.left_list = [];
         //console.log(this.left_list);
-        this.left_list.push({"value":1,"name":"Credit card of US"},{"value":3,"name":"Credit card of China"});
+        this.left_list = {
+          "Credit card of US":{
+            "value":1,"name":"Credit card of US"
+          },
+          "Credit card of China":{
+            "value":3,"name":"Credit card of China"
+          }
+        };
       },
       twoLayer(){
-        this.left_list = [];
-        this.left_list.push({"value": "US", "name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}] },
-        {"value": "CN", "name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}]});
+        this.left_list = {
+          "CN":{"name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
+          "Borlin":{"name": "Borlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
+          "US":{"name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}],expand:false },
+          "Credit card of JP":{
+            "value":8,"name":"Credit card of JP"
+          }
+        };
       }
     },
     template: `<div>
