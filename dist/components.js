@@ -3289,8 +3289,8 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
     name: 'TmVueGroupSelect',
     props: {
         left_list: {
-            type: Array,
-            default: []
+            type: Object,
+            default: {}
         },
         left_title: {
             type: String,
@@ -3311,7 +3311,9 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
     },
     data: function data() {
         return {
-            left: this.left_list.sort(this.compare),
+            left: _.sortBy(this.left_list, function (item) {
+                return item.name;
+            }),
             right: this.right_list.sort(this.compare)
         };
     },
@@ -3331,10 +3333,6 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
                 this.$emit('item-exist', object);
                 return false;
             }
-            //keep the item in left list
-            /*this.left = this.left.filter(function(item){
-                return !(item.value == object.value);
-            });*/
             this.right = this.right.concat(object).sort(this.compare);
             this.$emit('change-selected', this.right);
         },
@@ -3345,11 +3343,6 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
             this.right = this.right.filter(function (item) {
                 return !(item.value == object.value);
             });
-            //remove the item in right directly and don't add it back to left list.
-            /*
-            if(this.arr_find(this.left,object) === false){
-                this.left = this.left.concat(object).sort(this.compare);
-            }*/
             this.$emit('change-selected', this.right);
         },
         compare: function compare(a, b) {
@@ -3378,9 +3371,8 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
             }
         },
         parent_toggle: function parent_toggle(object, index) {
-            var tmp = this.left[index];
-            tmp.expand = !tmp.expand;
-            Vue.set(this.left, index, tmp);
+            console.log(this.left);
+            this.left[index].expand = !this.left[index].expand;
         },
         show_child: function show_child(object) {
             return object.expand;
@@ -3389,9 +3381,17 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
     watch: {
         left_list: {
             handler: function handler() {
-                this.left = _.map(this.left_list, _.clone);
-                this.left = this.left.sort(this.compare);
-                console.log(this.left);
+                this.left = _.sortBy(this.left_list, function (item) {
+                    return item.name;
+                });
+            },
+
+            deep: true
+        },
+        right_list: {
+            handler: function handler() {
+                var tmp = _.map(this.right_list, _.clone);
+                this.right = tmp.sort(this.compare);
             },
 
             deep: true

@@ -62,7 +62,6 @@
             }
         },
         data:function(){
-            console.log(this.left_list);
             return {
                 left:_.sortBy(this.left_list,function(item){return item.name}),
                 right:this.right_list.sort(this.compare),
@@ -135,6 +134,13 @@
             left_list:{
                 handler(){
                     this.left = _.sortBy(this.left_list,function(item){return item.name}); 
+                },
+                deep:true
+            },
+            right_list:{
+                handler(){
+                    var tmp = _.map(this.right_list, _.clone);
+                    this.right = tmp.sort(this.compare); 
                 },
                 deep:true
             }

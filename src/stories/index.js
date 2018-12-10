@@ -549,15 +549,22 @@ storiesOf('Multiple Select', module)
           "Borlin":{"name": "Borlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
           "US":{"name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}],expand:false },
           "Credit card of JP":{
-            "value":8,"name":"Credit card of JP"
+            "value":8,"name":"Credit card ofJP"
           }
         };
+      },
+      resetRightList(){
+        this.right_list = [
+        {value:"1","name":"Credit card of US"},
+        {value:"3","name":"Credit card of China"},
+        ]
       }
     },
     template: `<div>
               <div>select value:{{selected_list}}</div>
               <button @click="oneLayer">one layer</button>
               <button @click="twoLayer">two layer</button>
+              <button @click="resetRightList">reset right list</button>
               <tm-vue-group-select 
               v-on:change-selected="changeSelected" 
               v-on:item-exist="itemExist" 
