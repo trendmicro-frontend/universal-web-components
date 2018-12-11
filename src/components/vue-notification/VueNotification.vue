@@ -1,6 +1,6 @@
 <template>
     <div class="alert fade in" :class="class_type" role="alert">
-              <a href="#" class="cancel" data-dismiss="alert" aria-label="close"><span @click.prevent="hide_alert" class="icon icon-cancel"></span></a>
+              <a href="#" class="cancel" ><span @click.prevent="hide_alert" class="icon icon-cancel"></span></a>
               <span class="icon" :class="icon_type"></span>
               <slot></slot>
     </div>
