@@ -5193,6 +5193,9 @@
 .uwc .ms-container .ms-selectable li, .uwc .ms-container .ms-selection li {
   padding: 4px 12px;
   line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .uwc .ms-container .ms-selectable li:hover, .uwc .ms-container .ms-selection li:hover {
   cursor: pointer;

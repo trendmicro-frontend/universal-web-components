@@ -5,15 +5,15 @@
         <ul class="ms-list">
           <template v-for="(item_,index) in left">
             <template v-if="has_children(item_)">
-              <li @click="parent_toggle(item_,index)" :class="disable_li" class="parent"><span class="tmicon" :class="parent_class(item_)"></span> {{item_.name}}</li>
+              <li :title="item_.name" @click="parent_toggle(item_,index)" :class="disable_li" class="parent"><span class="tmicon" :class="parent_class(item_)"></span> {{item_.name}}</li>
               <template v-for="child in item_.children">
-                <li v-show="show_child(item_)" :class="disable_li" class="child" @click="left_click(child)">
+                <li :title="child.name" v-show="show_child(item_)" :class="disable_li" class="child" @click="left_click(child)">
                   <span>{{child.name}}</span>
                 </li>                                
               </template>
             </template>
             <template v-else>
-              <li :class="disable_li" @click="left_click(item_)">    
+              <li :title="item_.name" :class="disable_li" @click="left_click(item_)">    
                 <span>{{item_.name}}</span>
               </li>
             </template>
@@ -25,7 +25,7 @@
         <p>{{right_title}}</p>
         <ul class="ms-list">
           <template v-for="item_ in right">
-            <li :class="disable_li" @click="right_click(item_)">
+            <li :title="item_.name" :class="disable_li" @click="right_click(item_)">
               <span>{{item_.name}}</span>
             </li>
           </template>
@@ -122,7 +122,6 @@
                 }
             },
             parent_toggle(object,index){
-                console.log(this.left);
                 this.left[index].expand =  !this.left[index].expand;   
             },
             show_child(object){

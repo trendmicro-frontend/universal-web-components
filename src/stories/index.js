@@ -514,8 +514,8 @@ storiesOf('Multiple Select', module)
     data() {
       return {
         left_list: {
-          "CN":{"name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
-          "Borlin":{"name": "Borlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
+          "CN":{"name": "ChinChinaChinaChinaa",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
+          "Borlin":{"name": "BorlinBorlinBorlinBorlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
           "US":{"name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}],expand:false } 
         },
         left_title: "Type for select",
@@ -545,8 +545,8 @@ storiesOf('Multiple Select', module)
       },
       twoLayer(){
         this.left_list = {
-          "CN":{"name": "China",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
-          "Borlin":{"name": "Borlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
+          "CN":{"name": "ChinaChinaChina",children:[{"value":3,"name":"Credit card of China"},{"value":4,"name":"ID of china"}],expand:false},
+          "Borlin":{"name": "BorlinBorlinBorlinBorlin",children:[{"value":6,"name":"Credit card of Borlin"},{"value":7,"name":"ID of Borlin"}],expand:false },
           "US":{"name": "America",children:[{"value":1,"name":"Credit card of US"},{"value":2,"name":"ID of US"}],expand:false },
           "Credit card of JP":{
             "value":8,"name":"Credit card ofJP"

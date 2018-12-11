@@ -3285,7 +3285,7 @@ TmVueAutosizeTextarea$1.install = function (V, options) {
     V.component(TmVueAutosizeTextarea$1.name, TmVueAutosizeTextarea$1);
 };
 
-var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div class=\"ms-selectable\"> <p>{{left_title}}</p> <ul class=\"ms-list\"> <template v-for=\"(item_,index) in left\"> <template v-if=\"has_children(item_)\"> <li @click=\"parent_toggle(item_,index)\" :class=\"disable_li\" class=\"parent\"><span class=\"tmicon\" :class=\"parent_class(item_)\"></span> {{item_.name}}</li> <template v-for=\"child in item_.children\"> <li v-show=\"show_child(item_)\" :class=\"disable_li\" class=\"child\" @click=\"left_click(child)\"> <span>{{child.name}}</span> </li> </template> </template> <template v-else> <li :class=\"disable_li\" @click=\"left_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </template> </ul> </div> <div class=\"exchange\">&nbsp;</div> <div class=\"ms-selection\"> <p>{{right_title}}</p> <ul class=\"ms-list\"> <template v-for=\"item_ in right\"> <li :class=\"disable_li\" @click=\"right_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </ul> </div> </div>",
+var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div class=\"ms-selectable\"> <p>{{left_title}}</p> <ul class=\"ms-list\"> <template v-for=\"(item_,index) in left\"> <template v-if=\"has_children(item_)\"> <li :title=\"item_.name\" @click=\"parent_toggle(item_,index)\" :class=\"disable_li\" class=\"parent\"><span class=\"tmicon\" :class=\"parent_class(item_)\"></span> {{item_.name}}</li> <template v-for=\"child in item_.children\"> <li :title=\"child.name\" v-show=\"show_child(item_)\" :class=\"disable_li\" class=\"child\" @click=\"left_click(child)\"> <span>{{child.name}}</span> </li> </template> </template> <template v-else> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"left_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </template> </ul> </div> <div class=\"exchange\">&nbsp;</div> <div class=\"ms-selection\"> <p>{{right_title}}</p> <ul class=\"ms-list\"> <template v-for=\"item_ in right\"> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"right_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </ul> </div> </div>",
     name: 'TmVueGroupSelect',
     props: {
         left_list: {
@@ -3371,7 +3371,6 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
             }
         },
         parent_toggle: function parent_toggle(object, index) {
-            console.log(this.left);
             this.left[index].expand = !this.left[index].expand;
         },
         show_child: function show_child(object) {
