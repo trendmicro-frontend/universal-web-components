@@ -1049,6 +1049,21 @@
 .uwc .tmicon-t-ball:before {
   content: "\ed00";
 }
+.uwc .tmicon-file-lock-o:before {
+  content: "\eb12";
+}
+.uwc .tmicon-bug:before {
+  content: "\e089";
+}
+.uwc .tmicon-email:before {
+  content: "\e029";
+}
+.uwc .tmicon-filter:before {
+  content: "\e02e";
+}
+.uwc .tmicon-list-ul:before {
+  content: "\ea0a";
+}
 .uwc .tmicon {
   color: #666;
   font-size: 16px;
@@ -5064,6 +5079,9 @@
 }
 .uwc input.vue-search::-ms-clear {
   display: none;
+}
+.uwc .tmicon {
+  font-size: 16px !important;
 }
 .uwc .license {
   margin: 10px 0;
