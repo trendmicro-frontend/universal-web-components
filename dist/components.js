@@ -2088,6 +2088,7 @@ var TmVueDropdown = { template: "<div class=\"btn-group\" :style=\"widthStyle\">
             this.value = value;
             this.$nextTick(function () {
                 this.$emit('input', this.value);
+                this.$emit('input');
             });
         }
     }

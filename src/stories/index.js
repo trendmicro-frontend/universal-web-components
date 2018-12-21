@@ -308,6 +308,68 @@ storiesOf('Dropdown', module)
 
   }));
 
+  storiesOf('Dropdown with change event', module)
+  .add('default', () => ({
+    components: { TmVueDropdown },
+    data() {
+      return {
+        disabled: false,
+        dropdown_value: 1,
+        droplist: [{ value: 1, display: "aaa" }, { value: 2, display: "bbb" }]
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              select list is: {{dropdown_value}}
+              <tm-vue-dropdown :list="droplist" :disabled="disabled" v-model="dropdown_value"></tm-vue-dropdown>
+              </div>
+              `,
+
+  }))
+  .add('disabled', () => ({
+    components: { TmVueDropdown },
+    data() {
+      return {
+        disabled: true,
+        dropdown_value: 1,
+        droplist: [{ value: 1, display: "aaa" }, { value: 2, display: "bbb" }]
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              select list is: {{dropdown_value}}
+              <tm-vue-dropdown :list="droplist" :disabled="disabled" v-model="dropdown_value"></tm-vue-dropdown>
+              </div>
+              `,
+
+  }))
+  .add('emit change event', () => ({
+    components: { TmVueDropdown },
+    data() {
+      return {
+        disabled: true,
+        dropdown_value: 1,
+        droplist: [{ value: 1, display: "aaa" }, { value: 2, display: "bbb" }]
+      }
+    },
+    methods: {
+
+    },
+    template: `
+              <div>
+              select list is: {{dropdown_value}}
+              <tm-vue-dropdown :list="droplist" v-on:change="change" :disabled="disabled" v-model="dropdown_value"></tm-vue-dropdown>
+              </div>
+              `,
+
+  }));
+
 storiesOf('Step process ', module)
   .add('first', () => ({
     components: { TmVueStepProcess },
@@ -331,6 +393,10 @@ storiesOf('Step process ', module)
           this.current = 3;
           this.percent = 100;
         },
+        change(val){
+          alert(val);
+
+        }
     },
     template: `
               <div>

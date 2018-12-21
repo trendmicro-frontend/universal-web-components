@@ -63,6 +63,7 @@
                 this.value = value;
                 this.$nextTick(function(){
                     this.$emit('input', this.value);
+                    this.$emit('input');
                 });
             }
         }
