@@ -5080,6 +5080,9 @@
 .uwc input.vue-search::-ms-clear {
   display: none;
 }
+.uwc .tmicon {
+  font-size: 16px !important;
+}
 .uwc .license {
   margin: 10px 0;
 }
