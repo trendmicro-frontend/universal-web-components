@@ -1,6 +1,6 @@
 <template>
     <div class="radio" :class="{'disabled':isDisabled}">
-      <input type="radio" :value="value" @change="handleChange" v-model="checked" class="input-radio" :disabled="isDisabled" :class="{'disabled':disabledClass}">
+      <input type="radio" :value="value" :id="id" @change="handleChange" v-model="checked" class="input-radio" :disabled="isDisabled" :class="{'disabled':disabledClass}">
       <label @click="labelClick"><slot></slot></label>
     </div>
 </template>
@@ -24,6 +24,10 @@
             disabled:{
                 type:Boolean,
                 default:false
+            },
+            id:{
+                type:String,
+                default:""
             }
         },
         computed:{

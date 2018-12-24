@@ -1,6 +1,6 @@
 <template>
     <div class="checkbox" :class="{'disabled':isDisabled}">
-      <input type="checkbox" :value="value" @change="handleChange" v-model="checked" class="input-checkbox" :disabled="isDisabled" :class="{'checked':isChecked,'disabled':disabledClass}">
+      <input type="checkbox" :value="value" :id="id" @change="handleChange" v-model="checked" class="input-checkbox" :disabled="isDisabled" :class="{'checked':isChecked,'disabled':disabledClass}">
       <label @click="lableClick"><slot></slot></label>
     </div>
 </template>
@@ -24,6 +24,10 @@
             disabled:{
                 type:Boolean,
                 default:false
+            },
+            id:{
+               type:String,
+                default:"" 
             }
         },
         computed:{

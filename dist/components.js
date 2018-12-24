@@ -1617,7 +1617,7 @@ TmVueActionButton$1.install = function (V, options) {
     V.component(TmVueActionButton$1.name, TmVueActionButton$1);
 };
 
-var TmVueRadio = { template: "<div class=\"radio\" :class=\"{'disabled':isDisabled}\"> <input type=\"radio\" :value=\"value\" @change=\"handleChange\" v-model=\"checked\" class=\"input-radio\" :disabled=\"isDisabled\" :class=\"{'disabled':disabledClass}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
+var TmVueRadio = { template: "<div class=\"radio\" :class=\"{'disabled':isDisabled}\"> <input type=\"radio\" :value=\"value\" :id=\"id\" @change=\"handleChange\" v-model=\"checked\" class=\"input-radio\" :disabled=\"isDisabled\" :class=\"{'disabled':disabledClass}\"> <label @click=\"labelClick\"><slot></slot></label> </div>",
     name: 'TmVueRadio',
     model: {
         prop: "checked",
@@ -1635,6 +1635,10 @@ var TmVueRadio = { template: "<div class=\"radio\" :class=\"{'disabled':isDisabl
         disabled: {
             type: Boolean,
             default: false
+        },
+        id: {
+            type: String,
+            default: ""
         }
     },
     computed: {
@@ -1928,7 +1932,7 @@ TmVueRadioGroup.install = function (V, options) {
     V.component(TmVueRadioGroup.name, TmVueRadioGroup);
 };
 
-var TmVueCheckbox = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" :value=\"value\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':isChecked,'disabled':disabledClass}\"> <label @click=\"lableClick\"><slot></slot></label> </div>",
+var TmVueCheckbox = { template: "<div class=\"checkbox\" :class=\"{'disabled':isDisabled}\"> <input type=\"checkbox\" :value=\"value\" :id=\"id\" @change=\"handleChange\" v-model=\"checked\" class=\"input-checkbox\" :disabled=\"isDisabled\" :class=\"{'checked':isChecked,'disabled':disabledClass}\"> <label @click=\"lableClick\"><slot></slot></label> </div>",
     name: 'TmVueCheckbox',
     model: {
         prop: "checked",
@@ -1946,6 +1950,10 @@ var TmVueCheckbox = { template: "<div class=\"checkbox\" :class=\"{'disabled':is
         disabled: {
             type: Boolean,
             default: false
+        },
+        id: {
+            type: String,
+            default: ""
         }
     },
     computed: {
