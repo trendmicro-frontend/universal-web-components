@@ -39,8 +39,9 @@
         },
         methods: {
             license_jump:function(type){
-                    window.parent.license_click(type);
-                }            
+                var top_parent_click = window.parent.license_click || window.parent.parent.license_click;
+                top_parent_click(type);
+            }            
         }
     }
 </script>
