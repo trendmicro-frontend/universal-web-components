@@ -37,6 +37,10 @@ const prefixCls = "modal";
 export default {
   name: "TmVueModal",
   props: {
+  	preopened: {
+      type: Function,
+      default: () => {}
+    },
     opened: {
       type: Function,
       default: () => {}
@@ -100,6 +104,7 @@ export default {
     open() {
       this.isOk = false;
       this.isShow = true;
+      this.preopened();
       this.$nextTick(function() {
         this.isOpen = true;
         this.$refs.modal.focus();
