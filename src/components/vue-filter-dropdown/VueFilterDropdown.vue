@@ -9,7 +9,7 @@
 	        </li>
 	    </ul>
 	    <ul tabindex="0" class="Dropdown dropdown-menu" :style="{display:dropdown_display,width:width_display,height: height_display}">
-	       <li tabindex="0" data="for-select" v-show="filterList.length>0" :class="{Hover:item.hover}" @mouseover="setHoverItemById(item.id)" @mouseout="clearAllHover" v-for="item in filterList" @click.stop="addItem(item.id)">{{item.name}}</li>
+	       <li tabindex="0" data="for-select" v-show="filterList.length>0" :class="{Hover:item.hover}" @mouseover="setHoverItemById(item.value)" @mouseout="clearAllHover" v-for="item in filterList" @click.stop="addItem(item.value)">{{item.display}}</li>
          <li tabindex="0" class="no-matches" v-show="filterList.length==0">{{no_result}}</li>
 	    </ul>
 	</div>
@@ -73,14 +73,14 @@
           filterList(){
             var _this = this;        
             let tmp = this.new_init_list.filter(function(item){
-                if(_.startsWith(item.name.toLowerCase(),_this.text_value.toLowerCase()) === false)
+                if(_.startsWith(item.display.toLowerCase(),_this.text_value.toLowerCase()) === false)
                   return false;
                 else 
                   return true;
             }).sort(function(a,b){
-              if(a.name < b.name)
+              if(a.display < b.display)
                 return -1;
-              if(a.name > b.name)
+              if(a.display > b.display)
                 return 1;
               return 0;
             });
@@ -90,10 +90,10 @@
         methods:{
             selected_name(id){
                let item = _.find(this.new_init_list, function(item) {
-                  return item.id == id; 
+                  return item.value == id; 
                });
                if(item)
-                 return item.name;
+                 return item.display;
               
             },          
             addItem(id){
@@ -112,7 +112,7 @@
                 }else{
                   index = index+1;
                 }
-                this.setHoverItemById(this.filterList[index].id);
+                this.setHoverItemById(this.filterList[index].value);
               }
             },
             selectPreviousItem(){
@@ -123,12 +123,12 @@
               }else{
                 index = index-1;
               }
-              this.setHoverItemById(this.filterList[index].id);
+              this.setHoverItemById(this.filterList[index].value);
             },
             setHoverItemById(id){
               this.clearAllHover();
               let index = _.findIndex(this.new_init_list,function(item){
-                return item.id == id
+                return item.value == id
               });
               let tmp_object = _.clone(this.new_init_list[index]);
               tmp_object.hover=true;
@@ -141,17 +141,17 @@
               if(this.filterList.length == 0){
                 this.text_value ='';
                 this.clearAllHover();
-                this.setHoverItemById(this.filterList[0].id);
+                this.setHoverItemById(this.filterList[0].value);
                 return;
               }
               let index = this.getHoverItemIndex();
               if(index == -1)
                 return;
-              let id = this.filterList[index].id;
+              let id = this.filterList[index].value;
               this.addItem(id);
               this.clearAllHover();
               if(this.filterList.length >0){
-                this.setHoverItemById(this.filterList[0].id);
+                this.setHoverItemById(this.filterList[0].value);
               }
             },
             showInput(){
@@ -161,7 +161,7 @@
               this.clearAllHover();     
               //hover on the first item when show the init list.
               if(this.filterList.length > 0 ){
-                this.setHoverItemById(this.filterList[0].id);
+                this.setHoverItemById(this.filterList[0].value);
               }
             },
             hideInput(e){              
@@ -180,8 +180,9 @@
 								this.focus = true;
 								//clear the focus before show init list.
 								this.clearAllHover();     
-								//hover on the first item when show the init list.								
-								this.setHoverItemById(this.filterList[0].id);
+                //hover on the first item when show the init list.	
+                if(this.filterList.length > 0)							
+								  this.setHoverItemById(this.filterList[0].value);
 							}else{
 								this.text_value = '';
 								this.focus = false;
@@ -206,7 +207,7 @@
          },
          text_value:function(){
            if(this.filterList.length >0 && this.getHoverItemIndex()==-1){
-                this.setHoverItemById(this.filterList[0].id);
+                this.setHoverItemById(this.filterList[0].value);
            }
          }
       }

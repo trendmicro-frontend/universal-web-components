@@ -2527,7 +2527,7 @@ TmVueFilterTag$1.install = function (V, options) {
     V.component(TmVueFilterTag$1.name, TmVueFilterTag$1);
 };
 
-var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-dropdown\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showOrHideInput\" :style=\"{width:width_display}\"> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li class=\"select-name\" v-show=\"!focus\"> {{selected_name(value)}}</li> <li class=\"TokenSearch\"> <input v-show=\"focus\" v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display,height: height_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.id)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.id)\">{{item.name}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
+var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-dropdown\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showOrHideInput\" :style=\"{width:width_display}\"> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li class=\"select-name\" v-show=\"!focus\"> {{selected_name(value)}}</li> <li class=\"TokenSearch\"> <input v-show=\"focus\" v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display,height: height_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.value)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.value)\">{{item.display}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
   name: 'TmVueFilterDropdown',
   props: {
     value: {
@@ -2585,10 +2585,10 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
     filterList: function filterList() {
       var _this = this;
       var tmp = this.new_init_list.filter(function (item) {
-        if (_.startsWith(item.name.toLowerCase(), _this.text_value.toLowerCase()) === false) return false;else return true;
+        if (_.startsWith(item.display.toLowerCase(), _this.text_value.toLowerCase()) === false) return false;else return true;
       }).sort(function (a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
+        if (a.display < b.display) return -1;
+        if (a.display > b.display) return 1;
         return 0;
       });
       return tmp;
@@ -2597,9 +2597,9 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
   methods: {
     selected_name: function selected_name(id) {
       var item = _.find(this.new_init_list, function (item) {
-        return item.id == id;
+        return item.value == id;
       });
-      if (item) return item.name;
+      if (item) return item.display;
     },
     addItem: function addItem(id) {
       if (this.disabled) return;
@@ -2616,7 +2616,7 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
         } else {
           index = index + 1;
         }
-        this.setHoverItemById(this.filterList[index].id);
+        this.setHoverItemById(this.filterList[index].value);
       }
     },
     selectPreviousItem: function selectPreviousItem() {
@@ -2627,12 +2627,12 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
       } else {
         index = index - 1;
       }
-      this.setHoverItemById(this.filterList[index].id);
+      this.setHoverItemById(this.filterList[index].value);
     },
     setHoverItemById: function setHoverItemById(id) {
       this.clearAllHover();
       var index = _.findIndex(this.new_init_list, function (item) {
-        return item.id == id;
+        return item.value == id;
       });
       var tmp_object = _.clone(this.new_init_list[index]);
       tmp_object.hover = true;
@@ -2645,16 +2645,16 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
       if (this.filterList.length == 0) {
         this.text_value = '';
         this.clearAllHover();
-        this.setHoverItemById(this.filterList[0].id);
+        this.setHoverItemById(this.filterList[0].value);
         return;
       }
       var index = this.getHoverItemIndex();
       if (index == -1) return;
-      var id = this.filterList[index].id;
+      var id = this.filterList[index].value;
       this.addItem(id);
       this.clearAllHover();
       if (this.filterList.length > 0) {
-        this.setHoverItemById(this.filterList[0].id);
+        this.setHoverItemById(this.filterList[0].value);
       }
     },
     showInput: function showInput() {
@@ -2664,7 +2664,7 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
       this.clearAllHover();
       //hover on the first item when show the init list.
       if (this.filterList.length > 0) {
-        this.setHoverItemById(this.filterList[0].id);
+        this.setHoverItemById(this.filterList[0].value);
       }
     },
     hideInput: function hideInput(e) {
@@ -2685,8 +2685,8 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
         this.focus = true;
         //clear the focus before show init list.
         this.clearAllHover();
-        //hover on the first item when show the init list.								
-        this.setHoverItemById(this.filterList[0].id);
+        //hover on the first item when show the init list.	
+        if (this.filterList.length > 0) this.setHoverItemById(this.filterList[0].value);
       } else {
         this.text_value = '';
         this.focus = false;
@@ -2713,7 +2713,7 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
     },
     text_value: function text_value() {
       if (this.filterList.length > 0 && this.getHoverItemIndex() == -1) {
-        this.setHoverItemById(this.filterList[0].id);
+        this.setHoverItemById(this.filterList[0].value);
       }
     }
   }

@@ -274,7 +274,7 @@ storiesOf('Tag & Token', module)
       return {
         selected_id: "1",
         selected_id_1: "3",
-        initial_list: [{ name: "AAA1", id: "1" }, { name: "AAB2", id: "2" },{ name: "ABB3", id: "3" }, { name: "ABC4", id: "4" },{ name: "BCC5", id: "5" }],
+        initial_list: [{ display: "AAA1", value: "1" }, { display: "AAB2", value: "2" },{ display: "ABB3", value: "3" }, { display: "ABC4", value: "4" },{ display: "BCC5", value: "5" }],
         width: "512",
         disabled: false,
       }
