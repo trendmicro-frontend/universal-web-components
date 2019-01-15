@@ -2452,6 +2452,7 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
       this.setHoverItemById(this.filterList[index].id);
     },
     setHoverItemById: function setHoverItemById(id) {
+      this.clearAllHover();
       var index = _.findIndex(this.new_init_list, function (item) {
         return item.id == id;
       });
@@ -2524,6 +2525,202 @@ var TmVueFilterTag$1 = { template: "<div class=\"Tokenize tokenize\" :class=\"{d
 
 TmVueFilterTag$1.install = function (V, options) {
     V.component(TmVueFilterTag$1.name, TmVueFilterTag$1);
+};
+
+var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-dropdown\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showOrHideInput\" :style=\"{width:width_display}\"> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li class=\"select-name\" v-show=\"!focus\"> {{selected_name(value)}}</li> <li class=\"TokenSearch\"> <input v-show=\"focus\" v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display,height: height_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.id)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.id)\">{{item.name}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
+  name: 'TmVueFilterDropdown',
+  props: {
+    value: {
+      type: String,
+      default: ''
+    },
+    initial_list: {
+      type: Array,
+      default: []
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    width: {
+      type: String,
+      default: ""
+    },
+    height: {
+      type: String,
+      default: ""
+    },
+    placeholder: {
+      type: String,
+      default: ""
+    },
+    no_result: {
+      type: String,
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      focus: false,
+      text_value: '',
+      current_hover_id: '',
+      new_init_list: _.map(this.initial_list, function (item) {
+        return _.extend({}, item, { hover: false });
+      })
+    };
+  },
+  computed: {
+    dropdown_display: function dropdown_display() {
+      return this.focus ? 'block' : 'none';
+    },
+    width_display: function width_display() {
+      return this.width ? this.width + 'px' : '100%';
+    },
+    height_display: function height_display() {
+      return this.height ? this.height + 'px' : '150px';
+    },
+    showPlaceholder: function showPlaceholder() {
+      return this.value == '' && this.text_value == '';
+    },
+    filterList: function filterList() {
+      var _this = this;
+      var tmp = this.new_init_list.filter(function (item) {
+        if (_.startsWith(item.name.toLowerCase(), _this.text_value.toLowerCase()) === false) return false;else return true;
+      }).sort(function (a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
+      return tmp;
+    }
+  },
+  methods: {
+    selected_name: function selected_name(id) {
+      var item = _.find(this.new_init_list, function (item) {
+        return item.id == id;
+      });
+      if (item) return item.name;
+    },
+    addItem: function addItem(id) {
+      if (this.disabled) return;
+      this.text_value = "";
+      this.value = id;
+      this.showOrHideInput();
+    },
+    selectNextItem: function selectNextItem() {
+      if (this.filterList.length > 0) {
+        var index = this.getHoverItemIndex();
+        this.clearAllHover();
+        if (index == this.filterList.length - 1) {
+          index = 0;
+        } else {
+          index = index + 1;
+        }
+        this.setHoverItemById(this.filterList[index].id);
+      }
+    },
+    selectPreviousItem: function selectPreviousItem() {
+      var index = this.getHoverItemIndex();
+      this.clearAllHover();
+      if (index == 0 || index == -1) {
+        index = this.filterList.length - 1;
+      } else {
+        index = index - 1;
+      }
+      this.setHoverItemById(this.filterList[index].id);
+    },
+    setHoverItemById: function setHoverItemById(id) {
+      this.clearAllHover();
+      var index = _.findIndex(this.new_init_list, function (item) {
+        return item.id == id;
+      });
+      var tmp_object = _.clone(this.new_init_list[index]);
+      tmp_object.hover = true;
+      this.new_init_list.splice(index, 1, tmp_object);
+    },
+    getHoverItemIndex: function getHoverItemIndex() {
+      return _.findIndex(this.filterList, 'hover');
+    },
+    addSelectItem: function addSelectItem() {
+      if (this.filterList.length == 0) {
+        this.text_value = '';
+        this.clearAllHover();
+        this.setHoverItemById(this.filterList[0].id);
+        return;
+      }
+      var index = this.getHoverItemIndex();
+      if (index == -1) return;
+      var id = this.filterList[index].id;
+      this.addItem(id);
+      this.clearAllHover();
+      if (this.filterList.length > 0) {
+        this.setHoverItemById(this.filterList[0].id);
+      }
+    },
+    showInput: function showInput() {
+      if (this.disabled) return;
+      this.focus = true;
+      //clear the focus before show init list.
+      this.clearAllHover();
+      //hover on the first item when show the init list.
+      if (this.filterList.length > 0) {
+        this.setHoverItemById(this.filterList[0].id);
+      }
+    },
+    hideInput: function hideInput(e) {
+      if (this.disabled) return;
+      if (e.relatedTarget == this.$el.getElementsByClassName("TokensContainer")[0] || e.relatedTarget == this.$el.getElementsByClassName("Dropdown") || e.relatedTarget && e.relatedTarget.getAttribute("data") == "for-select") {
+        var _this = this;
+        setTimeout(function () {
+          _this.$el.getElementsByTagName("input")[0].focus();
+        }, 10);
+        return;
+      } else {
+        this.focus = false;
+      }
+    },
+    showOrHideInput: function showOrHideInput() {
+      if (this.disabled) return;
+      if (!this.focus) {
+        this.focus = true;
+        //clear the focus before show init list.
+        this.clearAllHover();
+        //hover on the first item when show the init list.								
+        this.setHoverItemById(this.filterList[0].id);
+      } else {
+        this.text_value = '';
+        this.focus = false;
+      }
+    },
+    clearAllHover: function clearAllHover() {
+      this.new_init_list = _.map(this.new_init_list, function (item) {
+        item.hover = false;return item;
+      });
+    }
+  },
+  directives: {
+    focus: {
+      componentUpdated: function componentUpdated(el, value) {
+        if (value.value) {
+          el.focus();
+        }
+      }
+    }
+  },
+  watch: {
+    value: function value() {
+      this.$emit('input', this.value);
+    },
+    text_value: function text_value() {
+      if (this.filterList.length > 0 && this.getHoverItemIndex() == -1) {
+        this.setHoverItemById(this.filterList[0].id);
+      }
+    }
+  }
+};
+
+TmVueFilterDropdown$1.install = function (V, options) {
+    V.component(TmVueFilterDropdown$1.name, TmVueFilterDropdown$1);
 };
 
 var TmVueStepProcess$1 = { template: "<div class=\"process\"> <div class=\"step\"> <div v-for=\"(item,index) in processes\" class=\"step_item\"> <div class=\"step_icon\" :class=\"icon(index)\"> <div class=\"circle\"> <div class=\"number\">{{item.step}}</div> <div class=\"text\"> {{item.action}} </div> </div> </div> <div :class=\"bar(index)\" class=\"bar\" v-show=\"index != processes.length - 1\"></div> </div> </div> <div class=\"description\"> {{this.processes[this.current-1].description}} </div> <div class=\"percent\"> <span class=\"loader\"></span><span class=\"percent_number\">{{percent}}%</span> </div> </div>",
@@ -7008,6 +7205,7 @@ Vue.use(TmVueSearchButton$1);
 Vue.use(TmVueButton$1);
 Vue.use(Breadcrumb);
 Vue.use(TmVueFilterTag$1);
+Vue.use(TmVueFilterDropdown$1);
 Vue.use(TmVueInput$1);
 Vue.use(TmVueBadge$1);
 Vue.use(TmVueLabel$1);

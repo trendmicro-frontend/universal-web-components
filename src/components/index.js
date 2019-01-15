@@ -11,6 +11,7 @@ import TmVueSearchButton from './vue-button-search'
 import TmVueButton from './vue-button'
 import TmVueBreadcrumb from './vue-breadcrumb'
 import TmVueFilterTag from './vue-filter-tag'
+import TmVueFilterDropdown from './vue-filter-dropdown'
 import TmVueStepProcess from './vue-step-process'
 
 import TmVueInput from './vue-input'
@@ -29,6 +30,7 @@ import './locale.js'
 import './i18n.js'
 
 import TmVueLicenseInactive from './vue-license-inactive'
+import TmVueDropdown from './vue-dropdown';
 Vue.use(VueI18n)
 Vue.use(TmVueActionButton)
 Vue.use(TMVueRadio)
@@ -41,6 +43,7 @@ Vue.use(TmVueSearchButton)
 Vue.use(TmVueButton)
 Vue.use(TmVueBreadcrumb)
 Vue.use(TmVueFilterTag)
+Vue.use(TmVueFilterDropdown)
 Vue.use(TmVueInput)
 Vue.use(TmVueBadge)
 Vue.use(TmVueLabel)
