@@ -29,6 +29,7 @@ import TmVueInput from '../components/vue-input'
 import Welcome from './Welcome.vue';
 
 import TmVueFilterTag from '../components/vue-filter-tag';
+import TmVueFilterDropdown from '../components/vue-filter-dropdown';
 import TmVueCheckbox from '../components/vue-checkbox';
 import TmVueCheckallCheckbox from '../components/vue-checkbox-checkall';
 import TmVueRadio from '../components/vue-radio';
@@ -242,7 +243,7 @@ storiesOf('Tag & Token', module)
       return {
         selected_list: [ 1,3],
         selected_list_1: [ 2,4],
-        initial_list: [{ name: "AAAA", id: 1 }, { name: "BBBB", id: 2 },{ name: "CCCC", id: 3 }, { name: "DDDD", id: 4 },{ name: "EEEE", id: 5 }],
+        initial_list: [{ name: "AAAA", id: 1 }, { name: "ABBB", id: 2 },{ name: "ACCC", id: 3 }, { name: "DDDD", id: 4 },{ name: "EEEE", id: 5 }],
         width: "512",
         disabled: false,
       }
@@ -262,6 +263,37 @@ storiesOf('Tag & Token', module)
               select list_1 is: {{selected_list_1}}
               <tm-vue-filter-tag placeholder="Select..." no_result="No result match" v-model="selected_list_1" :disabled="disabled" :width="width" :initial_list="initial_list" ></tm-vue-filter-tag>
               <button @click="disableTag" type="button">disable tag</button><button @click="enableTag" type="button">enable tag</button>
+              </div>
+              `,
+
+  }));
+  storiesOf('FilterDropdown', module)
+  .add('default', () => ({
+    components: { TmVueFilterDropdown },
+    data() {
+      return {
+        selected_id: "1",
+        selected_id_1: "3",
+        initial_list: [{ name: "AAA1", id: "1" }, { name: "AAB2", id: "2" },{ name: "ABB3", id: "3" }, { name: "ABC4", id: "4" },{ name: "BCC5", id: "5" }],
+        width: "512",
+        disabled: false,
+      }
+    },
+    methods: {
+      disableDropdown() {
+        this.disabled = true;
+      },
+      enableDropdown() {
+        this.disabled = false;
+      }
+    },
+    template: `
+              <div>
+              select id is: {{selected_id}}
+              <tm-vue-filter-dropdown placeholder="Select..." no_result="No result match" v-model="selected_id" :disabled="disabled" :width="width" :initial_list="initial_list" ></tm-vue-filter-dropdown>
+              select id_1 is: {{selected_id_1}}
+              <tm-vue-filter-dropdown placeholder="Select..." no_result="No result match" v-model="selected_id_1" :disabled="disabled" :width="width" :initial_list="initial_list" ></tm-vue-filter-dropdown>
+              <button @click="disableDropdown" type="button">disable dropdown</button><button @click="enableDropdown" type="button">enable dropdown</button>
               </div>
               `,
 

@@ -1,20 +1,14 @@
 <template>
-	<div class="Tokenize tokenize" :class="{disabled:disabled}" tabindex="0" @click="showInput" :style="{width:width_display}">
-	    <span v-show="value.length > 0" @click="removeAll" class="icon icon-cancel"></span>
+	<div class="Tokenize tokenize filter-dropdown" :class="{disabled:disabled}" tabindex="0" @click="showOrHideInput" :style="{width:width_display}">
 	    <ul class="TokensContainer tag-editor" tabindex="0">
 	        <li class="Placeholder placeholder" v-show="showPlaceholder" >{{placeholder}}</li>
-	        
-	        <li v-for="item in value" class="Token">
-	            <a class="Close" style="display:inline-block">
-	                <span class="icon icon-cancel" tabindex="0" @click.stop="removeItem(item)"></span>
-	            </a>
-	            <span>{{selected_name(item)}}</span>
-	        </li>
+	        <li class="select-name" v-show = "!focus"> {{selected_name(value)}}</li>
+
 	        <li class="TokenSearch">
-	            <input v-focus="focus" @keydown.down="selectNextItem" @keyup.enter="addSelectItem" @keydown.up="selectPreviousItem" :disabled="disabled" v-model="text_value" @focusout="hideInput($event)" size="8">
+	            <input v-show="focus" v-focus="focus" @keydown.down="selectNextItem" @keyup.enter="addSelectItem" @keydown.up="selectPreviousItem" :disabled="disabled" v-model="text_value" @focusout="hideInput($event)">
 	        </li>
 	    </ul>
-	    <ul tabindex="0" class="Dropdown dropdown-menu" :style="{display:dropdown_display,width:width_display}">
+	    <ul tabindex="0" class="Dropdown dropdown-menu" :style="{display:dropdown_display,width:width_display,height: height_display}">
 	       <li tabindex="0" data="for-select" v-show="filterList.length>0" :class="{Hover:item.hover}" @mouseover="setHoverItemById(item.id)" @mouseout="clearAllHover" v-for="item in filterList" @click.stop="addItem(item.id)">{{item.name}}</li>
          <li tabindex="0" class="no-matches" v-show="filterList.length==0">{{no_result}}</li>
 	    </ul>
@@ -24,11 +18,11 @@
 <script>
     import _ from 'lodash';
     export default {
-        name: 'TmVueFilterTag',                 
+        name: 'TmVueFilterDropdown',                 
         props:{
             value:{
-                type:[Array],
-                default:0
+                type:String,
+                default:''
             },          
             initial_list:{
               type:Array,
@@ -41,6 +35,10 @@
             width:{
               type:String,
               default:""
+            },
+            height:{
+              type: String,
+              default: ""
             },
             placeholder:{
               type:String,
@@ -65,19 +63,16 @@
         	},
         	width_display(){
         		return this.width?this.width+'px':'100%';
-        	},
+          },
+          height_display(){
+            return this.height?this.height+'px':'150px';
+          },
         	showPlaceholder(){
-        		return (this.value.length==0) && (this.text_value.length == 0);
+        		return (this.value == '') && (this.text_value == '');
         	},
           filterList(){
             var _this = this;        
             let tmp = this.new_init_list.filter(function(item){
-                if(_this.value.indexOf(item.id) !== -1 ){
-                  return false;
-                }else{
-                  return true;
-                }
-            }).filter(function(item){
                 if(_.startsWith(item.name.toLowerCase(),_this.text_value.toLowerCase()) === false)
                   return false;
                 else 
@@ -99,26 +94,15 @@
                });
                if(item)
                  return item.name;
+              
             },          
             addItem(id){
               if(this.disabled) return;
               this.text_value="";
-              this.value.push(id);
+              this.value = id;
+							this.showOrHideInput();
             },
-            removeAll(){
-              let _this = this;
-              if(this.disabled) return;
-              this.text_value="";
-              _.each(this.value,function(value){
-                _this.removeItem(value);               
-              });
-            },
-            removeItem(id){
-              if(this.disabled) return;
-              this.text_value="";
-              let index = _.findIndex(this.value,function(value){return value == id});
-              this.value.splice(index,1);
-            },
+            
             selectNextItem(){
               if(this.filterList.length > 0){
                 let index = this.getHoverItemIndex();
@@ -176,7 +160,7 @@
               //clear the focus before show init list.
               this.clearAllHover();     
               //hover on the first item when show the init list.
-              if(this.filterList.length > 0){
+              if(this.filterList.length > 0 ){
                 this.setHoverItemById(this.filterList[0].id);
               }
             },
@@ -190,6 +174,19 @@
                 this.focus = false;
               }             
             },
+						showOrHideInput(){
+							if(this.disabled) return;
+							if(!this.focus){
+								this.focus = true;
+								//clear the focus before show init list.
+								this.clearAllHover();     
+								//hover on the first item when show the init list.								
+								this.setHoverItemById(this.filterList[0].id);
+							}else{
+								this.text_value = '';
+								this.focus = false;
+							}
+						},
             clearAllHover(){
               this.new_init_list = _.map(this.new_init_list,function(item){ item.hover = false; return item;});
             }
@@ -206,6 +203,11 @@
         watch:{
           value:function(){
             this.$emit('input', this.value);
+         },
+         text_value:function(){
+           if(this.filterList.length >0 && this.getHoverItemIndex()==-1){
+                this.setHoverItemById(this.filterList[0].id);
+           }
          }
       }
     }                

@@ -3570,34 +3570,34 @@
           animation-fill-mode: forwards;
 }
 @-webkit-keyframes slideright {
-  .uwc from {
+  from {
     margin-left: -73px;
   }
-  .uwc to {
+  to {
     margin-left: 0px;
   }
 }
 @keyframes slideright {
-  .uwc from {
+  from {
     margin-left: -73px;
   }
-  .uwc to {
+  to {
     margin-left: 0px;
   }
 }
 @-webkit-keyframes slideleft {
-  .uwc from {
+  from {
     margin-left: 0px;
   }
-  .uwc to {
+  to {
     margin-left: -73px;
   }
 }
 @keyframes slideleft {
-  .uwc from {
+  from {
     margin-left: 0px;
   }
-  .uwc to {
+  to {
     margin-left: -73px;
   }
 }
@@ -5231,6 +5231,16 @@
 }
 .uwc .ms-container .ms-selectable li.child, .uwc .ms-container .ms-selection li.child {
   padding-left: 30px;
+}
+.uwc > div .filter-dropdown .TokensContainer {
+  min-height: 37px;
+}
+.uwc > div .filter-dropdown .dropdown-menu {
+  overflow: auto;
+}
+.uwc > div .filter-dropdown .TokensContainer .select-name {
+  margin-top: 6px;
+  padding-left: 8px;
 }
 .uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after, .uwc .nav:before, .uwc .nav:after, .uwc .navbar:before, .uwc .navbar:after, .uwc .navbar-header:before, .uwc .navbar-header:after, .uwc .navbar-collapse:before, .uwc .navbar-collapse:after, .uwc .panel-body:before, .uwc .panel-body:after {
   content: " ";
