@@ -274,7 +274,17 @@ storiesOf('Tag & Token', module)
       return {
         selected_id: "1",
         selected_id_1: "3",
-        initial_list: [{ display: "AAA1", value: "1" }, { display: "AAB2", value: "2" },{ display: "ABB3", value: "3" }, { display: "ABC4", value: "4" },{ display: "BCC5", value: "5" }],
+        initial_list: [
+          { display: "AAA1", value: "1" }, 
+          { display: "AAB2", value: "2" },
+          { display: "ABB3", value: "3" }, 
+          { display: "ABC4", value: "4" },
+          { display: "BCC5", value: "5" },
+          { display: "CAA1", value: "6" }, 
+          { display: "CAB2", value: "7" },
+          { display: "CBB3", value: "8" }, 
+          { display: "CBC4", value: "9" },
+          { display: "DCC5", value: "10" }],
         width: "512",
         disabled: false,
       }

@@ -2527,7 +2527,7 @@ TmVueFilterTag$1.install = function (V, options) {
     V.component(TmVueFilterTag$1.name, TmVueFilterTag$1);
 };
 
-var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-dropdown\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showOrHideInput\" :style=\"{width:width_display}\"> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li class=\"select-name\" v-show=\"!focus\"> {{selected_name(value)}}</li> <li class=\"TokenSearch\"> <input v-show=\"focus\" v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\"> </li> </ul> <ul tabindex=\"0\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display,height: height_display}\"> <li tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.value)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.value)\">{{item.display}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
+var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-dropdown\" :class=\"{disabled:disabled}\" tabindex=\"0\" @click=\"showOrHideInput\" :style=\"{width:width_display}\"> <ul class=\"TokensContainer tag-editor\" tabindex=\"0\"> <li class=\"Placeholder placeholder\" v-show=\"showPlaceholder\">{{placeholder}}</li> <li class=\"select-name\" v-show=\"!focus\"> {{selected_name(value)}}</li> <li class=\"TokenSearch\"> <input v-show=\"focus\" v-focus=\"focus\" @keydown.down=\"selectNextItem\" @keyup.enter=\"addSelectItem\" @keydown.up=\"selectPreviousItem\" :disabled=\"disabled\" v-model=\"text_value\" @focusout=\"hideInput($event)\"> </li> </ul> <ul tabindex=\"0\" @mouseup=\"scrollBarMouseUp($event)\" class=\"Dropdown dropdown-menu\" :style=\"{display:dropdown_display,width:width_display,height: height_display}\"> <li :title=\"item.display\" tabindex=\"0\" data=\"for-select\" v-show=\"filterList.length>0\" :class=\"{Hover:item.hover}\" @mouseover=\"setHoverItemById(item.value)\" @mouseout=\"clearAllHover\" v-for=\"item in filterList\" @click.stop=\"addItem(item.value)\">{{item.display}}</li> <li tabindex=\"0\" class=\"no-matches\" v-show=\"filterList.length==0\">{{no_result}}</li> </ul> </div>",
   name: 'TmVueFilterDropdown',
   props: {
     value: {
@@ -2595,6 +2595,15 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
     }
   },
   methods: {
+    scrollBarMouseUp: function scrollBarMouseUp(e) {
+      var _this = this;
+      if (e.target == this.$el.getElementsByClassName("Dropdown")[0]) {
+        setTimeout(function () {
+          _this.$el.getElementsByTagName("input")[0].focus();
+        }, 10);
+        this.focus = true;
+      }
+    },
     selected_name: function selected_name(id) {
       var item = _.find(this.new_init_list, function (item) {
         return item.value == id;
@@ -2676,7 +2685,9 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
         }, 10);
         return;
       } else {
-        this.focus = false;
+        if (e.relatedTarget != this.$el.getElementsByClassName("Dropdown")[0]) {
+          this.focus = false;
+        }
       }
     },
     showOrHideInput: function showOrHideInput() {
@@ -2715,6 +2726,11 @@ var TmVueFilterDropdown$1 = { template: "<div class=\"Tokenize tokenize filter-d
       if (this.filterList.length > 0 && this.getHoverItemIndex() == -1) {
         this.setHoverItemById(this.filterList[0].value);
       }
+    },
+    initial_list: function initial_list() {
+      this.new_init_list = _.map(this.initial_list, function (item) {
+        return _.extend({}, item, { hover: false });
+      });
     }
   }
 };

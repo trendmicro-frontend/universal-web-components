@@ -1,11 +1,18 @@
-.uwc > div .filter-dropdown .TokensContainer{ 
-  min-height: 37px;
+.uwc .filter-dropdown .TokensContainer{ 
+  height: 34px;
 }
-.uwc > div .filter-dropdown .dropdown-menu{
-  overflow: auto;
+.uwc .filter-dropdown .dropdown-menu{
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.uwc > div .filter-dropdown .TokensContainer .select-name{
+.uwc .filter-dropdown .dropdown-menu > li{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uwc .filter-dropdown .TokensContainer .select-name{
   margin-top: 6px;
   // padding: 2px 0;
   padding-left: 8px; 

@@ -8,8 +8,8 @@
 	            <input v-show="focus" v-focus="focus" @keydown.down="selectNextItem" @keyup.enter="addSelectItem" @keydown.up="selectPreviousItem" :disabled="disabled" v-model="text_value" @focusout="hideInput($event)">
 	        </li>
 	    </ul>
-	    <ul tabindex="0" class="Dropdown dropdown-menu" :style="{display:dropdown_display,width:width_display,height: height_display}">
-	       <li tabindex="0" data="for-select" v-show="filterList.length>0" :class="{Hover:item.hover}" @mouseover="setHoverItemById(item.value)" @mouseout="clearAllHover" v-for="item in filterList" @click.stop="addItem(item.value)">{{item.display}}</li>
+	    <ul tabindex="0" @mouseup="scrollBarMouseUp($event)" class="Dropdown dropdown-menu" :style="{display:dropdown_display,width:width_display,height: height_display}">
+	       <li :title="item.display" tabindex="0" data="for-select" v-show="filterList.length>0" :class="{Hover:item.hover}" @mouseover="setHoverItemById(item.value)" @mouseout="clearAllHover" v-for="item in filterList" @click.stop="addItem(item.value)">{{item.display}}</li>
          <li tabindex="0" class="no-matches" v-show="filterList.length==0">{{no_result}}</li>
 	    </ul>
 	</div>
@@ -88,6 +88,13 @@
           }
         },
         methods:{
+          scrollBarMouseUp(e){
+              let _this = this;
+              if (e.target == this.$el.getElementsByClassName("Dropdown")[0]){
+                  setTimeout(function() { _this.$el.getElementsByTagName("input")[0].focus(); }, 10);
+                  this.focus = true;
+              }             
+          },
             selected_name(id){
                let item = _.find(this.new_init_list, function(item) {
                   return item.value == id; 
@@ -171,7 +178,11 @@
                 setTimeout(function() { _this.$el.getElementsByTagName("input")[0].focus(); }, 10);
                 return;
               }else{
-                this.focus = false;
+                let _this = this;
+                if (e.relatedTarget != this.$el.getElementsByClassName("Dropdown")[0]){
+                  this.focus = false;
+                }
+                  
               }             
             },
 						showOrHideInput(){
@@ -209,6 +220,9 @@
            if(this.filterList.length >0 && this.getHoverItemIndex()==-1){
                 this.setHoverItemById(this.filterList[0].value);
            }
+         },
+         initial_list:function(){
+           this.new_init_list = _.map(this.initial_list,function(item){return _.extend({},item,{hover:false});});
          }
       }
     }                
