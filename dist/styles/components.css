@@ -5213,7 +5213,7 @@
   line-height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: pre;
 }
 .uwc .ms-container .ms-selectable li:hover, .uwc .ms-container .ms-selection li:hover {
   cursor: pointer;
@@ -5242,14 +5242,14 @@
 .uwc .filter-dropdown .dropdown-menu > li {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre;
 }
 .uwc .filter-dropdown .TokensContainer .select-name {
   margin-top: 6px;
   padding-left: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre;
 }
 .uwc .disabled ul {
   background-color: #ddd;
