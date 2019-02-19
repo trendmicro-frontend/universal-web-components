@@ -44,7 +44,7 @@ var defineProperty = function (obj, key, value) {
 };
 
 /*!
- * vue-i18n v7.8.1 
+ * vue-i18n v7.6.0 
  * (c) 2018 kazuya kawaguchi
  * Released under the MIT License.
  */
@@ -231,7 +231,7 @@ function extend(Vue$$1) {
   });
   // $FlowFixMe
   Object.defineProperty(Vue$$1.prototype, '$tc', {
-    get: function get$$1() {
+    get: function get$1() {
       var this$1 = this;
 
       return function (key, choice) {
@@ -246,7 +246,7 @@ function extend(Vue$$1) {
   });
   // $FlowFixMe
   Object.defineProperty(Vue$$1.prototype, '$te', {
-    get: function get$$1() {
+    get: function get$2() {
       var this$1 = this;
 
       return function (key, locale) {
@@ -257,33 +257,31 @@ function extend(Vue$$1) {
   });
   // $FlowFixMe
   Object.defineProperty(Vue$$1.prototype, '$d', {
-    get: function get$$1() {
+    get: function get$3() {
       var this$1 = this;
 
       return function (value) {
-        var ref;
-
         var args = [],
             len = arguments.length - 1;
         while (len-- > 0) {
           args[len] = arguments[len + 1];
         }return (ref = this$1.$i18n).d.apply(ref, [value].concat(args));
+        var ref;
       };
     }
   });
   // $FlowFixMe
   Object.defineProperty(Vue$$1.prototype, '$n', {
-    get: function get$$1() {
+    get: function get$4() {
       var this$1 = this;
 
       return function (value) {
-        var ref;
-
         var args = [],
             len = arguments.length - 1;
         while (len-- > 0) {
           args[len] = arguments[len + 1];
         }return (ref = this$1.$i18n).n.apply(ref, [value].concat(args));
+        var ref;
       };
     }
   });
@@ -384,10 +382,11 @@ var mixin = {
 
     this._i18n = null;
   }
+};
 
-  /*  */
+/*  */
 
-};var component = {
+var component = {
   name: 'i18n',
   functional: true,
   props: {
@@ -458,15 +457,16 @@ var mixin = {
 
     return h(props.tag, data, i18n.i(path, locale, params));
   }
+};
 
-  /*  */
+/*  */
 
-};function bind(el, binding, vnode) {
+function bind(el, binding, vnode) {
   if (!assert(el, vnode)) {
     return;
   }
 
-  t(el, binding, vnode);
+  t$1(el, binding, vnode);
 }
 
 function update(el, binding, vnode, oldVNode) {
@@ -478,19 +478,7 @@ function update(el, binding, vnode, oldVNode) {
     return;
   }
 
-  t(el, binding, vnode);
-}
-
-function unbind(el, binding, vnode, oldVNode) {
-  if (!assert(el, vnode)) {
-    return;
-  }
-
-  el.textContent = '';
-  el._vt = undefined;
-  delete el['_vt'];
-  el._locale = undefined;
-  delete el['_locale'];
+  t$1(el, binding, vnode);
 }
 
 function assert(el, vnode) {
@@ -513,9 +501,7 @@ function localeEqual(el, vnode) {
   return el._locale === vm.$i18n.locale;
 }
 
-function t(el, binding, vnode) {
-  var ref$1, ref$2;
-
+function t$1(el, binding, vnode) {
   var value = binding.value;
 
   var ref = parseValue(value);
@@ -540,6 +526,8 @@ function t(el, binding, vnode) {
     el._vt = el.textContent = (ref$2 = vm.$i18n).t.apply(ref$2, [path].concat(makeParams(locale, args)));
   }
   el._locale = vm.$i18n.locale;
+  var ref$1;
+  var ref$2;
 }
 
 function parseValue(value) {
@@ -589,7 +577,7 @@ function install(_Vue) {
 
   extend(Vue$1);
   Vue$1.mixin(mixin);
-  Vue$1.directive('t', { bind: bind, update: update, unbind: unbind });
+  Vue$1.directive('t', { bind: bind, update: update });
   Vue$1.component(component.name, component);
 
   // use object-based merge strategy
@@ -1060,7 +1048,7 @@ var VueI18n = function VueI18n(options) {
   });
 };
 
-var prototypeAccessors = { vm: { configurable: true }, messages: { configurable: true }, dateTimeFormats: { configurable: true }, numberFormats: { configurable: true }, locale: { configurable: true }, fallbackLocale: { configurable: true }, missing: { configurable: true }, formatter: { configurable: true }, silentTranslationWarn: { configurable: true } };
+var prototypeAccessors = { vm: {}, messages: {}, dateTimeFormats: {}, numberFormats: {}, locale: {}, fallbackLocale: {}, missing: {}, formatter: {}, silentTranslationWarn: {} };
 
 VueI18n.prototype._initVM = function _initVM(data) {
   var silent = Vue$1.config.silent;
@@ -1276,8 +1264,6 @@ VueI18n.prototype._translate = function _translate(messages, locale, fallback, k
 };
 
 VueI18n.prototype._t = function _t(key, _locale, messages, host) {
-  var ref;
-
   var values = [],
       len = arguments.length - 4;
   while (len-- > 0) {
@@ -1298,16 +1284,16 @@ VueI18n.prototype._t = function _t(key, _locale, messages, host) {
   } else {
     return this._warnDefault(locale, key, ret, host, values);
   }
+  var ref;
 };
 
 VueI18n.prototype.t = function t(key) {
-  var ref;
-
   var values = [],
       len = arguments.length - 1;
   while (len-- > 0) {
     values[len] = arguments[len + 1];
   }return (ref = this)._t.apply(ref, [key, this.locale, this._getMessages(), null].concat(values));
+  var ref;
 };
 
 VueI18n.prototype._i = function _i(key, locale, messages, host, values) {
@@ -1336,8 +1322,6 @@ VueI18n.prototype.i = function i(key, locale, values) {
 };
 
 VueI18n.prototype._tc = function _tc(key, _locale, messages, host, choice) {
-  var ref;
-
   var values = [],
       len = arguments.length - 5;
   while (len-- > 0) {
@@ -1349,16 +1333,16 @@ VueI18n.prototype._tc = function _tc(key, _locale, messages, host, choice) {
     choice = 1;
   }
   return fetchChoice((ref = this)._t.apply(ref, [key, _locale, messages, host].concat(values)), choice);
+  var ref;
 };
 
 VueI18n.prototype.tc = function tc(key, choice) {
-  var ref;
-
   var values = [],
       len = arguments.length - 2;
   while (len-- > 0) {
     values[len] = arguments[len + 2];
   }return (ref = this)._tc.apply(ref, [key, this.locale, this._getMessages(), null, choice].concat(values));
+  var ref;
 };
 
 VueI18n.prototype._te = function _te(key, locale, messages) {
@@ -1379,7 +1363,7 @@ VueI18n.prototype.getLocaleMessage = function getLocaleMessage(locale) {
 };
 
 VueI18n.prototype.setLocaleMessage = function setLocaleMessage(locale, message) {
-  this._vm.$set(this._vm.messages, locale, message);
+  this._vm.messages[locale] = message;
 };
 
 VueI18n.prototype.mergeLocaleMessage = function mergeLocaleMessage(locale, message) {
@@ -1391,7 +1375,7 @@ VueI18n.prototype.getDateTimeFormat = function getDateTimeFormat(locale) {
 };
 
 VueI18n.prototype.setDateTimeFormat = function setDateTimeFormat(locale, format) {
-  this._vm.$set(this._vm.dateTimeFormats, locale, format);
+  this._vm.dateTimeFormats[locale] = format;
 };
 
 VueI18n.prototype.mergeDateTimeFormat = function mergeDateTimeFormat(locale, format) {
@@ -1474,7 +1458,7 @@ VueI18n.prototype.getNumberFormat = function getNumberFormat(locale) {
 };
 
 VueI18n.prototype.setNumberFormat = function setNumberFormat(locale, format) {
-  this._vm.$set(this._vm.numberFormats, locale, format);
+  this._vm.numberFormats[locale] = format;
 };
 
 VueI18n.prototype.mergeNumberFormat = function mergeNumberFormat(locale, format) {
@@ -1551,9 +1535,8 @@ VueI18n.prototype.n = function n(value) {
 
       // Filter out number format options only
       options = Object.keys(args[0]).reduce(function (acc, key) {
-        var obj;
-
         if (numberFormatKeys.includes(key)) {
+          var obj;
           return Object.assign({}, acc, (obj = {}, obj[key] = args[0][key], obj));
         }
         return acc;
@@ -1578,7 +1561,7 @@ VueI18n.availabilities = {
   numberFormat: canUseNumberFormat
 };
 VueI18n.install = install;
-VueI18n.version = '7.8.1';
+VueI18n.version = '7.6.0';
 
 var TmVueActionButton$1 = { template: "<button type=\"button\" class=\"btn\" :class=\"buttonStatus\" :disabled=\"disabled\" v-on:click=\"clicked\"> <span class=\"glyphicon-loader\" v-show=\"isLoading\"></span>{{ val }} </button>",
   name: "TmVueActionButton",
@@ -3582,9 +3565,9 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
             this.$emit('change-selected', this.right);
         },
         compare: function compare(a, b) {
-            if (a.name > b.name) {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
-            } else if (a.name == b.name) {
+            } else if (a.name.toLowerCase() == b.name.toLowerCase()) {
                 return 0;
             } else {
                 return -1;
@@ -3923,9 +3906,6 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                 // Callback for dragover events of the dropZone(s):
                 // dragover: function (e) {}, // .bind('fileuploaddragover', func);
 
-                // Callback before the start of each chunk upload request (before form data initialization):
-                // chunkbeforesend: function (e, data) {}, // .bind('fileuploadchunkbeforesend', func);
-
                 // Callback for the start of each chunk upload request:
                 // chunksend: function (e, data) {}, // .bind('fileuploadchunksend', func);
 
@@ -4068,13 +4048,6 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                     options.xhr = function () {
                         return xhr;
                     };
-                }
-            },
-
-            _deinitProgressListener: function _deinitProgressListener(options) {
-                var xhr = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
-                if (xhr.upload) {
-                    $(xhr.upload).unbind('progress');
                 }
             },
 
@@ -4372,8 +4345,6 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                     o.chunkSize = o.blob.size;
                     // Expose the chunk bytes position range:
                     o.contentRange = 'bytes ' + ub + '-' + (ub + o.chunkSize - 1) + '/' + fs;
-                    // Trigger chunkbeforesend to allow form data to be updated for this chunk
-                    that._trigger('chunkbeforesend', null, o);
                     // Process the upload data (the blob and potential form data):
                     that._initXHRData(o);
                     // Add progress listeners for this chunk upload:
@@ -4410,8 +4381,6 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                         that._trigger('chunkfail', null, o);
                         that._trigger('chunkalways', null, o);
                         dfd.rejectWith(o.context, [jqXHR, textStatus, errorThrown]);
-                    }).always(function () {
-                        that._deinitProgressListener(o);
                     });
                 };
                 this._enhancePromise(promise);
@@ -4505,7 +4474,6 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         that._onFail(jqXHR, textStatus, errorThrown, options);
                     }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
-                        that._deinitProgressListener(options);
                         that._onAlways(jqXHRorResult, textStatus, jqXHRorError, options);
                         that._sending -= 1;
                         that._active -= 1;
@@ -4705,7 +4673,7 @@ var jquery_fileupload = createCommonjsModule(function (module, exports) {
                     dirReader = entry.createReader();
                     readEntries();
                 } else {
-                    // Return an empty list for file system items
+                    // Return an empy list for file system items
                     // other than files or directories:
                     dfd.resolve([]);
                 }
@@ -5680,12 +5648,6 @@ TmVueUpload$1.install = function (V, options) {
 };
 
 (function ($) {
-  function focus(target) {
-    if (!document.activeElement || document.activeElement !== target) {
-      target.focus();
-    }
-  }
-
   $.fn.caret = function (pos) {
     var target = this[0];
     var isContentEditable = target && target.contentEditable === 'true';
@@ -5696,13 +5658,8 @@ TmVueUpload$1.install = function (V, options) {
         if (window.getSelection) {
           //contenteditable
           if (isContentEditable) {
-            focus(target);
-            var selection = window.getSelection();
-            // Opera 12 check
-            if (!selection.rangeCount) {
-              return 0;
-            }
-            var range1 = selection.getRangeAt(0),
+            target.focus();
+            var range1 = window.getSelection().getRangeAt(0),
                 range2 = range1.cloneRange();
             range2.selectNodeContents(target);
             range2.setEnd(range1.endContainer, range1.endOffset);
@@ -5713,7 +5670,7 @@ TmVueUpload$1.install = function (V, options) {
         }
         //IE<9
         if (document.selection) {
-          focus(target);
+          target.focus();
           //contenteditable
           if (isContentEditable) {
             var range1 = document.selection.createRange(),
@@ -5745,7 +5702,7 @@ TmVueUpload$1.install = function (V, options) {
       if (window.getSelection) {
         //contenteditable
         if (isContentEditable) {
-          focus(target);
+          target.focus();
           window.getSelection().collapse(target.firstChild, pos);
         }
         //textarea
@@ -5765,7 +5722,7 @@ TmVueUpload$1.install = function (V, options) {
             range.select();
           }
         }
-      if (!isContentEditable) focus(target);
+      if (!isContentEditable) target.focus();
     }
     return this;
   };

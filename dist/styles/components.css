@@ -3570,34 +3570,34 @@
           animation-fill-mode: forwards;
 }
 @-webkit-keyframes slideright {
-  from {
+  .uwc from {
     margin-left: -73px;
   }
-  to {
+  .uwc to {
     margin-left: 0px;
   }
 }
 @keyframes slideright {
-  from {
+  .uwc from {
     margin-left: -73px;
   }
-  to {
+  .uwc to {
     margin-left: 0px;
   }
 }
 @-webkit-keyframes slideleft {
-  from {
+  .uwc from {
     margin-left: 0px;
   }
-  to {
+  .uwc to {
     margin-left: -73px;
   }
 }
 @keyframes slideleft {
-  from {
+  .uwc from {
     margin-left: 0px;
   }
-  to {
+  .uwc to {
     margin-left: -73px;
   }
 }
@@ -5234,6 +5234,7 @@
 }
 .uwc .filter-dropdown .TokensContainer {
   height: 34px;
+  outline: none;
 }
 .uwc .filter-dropdown .dropdown-menu {
   overflow-y: auto;
