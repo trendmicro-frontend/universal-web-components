@@ -132,7 +132,7 @@
         watch:{
             left_list:{
                 handler(){
-                    this.left = _.sortBy(this.left_list,function(item){return item.name}); 
+                    this.left = _.sortBy(this.left_list,function(item){return item.name.toLowerCase()}); 
                 },
                 deep:true
             },

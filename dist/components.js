@@ -3600,7 +3600,7 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
         left_list: {
             handler: function handler() {
                 this.left = _.sortBy(this.left_list, function (item) {
-                    return item.name;
+                    return item.name.toLowerCase();
                 });
             },
 
