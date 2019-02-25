@@ -74,7 +74,7 @@
           filterList(){
             var _this = this;        
             let tmp = this.initial_list.filter(function(item){
-                if(_.startsWith(item.display.toLowerCase(),_this.text_value.toLowerCase()) === false)
+                if(item.display.toLowerCase().indexOf(_this.text_value.toLowerCase()) === -1)
                   return false;
                 else 
                   return true;
