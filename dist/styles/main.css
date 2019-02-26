@@ -7733,34 +7733,34 @@ yx-axis
           animation-fill-mode: forwards;
 }
 @-webkit-keyframes slideright {
-  .uwc from {
+  from {
     margin-left: -73px;
   }
-  .uwc to {
+  to {
     margin-left: 0px;
   }
 }
 @keyframes slideright {
-  .uwc from {
+  from {
     margin-left: -73px;
   }
-  .uwc to {
+  to {
     margin-left: 0px;
   }
 }
 @-webkit-keyframes slideleft {
-  .uwc from {
+  from {
     margin-left: 0px;
   }
-  .uwc to {
+  to {
     margin-left: -73px;
   }
 }
 @keyframes slideleft {
-  .uwc from {
+  from {
     margin-left: 0px;
   }
-  .uwc to {
+  to {
     margin-left: -73px;
   }
 }
