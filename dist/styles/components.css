@@ -5261,11 +5261,11 @@
 .uwc .filter-dropdown .TokenSearch input {
   width: 100%;
 }
-.uwc .filter-dropdown .disabled ul {
+.uwc .filter-dropdown.disabled ul {
   background-color: #ddd;
   opacity: 0.4;
 }
-.uwc .filter-dropdown .disabled:hover {
+.uwc .filter-dropdown.disabled:hover {
   cursor: not-allowed;
 }
 .uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after, .uwc .nav:before, .uwc .nav:after, .uwc .navbar:before, .uwc .navbar:after, .uwc .navbar-header:before, .uwc .navbar-header:after, .uwc .navbar-collapse:before, .uwc .navbar-collapse:after, .uwc .panel-body:before, .uwc .panel-body:after {
