@@ -1,0 +1,63 @@
+.vue-filter-input{
+	position: relative;
+	.selected_item{
+		line-height: 32px;
+		height: 32px;
+	}
+	.form-control.search{
+		padding-left: 30px;
+		padding-right:36px;
+	}
+	.input-icon-label{
+		position: absolute;
+    left: 9px;
+    margin-top: 6px;
+    top:0;
+    color: #666666;
+    z-index: 999;
+	}
+	.loader,.typing{
+    position: absolute;
+    right: 8px;
+    margin-top: 8px;
+    z-index: 3;
+    top: 0;	
+		} 
+	.form-control:focus + .input-icon-label > i, .form-control.input-focus + .input-icon-label > i, .input-icon-label .focus{
+    transition: all .2s linear 0s;
+    color: #0096cc;
+	}
+	.search_result{
+		overflow-y: auto;
+		border: 1px solid #bbb;
+		position: absolute;
+		z-index: 999;
+		background: #fff;		
+		ul{
+			padding-left:0px;
+			list-style: none;
+			margin-bottom: 0;
+			li{
+				cursor: pointer;
+				height: 25px;
+				line-height: 25px;
+				padding-left: 10px;
+				margin: 5px 0;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;				
+				&:hover{
+					background-color: #eee;
+				}
+			}
+		}
+		.no_result{
+			li{
+				cursor: default;
+				&:hover{
+					background-color:#fff;
+				}
+			}
+		}
+	}
+}

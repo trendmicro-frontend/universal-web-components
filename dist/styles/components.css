@@ -5268,6 +5268,68 @@
 .uwc .filter-dropdown.disabled:hover {
   cursor: not-allowed;
 }
+.uwc .vue-filter-input {
+  position: relative;
+}
+.uwc .vue-filter-input .selected_item {
+  line-height: 32px;
+  height: 32px;
+}
+.uwc .vue-filter-input .form-control.search {
+  padding-left: 30px;
+  padding-right: 36px;
+}
+.uwc .vue-filter-input .input-icon-label {
+  position: absolute;
+  left: 9px;
+  margin-top: 6px;
+  top: 0;
+  color: #666666;
+  z-index: 999;
+}
+.uwc .vue-filter-input .loader, .uwc .vue-filter-input .typing {
+  position: absolute;
+  right: 8px;
+  margin-top: 8px;
+  z-index: 3;
+  top: 0;
+}
+.uwc .vue-filter-input .form-control:focus + .input-icon-label > i, .uwc .vue-filter-input .form-control.input-focus + .input-icon-label > i, .uwc .vue-filter-input .input-icon-label .focus {
+  -webkit-transition: all .2s linear 0s;
+  transition: all .2s linear 0s;
+  color: #0096cc;
+}
+.uwc .vue-filter-input .search_result {
+  overflow-y: auto;
+  border: 1px solid #bbb;
+  position: absolute;
+  z-index: 999;
+  background: #fff;
+}
+.uwc .vue-filter-input .search_result ul {
+  padding-left: 0px;
+  list-style: none;
+  margin-bottom: 0;
+}
+.uwc .vue-filter-input .search_result ul li {
+  cursor: pointer;
+  height: 25px;
+  line-height: 25px;
+  padding-left: 10px;
+  margin: 5px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.uwc .vue-filter-input .search_result ul li:hover {
+  background-color: #eee;
+}
+.uwc .vue-filter-input .search_result .no_result li {
+  cursor: default;
+}
+.uwc .vue-filter-input .search_result .no_result li:hover {
+  background-color: #fff;
+}
 .uwc .clearfix:before, .uwc .clearfix:after, .uwc .breadcrumb:before, .uwc .breadcrumb:after, .uwc .btn-toolbar:before, .uwc .btn-toolbar:after, .uwc .btn-group-vertical > .btn-group:before, .uwc .btn-group-vertical > .btn-group:after, .uwc .modal-header:before, .uwc .modal-header:after, .uwc .modal-footer:before, .uwc .modal-footer:after, .uwc .nav:before, .uwc .nav:after, .uwc .navbar:before, .uwc .navbar:after, .uwc .navbar-header:before, .uwc .navbar-header:after, .uwc .navbar-collapse:before, .uwc .navbar-collapse:after, .uwc .panel-body:before, .uwc .panel-body:after {
   content: " ";
   display: table;

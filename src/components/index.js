@@ -12,6 +12,7 @@ import TmVueButton from './vue-button'
 import TmVueBreadcrumb from './vue-breadcrumb'
 import TmVueFilterTag from './vue-filter-tag'
 import TmVueFilterDropdown from './vue-filter-dropdown'
+import TmVueFilterInput from './vue-filter-input'
 import TmVueStepProcess from './vue-step-process'
 
 import TmVueInput from './vue-input'
@@ -19,7 +20,6 @@ import TmVueInput from './vue-input'
 import TmVueBadge from './vue-badge'
 import TmVueLabel from './vue-label'
 import TmVueModal from './vue-modal'
-import TmVueAutosizeTextarea from './vue-autosize-textarea'
 import TmVueGroupSelect from './vue-group-select';
 import TmVueNotification from './vue-notification';
 
@@ -44,6 +44,7 @@ Vue.use(TmVueButton)
 Vue.use(TmVueBreadcrumb)
 Vue.use(TmVueFilterTag)
 Vue.use(TmVueFilterDropdown)
+Vue.use(TmVueFilterInput)
 Vue.use(TmVueInput)
 Vue.use(TmVueBadge)
 Vue.use(TmVueLabel)
@@ -51,7 +52,6 @@ Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
 Vue.use(TmVueLicenseInactive)
-Vue.use(TmVueAutosizeTextarea)
 Vue.use(TmVueStepProcess)
 Vue.use(TmVueGroupSelect)
 Vue.use(TmVueNotification)
