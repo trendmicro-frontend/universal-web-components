@@ -2,8 +2,11 @@
     <div class="ms-container uwc">
       <div class="ms-selectable">
         <p>{{left_title}}</p>
-        <ul class="ms-list">
-          <template v-for="(item_,index) in left">
+        <ul class="ms-list" :class="{'input-left':is_input_left}">
+          <template v-if="is_input_left">
+            <input type="text" v-model="input" :placeholder="placeholder" @keyup.enter="left_enter" class="form-control input-width-md" />
+          </template>
+          <template v-else v-for="(item_,index) in left">
             <template v-if="has_children(item_)">
               <li :title="item_.name" @click="parent_toggle(item_,index)" :class="disable_li" class="parent"><span class="tmicon" :class="parent_class(item_)"></span> {{item_.name}}</li>
               <template v-for="child in item_.children">
@@ -56,6 +59,22 @@
                 type:String,
                 default:"" 
             },
+            left_type:{
+              type:String,
+              default:"select_left"
+            },
+            placeholder:{
+              type:String,
+              default:""
+            },
+            validator:{
+              type:Function,
+              default:function(){}
+            },
+            pre_duplicate_check_list:{
+              type:Array,
+              default:function(){return []}
+            },
             disabled:{
                 type:Boolean,
                 default:false
@@ -65,6 +84,7 @@
             return {
                 left:_.sortBy(this.left_list,function(item){return item.name}),
                 right:this.right_list.sort(this.compare),
+                input:""
             }
         },        
         computed:{
@@ -72,6 +92,9 @@
                 return{
                     "disabledLi":this.disabled
                 };
+            },
+            is_input_left(){
+              return this.left_type=='input_left'?true:false;
             }
         },
         methods: {
@@ -79,12 +102,26 @@
                 if(this.disabled){
                     return ;
                 }
+                if(this.validator && this.validator(object) ==false){
+                  this.$emit('item-invalid',object);
+                      return false;
+                }
+                if(this.pre_duplicate_check_list){
+                  if(this.arr_find(this.pre_duplicate_check_list,object)){
+                      this.$emit('item-exist',object);
+                      return false;
+                  }
+                }
                 if(this.arr_find(this.right,object)){
                     this.$emit('item-exist',object);
                     return false;
                 }
                 this.right = this.right.concat(object).sort(this.compare);
                 this.$emit('change-selected',this.right);
+            },
+            left_enter(){
+              var object = {name:this.input.trim(),value:this.input.trim()};
+              this.left_click(object);
             },
             right_click(object){
                 var _vue = this;

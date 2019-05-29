@@ -629,6 +629,9 @@ storiesOf('Multiple Select', module)
         left_title: "Type for select",
         right_list: [],
         right_title: "Selected type",
+        left_type:"select_left",
+        placeholder:"specify domain and type enter add to the right list",
+        pre_duplicate_check_list:[{name:"abc",value:"abc"},{name:"123",value:"123"}],
         disabled: false,
         selected_list:[]
       }
@@ -639,6 +642,17 @@ storiesOf('Multiple Select', module)
       },
       itemExist(object){
         alert(object+'already exist in the right list');
+      },
+      itemInvalid(object){
+         alert(object+'is invalid');
+      },
+      validator(object){
+        if(object.value > 255){
+          alert("invalid item")
+          return false;
+        }
+        var reg = new RegExp("^([a-zA-Z0-9]([-a-zA-Z0-9]{0,61}[a-zA-Z0-9])?\\.)*[a-zA-Z0-9][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]$");
+        return reg.test(object.value);
       },
       oneLayer(){
         //console.log(this.left_list);
@@ -661,6 +675,9 @@ storiesOf('Multiple Select', module)
           }
         };
       },
+      changeLeftType(){
+        this.left_type = this.left_type == 'select_left'?'input_left':'select_left';
+      },
       resetRightList(){
         this.right_list = [
         {value:"1","name":"Credit card of US"},
@@ -672,10 +689,17 @@ storiesOf('Multiple Select', module)
               <div>select value:{{selected_list}}</div>
               <button @click="oneLayer">one layer</button>
               <button @click="twoLayer">two layer</button>
+               <button @click="changeLeftType">change left type</button>
               <button @click="resetRightList">reset right list</button>
+
               <tm-vue-group-select 
               v-on:change-selected="changeSelected" 
-              v-on:item-exist="itemExist" 
+              v-on:item-exist="itemExist"
+              v-on:item-invalid="itemInvalid"
+              :left_type="left_type"
+              :placeholder="placeholder"
+              :validator="validator"
+              :pre_duplicate_check_list="pre_duplicate_check_list"
               :disabled="disabled" 
               :left_list="left_list" 
               :left_title="left_title" 
