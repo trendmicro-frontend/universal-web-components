@@ -1,6 +1,6 @@
 <template>
     <div class="alert fade in" :class="class_type" role="alert">
-              <a href="#" class="cancel" ><span @click.prevent="hide_alert" class="icon icon-cancel"></span></a>
+              <a v-show="need_close_icon" href="#" class="cancel" ><span @click.prevent="hide_alert" class="icon icon-cancel"></span></a>
               <span class="icon" :class="icon_type"></span>
               <slot></slot>
     </div>
@@ -13,6 +13,10 @@
                 type:String,
                 default:"error",
             },
+            need_close_icon:{
+                type:Boolean,
+                default:true
+            }
         },
         data(){
             return{

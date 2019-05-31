@@ -3553,12 +3553,16 @@ TmVueGroupSelect$1.install = function (V, options) {
     V.component(TmVueGroupSelect$1.name, TmVueGroupSelect$1);
 };
 
-var TmVueNotification$1 = { template: "<div class=\"alert fade in\" :class=\"class_type\" role=\"alert\"> <a href=\"#\" class=\"cancel\"><span @click.prevent=\"hide_alert\" class=\"icon icon-cancel\"></span></a> <span class=\"icon\" :class=\"icon_type\"></span> <slot></slot> </div>",
+var TmVueNotification$1 = { template: "<div class=\"alert fade in\" :class=\"class_type\" role=\"alert\"> <a v-show=\"need_close_icon\" href=\"#\" class=\"cancel\"><span @click.prevent=\"hide_alert\" class=\"icon icon-cancel\"></span></a> <span class=\"icon\" :class=\"icon_type\"></span> <slot></slot> </div>",
     name: 'TmVueNotification',
     props: {
         type: {
             type: String,
             default: "error"
+        },
+        need_close_icon: {
+            type: Boolean,
+            default: true
         }
     },
     data: function data() {
