@@ -5239,6 +5239,9 @@
 .uwc .ms-container .ms-selectable li.child, .uwc .ms-container .ms-selection li.child {
   padding-left: 30px;
 }
+.uwc .ms-container .ms-list .ms-list-input {
+  width: 100% !important;
+}
 .uwc .filter-dropdown .TokensContainer {
   height: 34px;
   outline: none;

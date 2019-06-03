@@ -4,7 +4,7 @@
         <p>{{left_title}}</p>
         <ul class="ms-list" :class="{'input-left':is_input_left}">
           <template v-if="is_input_left">
-            <input type="text" v-model="input" :placeholder="placeholder" @keyup.enter="left_enter" class="form-control input-width-md" />
+            <input type="text" v-model="input" :placeholder="placeholder" @keyup.enter="left_enter" class="form-control ms-list-input" />
           </template>
           <template v-else v-for="(item_,index) in left">
             <template v-if="has_children(item_)">
