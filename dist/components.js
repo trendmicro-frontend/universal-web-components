@@ -3245,6 +3245,326 @@ TmVueInput$1.install = function (V, options) {
     V.component(TmVueInput$1.name, TmVueInput$1);
 };
 
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var autosize = createCommonjsModule(function (module, exports) {
+	/*!
+ 	autosize 4.0.2
+ 	license: MIT
+ 	http://www.jacklmoore.com/autosize
+ */
+	(function (global, factory) {
+		if (typeof undefined === "function" && undefined.amd) {
+			undefined(['module', 'exports'], factory);
+		} else {
+			factory(module, exports);
+		}
+	})(commonjsGlobal, function (module, exports) {
+		var map = typeof Map === "function" ? new Map() : function () {
+			var keys = [];
+			var values = [];
+
+			return {
+				has: function has(key) {
+					return keys.indexOf(key) > -1;
+				},
+				get: function get(key) {
+					return values[keys.indexOf(key)];
+				},
+				set: function set(key, value) {
+					if (keys.indexOf(key) === -1) {
+						keys.push(key);
+						values.push(value);
+					}
+				},
+				delete: function _delete(key) {
+					var index = keys.indexOf(key);
+					if (index > -1) {
+						keys.splice(index, 1);
+						values.splice(index, 1);
+					}
+				}
+			};
+		}();
+
+		var createEvent = function createEvent(name) {
+			return new Event(name, { bubbles: true });
+		};
+		try {
+			new Event('test');
+		} catch (e) {
+			// IE does not support `new Event()`
+			createEvent = function createEvent(name) {
+				var evt = document.createEvent('Event');
+				evt.initEvent(name, true, false);
+				return evt;
+			};
+		}
+
+		function assign(ta) {
+			if (!ta || !ta.nodeName || ta.nodeName !== 'TEXTAREA' || map.has(ta)) return;
+
+			var heightOffset = null;
+			var clientWidth = null;
+			var cachedHeight = null;
+
+			function init() {
+				var style = window.getComputedStyle(ta, null);
+
+				if (style.resize === 'vertical') {
+					ta.style.resize = 'none';
+				} else if (style.resize === 'both') {
+					ta.style.resize = 'horizontal';
+				}
+
+				if (style.boxSizing === 'content-box') {
+					heightOffset = -(parseFloat(style.paddingTop) + parseFloat(style.paddingBottom));
+				} else {
+					heightOffset = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+				}
+				// Fix when a textarea is not on document body and heightOffset is Not a Number
+				if (isNaN(heightOffset)) {
+					heightOffset = 0;
+				}
+
+				update();
+			}
+
+			function changeOverflow(value) {
+				{
+					// Chrome/Safari-specific fix:
+					// When the textarea y-overflow is hidden, Chrome/Safari do not reflow the text to account for the space
+					// made available by removing the scrollbar. The following forces the necessary text reflow.
+					var width = ta.style.width;
+					ta.style.width = '0px';
+					// Force reflow:
+					/* jshint ignore:start */
+					ta.offsetWidth;
+					/* jshint ignore:end */
+					ta.style.width = width;
+				}
+
+				ta.style.overflowY = value;
+			}
+
+			function getParentOverflows(el) {
+				var arr = [];
+
+				while (el && el.parentNode && el.parentNode instanceof Element) {
+					if (el.parentNode.scrollTop) {
+						arr.push({
+							node: el.parentNode,
+							scrollTop: el.parentNode.scrollTop
+						});
+					}
+					el = el.parentNode;
+				}
+
+				return arr;
+			}
+
+			function resize() {
+				if (ta.scrollHeight === 0) {
+					// If the scrollHeight is 0, then the element probably has display:none or is detached from the DOM.
+					return;
+				}
+
+				var overflows = getParentOverflows(ta);
+				var docTop = document.documentElement && document.documentElement.scrollTop; // Needed for Mobile IE (ticket #240)
+
+				ta.style.height = '';
+				ta.style.height = ta.scrollHeight + heightOffset + 'px';
+
+				// used to check if an update is actually necessary on window.resize
+				clientWidth = ta.clientWidth;
+
+				// prevents scroll-position jumping
+				overflows.forEach(function (el) {
+					el.node.scrollTop = el.scrollTop;
+				});
+
+				if (docTop) {
+					document.documentElement.scrollTop = docTop;
+				}
+			}
+
+			function update() {
+				resize();
+
+				var styleHeight = Math.round(parseFloat(ta.style.height));
+				var computed = window.getComputedStyle(ta, null);
+
+				// Using offsetHeight as a replacement for computed.height in IE, because IE does not account use of border-box
+				var actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(computed.height)) : ta.offsetHeight;
+
+				// The actual height not matching the style height (set via the resize method) indicates that 
+				// the max-height has been exceeded, in which case the overflow should be allowed.
+				if (actualHeight < styleHeight) {
+					if (computed.overflowY === 'hidden') {
+						changeOverflow('scroll');
+						resize();
+						actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+					}
+				} else {
+					// Normally keep overflow set to hidden, to avoid flash of scrollbar as the textarea expands.
+					if (computed.overflowY !== 'hidden') {
+						changeOverflow('hidden');
+						resize();
+						actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+					}
+				}
+
+				if (cachedHeight !== actualHeight) {
+					cachedHeight = actualHeight;
+					var evt = createEvent('autosize:resized');
+					try {
+						ta.dispatchEvent(evt);
+					} catch (err) {
+						// Firefox will throw an error on dispatchEvent for a detached element
+						// https://bugzilla.mozilla.org/show_bug.cgi?id=889376
+					}
+				}
+			}
+
+			var pageResize = function pageResize() {
+				if (ta.clientWidth !== clientWidth) {
+					update();
+				}
+			};
+
+			var destroy = function (style) {
+				window.removeEventListener('resize', pageResize, false);
+				ta.removeEventListener('input', update, false);
+				ta.removeEventListener('keyup', update, false);
+				ta.removeEventListener('autosize:destroy', destroy, false);
+				ta.removeEventListener('autosize:update', update, false);
+
+				Object.keys(style).forEach(function (key) {
+					ta.style[key] = style[key];
+				});
+
+				map.delete(ta);
+			}.bind(ta, {
+				height: ta.style.height,
+				resize: ta.style.resize,
+				overflowY: ta.style.overflowY,
+				overflowX: ta.style.overflowX,
+				wordWrap: ta.style.wordWrap
+			});
+
+			ta.addEventListener('autosize:destroy', destroy, false);
+
+			// IE9 does not fire onpropertychange or oninput for deletions,
+			// so binding to onkeyup to catch most of those events.
+			// There is no way that I know of to detect something like 'cut' in IE9.
+			if ('onpropertychange' in ta && 'oninput' in ta) {
+				ta.addEventListener('keyup', update, false);
+			}
+
+			window.addEventListener('resize', pageResize, false);
+			ta.addEventListener('input', update, false);
+			ta.addEventListener('autosize:update', update, false);
+			ta.style.overflowX = 'hidden';
+			ta.style.wordWrap = 'break-word';
+
+			map.set(ta, {
+				destroy: destroy,
+				update: update
+			});
+
+			init();
+		}
+
+		function destroy(ta) {
+			var methods = map.get(ta);
+			if (methods) {
+				methods.destroy();
+			}
+		}
+
+		function update(ta) {
+			var methods = map.get(ta);
+			if (methods) {
+				methods.update();
+			}
+		}
+
+		var autosize = null;
+
+		// Do nothing in Node.js environment and IE8 (or lower)
+		if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
+			autosize = function autosize(el) {
+				return el;
+			};
+			autosize.destroy = function (el) {
+				return el;
+			};
+			autosize.update = function (el) {
+				return el;
+			};
+		} else {
+			autosize = function autosize(el, options) {
+				if (el) {
+					Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+						return assign(x, options);
+					});
+				}
+				return el;
+			};
+			autosize.destroy = function (el) {
+				if (el) {
+					Array.prototype.forEach.call(el.length ? el : [el], destroy);
+				}
+				return el;
+			};
+			autosize.update = function (el) {
+				if (el) {
+					Array.prototype.forEach.call(el.length ? el : [el], update);
+				}
+				return el;
+			};
+		}
+
+		exports.default = autosize;
+		module.exports = exports['default'];
+	});
+});
+
+var TmVueAutosizeTextarea$1 = { template: "<textarea>{{value}}</textarea>",
+  name: "TmVueAutosizeTextarea",
+  props: {
+    value: {
+      type: String,
+      default: ""
+    }
+  },
+  watch: {
+    value: function value() {
+      autosize.update(this.$el);
+    }
+  },
+  updated: function updated() {
+    autosize.update(this.$el);
+  },
+  mounted: function mounted() {
+    autosize(this.$el);
+  }
+};
+
+TmVueAutosizeTextarea$1.install = function (V, options) {
+    V.component(TmVueAutosizeTextarea$1.name, TmVueAutosizeTextarea$1);
+};
+
 var prefixCls$7 = "badge";
 var TmVueBadge$1 = { template: "<a v-if=\"href\" :class=\"classes\" :href=\"href\" target=\"_self\"> <slot></slot> </a> <span v-else :class=\"classes\" ref=\"badge\"> <slot></slot> </span>",
   name: "Badge",
@@ -3400,7 +3720,7 @@ TmVueModal$1.install = function (V, options) {
     V.component(TmVueModal$1.name, TmVueModal$1);
 };
 
-var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div class=\"ms-selectable\"> <p>{{left_title}}</p> <ul class=\"ms-list\" :class=\"{'input-left':is_input_left}\"> <template v-if=\"is_input_left\"> <input type=\"text\" v-model=\"input\" :placeholder=\"placeholder\" @keyup.enter=\"left_enter\" class=\"form-control ms-list-input\"/> </template> <template v-else v-for=\"(item_,index) in left\"> <template v-if=\"has_children(item_)\"> <li :title=\"item_.name\" @click=\"parent_toggle(item_,index)\" :class=\"disable_li\" class=\"parent\"><span class=\"tmicon\" :class=\"parent_class(item_)\"></span> {{item_.name}}</li> <template v-for=\"child in item_.children\"> <li :title=\"child.name\" v-show=\"show_child(item_)\" :class=\"disable_li\" class=\"child\" @click=\"left_click(child)\"> <span>{{child.name}}</span> </li> </template> </template> <template v-else> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"left_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </template> </ul> </div> <div class=\"exchange\">&nbsp;</div> <div class=\"ms-selection\"> <p>{{right_title}}</p> <ul class=\"ms-list\"> <template v-for=\"item_ in right\"> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"right_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </ul> </div> </div>",
+var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div class=\"ms-selectable\"> <p>{{left_title}}</p> <ul class=\"ms-list\" :class=\"{'input-left':is_input_left}\"> <template v-if=\"is_input_left\"> <input type=\"text\" v-model=\"input\" :placeholder=\"placeholder\" :class=\"{'form-invalid':input_error}\" @keyup.enter=\"left_enter\" class=\"form-control ms-list-input\"/> </template> <template v-else v-for=\"(item_,index) in left\"> <template v-if=\"has_children(item_)\"> <li :title=\"item_.name\" @click=\"parent_toggle(item_,index)\" :class=\"disable_li\" class=\"parent\"><span class=\"tmicon\" :class=\"parent_class(item_)\"></span> {{item_.name}}</li> <template v-for=\"child in item_.children\"> <li :title=\"child.name\" v-show=\"show_child(item_)\" :class=\"disable_li\" class=\"child\" @click=\"left_click(child)\"> <span>{{child.name}}</span> </li> </template> </template> <template v-else> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"left_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </template> </ul> </div> <div class=\"exchange\">&nbsp;</div> <div class=\"ms-selection\"> <p>{{right_title}}</p> <ul class=\"ms-list\"> <template v-for=\"item_ in right\"> <li :title=\"item_.name\" :class=\"disable_li\" @click=\"right_click(item_)\"> <span>{{item_.name}}</span> </li> </template> </ul> </div> </div>",
     name: 'TmVueGroupSelect',
     props: {
         left_list: {
@@ -3414,6 +3734,10 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
         right_list: {
             type: Array,
             default: []
+        },
+        right_list_max_number: {
+            type: Number,
+            default: 0
         },
         right_title: {
             type: String,
@@ -3448,7 +3772,8 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
                 return item.name;
             }),
             right: this.right_list.sort(this.compare),
-            input: ""
+            input: "",
+            input_error: false
         };
     },
     computed: {
@@ -3467,8 +3792,11 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
                 return;
             }
             if (this.validator && this.validator(object) == false) {
+                this.input_error = true;
                 this.$emit('item-invalid', object);
                 return false;
+            } else {
+                this.input_error = false;
             }
             if (this.pre_duplicate_check_list) {
                 if (this.arr_find(this.pre_duplicate_check_list, object)) {
@@ -3480,12 +3808,18 @@ var TmVueGroupSelect$1 = { template: "<div class=\"ms-container uwc\"> <div clas
                 this.$emit('item-exist', object);
                 return false;
             }
+            if (this.right_list_max_number && this.right.length == this.right_list_max_number) {
+                this.$emit('exceed-limit');
+                return false;
+            }
             this.right = this.right.concat(object).sort(this.compare);
             this.$emit('change-selected', this.right);
         },
         left_enter: function left_enter() {
             var object = { name: this.input.trim(), value: this.input.trim() };
-            this.left_click(object);
+            if (this.left_click(object) !== false) {
+                this.input = "";
+            }
         },
         right_click: function right_click(object) {
             if (this.disabled) {
@@ -3601,18 +3935,6 @@ var TmVueNotification$1 = { template: "<div class=\"alert fade in\" :class=\"cla
 TmVueNotification$1.install = function (V, options) {
     V.component(TmVueNotification$1.name, TmVueNotification$1);
 };
-
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-
-
-function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
 
 var jquery_fileupload = createCommonjsModule(function (module, exports) {
     /*
@@ -7156,6 +7478,7 @@ Vue.use(TmVueModal$1);
 Vue.use(TmVueUpload$1);
 Vue.use(TmVueTag$1);
 Vue.use(TmVueLicenseInactive$1);
+Vue.use(TmVueAutosizeTextarea$1);
 Vue.use(TmVueStepProcess$1);
 Vue.use(TmVueGroupSelect$1);
 Vue.use(TmVueNotification$1);

@@ -4,7 +4,7 @@
         <p>{{left_title}}</p>
         <ul class="ms-list" :class="{'input-left':is_input_left}">
           <template v-if="is_input_left">
-            <input type="text" v-model="input" :placeholder="placeholder" @keyup.enter="left_enter" class="form-control ms-list-input" />
+            <input type="text" v-model="input" :placeholder="placeholder" :class="{'form-invalid':input_error}" @keyup.enter="left_enter" class="form-control ms-list-input" />
           </template>
           <template v-else v-for="(item_,index) in left">
             <template v-if="has_children(item_)">
@@ -55,6 +55,10 @@
                 type:Array,
                 default:[]
             },
+            right_list_max_number:{
+                type:Number,
+                default:0
+            },
             right_title:{
                 type:String,
                 default:"" 
@@ -84,7 +88,8 @@
             return {
                 left:_.sortBy(this.left_list,function(item){return item.name}),
                 right:this.right_list.sort(this.compare),
-                input:""
+                input:"",
+                input_error:false
             }
         },        
         computed:{
@@ -103,8 +108,11 @@
                     return ;
                 }
                 if(this.validator && this.validator(object) ==false){
-                  this.$emit('item-invalid',object);
-                      return false;
+                    this.input_error = true;
+                    this.$emit('item-invalid',object);
+                    return false;
+                }else{
+                    this.input_error = false;
                 }
                 if(this.pre_duplicate_check_list){
                   if(this.arr_find(this.pre_duplicate_check_list,object)){
@@ -116,12 +124,18 @@
                     this.$emit('item-exist',object);
                     return false;
                 }
+                if(this.right_list_max_number && this.right.length == this.right_list_max_number){
+                    this.$emit('exceed-limit');
+                    return false;
+                }
                 this.right = this.right.concat(object).sort(this.compare);
                 this.$emit('change-selected',this.right);
             },
             left_enter(){
               var object = {name:this.input.trim(),value:this.input.trim()};
-              this.left_click(object);
+              if(this.left_click(object) !== false){
+                this.input = "";
+              }
             },
             right_click(object){
                 var _vue = this;

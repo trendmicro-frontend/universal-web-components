@@ -16,6 +16,7 @@ import TmVueFilterInput from './vue-filter-input'
 import TmVueStepProcess from './vue-step-process'
 
 import TmVueInput from './vue-input'
+import TmVueAutosizeTextarea from './vue-autosize-textarea'
 
 import TmVueBadge from './vue-badge'
 import TmVueLabel from './vue-label'
@@ -52,6 +53,7 @@ Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
 Vue.use(TmVueLicenseInactive)
+Vue.use(TmVueAutosizeTextarea)
 Vue.use(TmVueStepProcess)
 Vue.use(TmVueGroupSelect)
 Vue.use(TmVueNotification)
