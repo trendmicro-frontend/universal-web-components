@@ -11,7 +11,7 @@
                 <span class="icon icon-cancel" @click="cancel"></span>
               </div>
               <div v-show="showInfo" class="file-info-container center">
-                <div class="autowrap">{{fileName}}</div>
+                <div class="autowrap" :title="fileName">{{fileName}}</div>
               </div>
             </div>
         </div>
