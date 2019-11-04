@@ -19,11 +19,15 @@ export default {
     placeholder: {
       type: String,
       default: null
+    },
+    keyword:{
+      type:String,
+      default:""
     }
   },
   data: function() {
     return {
-      textVal: ""
+      textVal: this.keyword?this.keyword:""
     };
   },
   methods: {
@@ -58,6 +62,11 @@ export default {
         .trigger("propertychange")
         .focus();
     });
+  },
+  watch:{
+    keyword:function(){
+      this.textVal = this.keyword;
+    }
   }
 };
 </script>

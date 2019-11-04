@@ -2129,11 +2129,15 @@ var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" styl
     placeholder: {
       type: String,
       default: null
+    },
+    keyword: {
+      type: String,
+      default: ""
     }
   },
   data: function data() {
     return {
-      textVal: ""
+      textVal: this.keyword ? this.keyword : ""
     };
   },
   methods: {
@@ -2162,6 +2166,11 @@ var TmVueSearchButton$1 = { template: "<div class=\"input-group has-clear\" styl
       self.updated();
       $(this).siblings('input[type="text"]').val("").trigger("propertychange").focus();
     });
+  },
+  watch: {
+    keyword: function keyword() {
+      this.textVal = this.keyword;
+    }
   }
 };
 
