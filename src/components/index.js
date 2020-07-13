@@ -26,6 +26,8 @@ import TmVueNotification from './vue-notification';
 
 import TmVueUpload from './vue-upload'
 import TmVueTag from './vue-tag'
+import TmVueSwitch from './vue-switch'
+
 import './vue-clipboard'
 import './locale.js'
 import './i18n.js'
@@ -52,6 +54,7 @@ Vue.use(TmVueLabel)
 Vue.use(TmVueModal)
 Vue.use(TmVueUpload)
 Vue.use(TmVueTag)
+Vue.use(TmVueSwitch)
 Vue.use(TmVueLicenseInactive)
 Vue.use(TmVueAutosizeTextarea)
 Vue.use(TmVueStepProcess)

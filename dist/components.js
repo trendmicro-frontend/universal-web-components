@@ -5728,7 +5728,7 @@ var jquery_iframeTransport = createCommonjsModule(function (module, exports) {
     });
 });
 
-var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUploads\" style=\"padding-left:0px\"> <input :id=\"id\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <div class=\"upload-container\"> <div class=\"left\"> <label :for=\"id\" class=\"btn btn-default\">{{title}}</label> </div> <div v-show=\"showInfo\" class=\"file-info-container\"> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> <div v-show=\"showInfo\" class=\"file-info-container center\"> <div class=\"autowrap\" :title=\"fileName\">{{fileName}}</div> </div> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
+var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUploads\" style=\"padding-left:0px\"> <input :id=\"id\" :disabled=\"disabled\" type=\"file\" name=\"file\" data-file-upload=\"singleFile\"> <div class=\"upload-container\"> <div class=\"left\"> <label :for=\"id\" :class=\"{'disabled':disabled}\" class=\"btn btn-default\">{{title}}</label> </div> <div v-show=\"showInfo\" class=\"file-info-container\"> <span class=\"file-size\">{{fileSize}}</span> <span class=\"icon icon-cancel\" @click=\"cancel\"></span> </div> <div v-show=\"showInfo\" class=\"file-info-container center\"> <div class=\"autowrap\" :title=\"fileName\">{{fileName}}</div> </div> </div> </div> <div v-else class=\"control-wrapper\"> todo multiple </div> </div>",
   name: "TmVueUpload",
   props: {
     title: {
@@ -5787,6 +5787,10 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUplo
       type: Function,
       default: function _default() {}
     },
+    fileuploadsend: {
+      type: Function,
+      default: function _default() {}
+    },
     fileuploadstart: {
       type: Function,
       default: function _default() {}
@@ -5810,6 +5814,10 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUplo
     canceled: {
       type: Function,
       default: function _default() {}
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -5839,13 +5847,13 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUplo
       if (typeof bytes !== "number") {
         return "";
       }
-      if (bytes >= 1000000000) {
-        return (bytes / 1000000000).toFixed(2) + " GB";
+      if (bytes >= 1073741824) {
+        return (bytes / 1073741824).toFixed(2) + " GB";
       }
-      if (bytes >= 1000000) {
-        return (bytes / 1000000).toFixed(2) + " MB";
+      if (bytes >= 1048576) {
+        return (bytes / 1048576).toFixed(2) + " MB";
       }
-      return (bytes / 1000).toFixed(2) + " KB";
+      return (bytes / 1024).toFixed(2) + " KB";
     },
     cancel: function cancel() {
       this.showInfo = false;
@@ -5899,7 +5907,11 @@ var TmVueUpload$1 = { template: "<div ref=\"upload\"> <div v-if=\"singleFileUplo
     }).on("fileuploadsubmit", function (e, data) {
       data.formData = _self.formData;
     }).on("fileuploadsend", function (e, data) {
-      /* ... */
+      if (_self.fileuploadsend) {
+        return _self.fileuploadsend(e, data);
+      } else {
+        return true;
+      }
     }).on("fileuploaddone", function (e, data) {
       if (_self.hide) {
         _self.cancel();
@@ -6551,6 +6563,79 @@ var TmVueTag$1 = { template: "<input type=\"text\">",
 
 TmVueTag$1.install = function (V, options) {
     V.component(TmVueTag$1.name, TmVueTag$1);
+};
+
+var TmVueSwitch$1 = { template: "<div class=\"vue-switch\"> <span :class=\"{'large':this.size=='large'}\"><slot></slot></span> <div class=\"vue-toggle\" :class=\"toggle_class\" @click=\"toggle\"></div> </div>",
+  name: 'TmVueSwitch',
+  props: {
+    /**
+      * Default status of the switch
+    */
+    value: {
+      type: Boolean,
+      value: false
+    },
+    /**
+      * Size of the switch, large,medium,or small
+    */
+    size: {
+      type: String,
+      value: "medium"
+    },
+    /**
+      * Disabled the switch
+    */
+    disabled: {
+      type: Boolean,
+      value: false
+    },
+    /**
+      * Triggered event before chage the switch
+    */
+    beforeChange: {
+      type: Function,
+      value: null
+    }
+  },
+  data: function data() {
+    return {
+      current_value: this.value
+    };
+  },
+
+  computed: {
+    toggle_class: function toggle_class() {
+      return {
+        "checked": this.current_value,
+        "large": this.size == 'large',
+        "small": this.size == 'small',
+        "disabled": this.disabled
+      };
+    }
+  },
+  methods: {
+    toggle: function toggle() {
+      if (this.disabled) return;
+      if (!this.beforeChange || this.beforeChange() === true) {
+        this.current_value = !this.current_value;
+        /**
+           * Defaut triggered event for v-model
+           * @type {Event}
+        */
+        this.$emit('input', this.current_value);
+        this.$emit('change', this.current_value);
+      }
+    }
+  },
+  watch: {
+    value: function value() {
+      this.current_value = this.value;
+    }
+  }
+};
+
+TmVueSwitch$1.install = function (V, options) {
+    V.component(TmVueSwitch$1.name, TmVueSwitch$1);
 };
 
 function select(element) {
@@ -7426,26 +7511,35 @@ window.i18n = {
 				en: {
 						license_in_active: {
 								seg_notice: 'The Gateway Module license is not activated. Any changes on this screen will not take effect.',
+								seg_expire: 'The Gateway Module license has expired. Any changes on this screen will not take effect.',
 								seg_link: 'Specify a valid Activation Code.',
 								atp_notice: 'Product license not activated. Any changes on this screen will not take effect.',
+								atp_expire: 'Product license has expired. Any changes on this screen will not take effect.',
 								atp_link: 'Specify a valid Activation Code.'
 						}
 				}
 		}
 };
 
-var TmVueLicenseInactive$1 = { template: "<div class=\"license\"> <div v-if=\"showSeg\"> <span class=\"tmicon tmicon-help\"></span> <span class=\"icon-name\"> {{ $t(\"license_in_active.seg_notice\")}} <a href=\"javascript:;\" @click=\"license_jump(1)\">{{$t(\"license_in_active.seg_link\")}}</a> </span> </div> <div v-if=\"showAtp\"> <span class=\"tmicon tmicon-help\"></span> <span class=\"icon-name\"> {{ $t(\"license_in_active.atp_notice\")}} <a href=\"javascript:;\" @click=\"license_jump(0)\">{{$t(\"license_in_active.atp_link\")}}</a> </span> </div> </div>",
+var TmVueLicenseInactive$1 = { template: "<div class=\"license\"> <div v-if=\"showSeg\"> <span class=\"tmicon tmicon-help\"></span> <span class=\"icon-name\" v-show=\"is_expire === false\"> {{ $t(\"license_in_active.seg_notice\")}} <a href=\"javascript:;\" @click=\"license_jump(1)\">{{$t(\"license_in_active.seg_link\")}}</a> </span> <span class=\"icon-name\" v-show=\"is_expire === true\"> {{ $t(\"license_in_active.seg_expire\")}} <a href=\"javascript:;\" @click=\"license_jump(1)\">{{$t(\"license_in_active.seg_link\")}}</a> </span> </div> <div v-if=\"showAtp\"> <span class=\"tmicon tmicon-help\"></span> <span class=\"icon-name\" v-show=\"is_expire === false\"> {{ $t(\"license_in_active.atp_notice\")}} <a href=\"javascript:;\" @click=\"license_jump(0)\">{{$t(\"license_in_active.atp_link\")}}</a> </span> <span class=\"icon-name\" v-show=\"is_expire === true\"> {{ $t(\"license_in_active.atp_expire\")}} <a href=\"javascript:;\" @click=\"license_jump(0)\">{{$t(\"license_in_active.atp_link\")}}</a> </span> </div> </div>",
     name: 'TmVueLicenseInactive',
     i18n: i18n,
     props: {
         type: {
             type: String,
             default: "seg"
+        },
+        expired: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
         data_type: function data_type() {
             return this.type ? this.type : 'seg';
+        },
+        is_expire: function is_expire() {
+            return typeof this.expired !== "undefined" ? this.expired == "true" : false;
         },
         showSeg: function showSeg() {
             return this.data_type == 'seg';
@@ -7486,6 +7580,7 @@ Vue.use(TmVueLabel$1);
 Vue.use(TmVueModal$1);
 Vue.use(TmVueUpload$1);
 Vue.use(TmVueTag$1);
+Vue.use(TmVueSwitch$1);
 Vue.use(TmVueLicenseInactive$1);
 Vue.use(TmVueAutosizeTextarea$1);
 Vue.use(TmVueStepProcess$1);

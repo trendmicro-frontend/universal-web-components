@@ -5377,3 +5377,71 @@
 .uwc .affix {
   position: fixed;
 }
+
+.uwc .vue-switch {
+  position: relative;
+}
+.uwc .vue-switch .vue-toggle {
+  border: 1px solid #bbb;
+  background-color: #bbb;
+  border-radius: 10px;
+  height: 20px;
+  width: 40px;
+  cursor: pointer;
+  display: inline-block;
+}
+.uwc .vue-switch .vue-toggle.large {
+  border-radius: 15px;
+  height: 30px;
+  width: 60px;
+}
+.uwc .vue-switch .vue-toggle.large:before {
+  height: 30px;
+  width: 30px;
+}
+.uwc .vue-switch .vue-toggle.small {
+  border-radius: 5px;
+  height: 10px;
+  width: 20px;
+}
+.uwc .vue-switch .vue-toggle.small:before {
+  height: 10px;
+  width: 10px;
+}
+.uwc .vue-switch .vue-toggle.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+.uwc .vue-switch .vue-toggle:before {
+  height: 20px;
+  width: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  transition: all 0.25s ease;
+}
+.uwc .vue-switch .vue-toggle.checked {
+  border: 1px solid #0096cc;
+  background-color: #0096cc;
+}
+.uwc .vue-switch .vue-toggle.checked.large:before {
+  transform: translateX(30px);
+}
+.uwc .vue-switch .vue-toggle.checked.small:before {
+  transform: translateX(10px);
+}
+.uwc .vue-switch .vue-toggle.checked:before {
+  transform: translateX(20px);
+}
+.uwc .vue-switch span {
+  vertical-align: top;
+  display: inline-block;
+}
+.uwc .vue-switch span.large {
+  margin-top: 5px;
+}
+.uwc .vue-switch .vue-toggle.large + span {
+  margin-top: 6px;
+}

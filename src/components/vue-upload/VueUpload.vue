@@ -1,10 +1,10 @@
 <template>
     <div ref="upload">
         <div v-if="singleFileUploads" style="padding-left:0px">
-            <input :id="id" type="file" name="file" data-file-upload="singleFile">
+            <input :id="id" :disabled="disabled" type="file" name="file" data-file-upload="singleFile">
             <div class="upload-container">
               <div class="left">
-                <label :for="id" class="btn btn-default">{{title}}</label>
+                <label :for="id" :class="{'disabled':disabled}" class="btn btn-default">{{title}}</label>
               </div>
               <div v-show="showInfo" class="file-info-container">
                 <span class="file-size">{{fileSize}}</span>
@@ -86,6 +86,10 @@ export default {
       type: Function,
       default: () => {}
     },
+    fileuploadsend: {
+      type: Function,
+      default: () => {}
+    },    
     fileuploadstart: {
       type: Function,
       default: () => {}
@@ -109,6 +113,10 @@ export default {
     canceled: {
       type: Function,
       default: () => {}
+    },
+    disabled:{
+      type:Boolean,
+      default:false
     }
   },
 
@@ -137,13 +145,13 @@ export default {
       if (typeof bytes !== "number") {
         return "";
       }
-      if (bytes >= 1000000000) {
-        return (bytes / 1000000000).toFixed(2) + " GB";
+      if (bytes >= 1073741824) {
+        return (bytes / 1073741824).toFixed(2) + " GB";
       }
-      if (bytes >= 1000000) {
-        return (bytes / 1000000).toFixed(2) + " MB";
+      if (bytes >= 1048576) {
+        return (bytes / 1048576).toFixed(2) + " MB";
       }
-      return (bytes / 1000).toFixed(2) + " KB";
+      return (bytes / 1024).toFixed(2) + " KB";
     },
     cancel() {
       this.showInfo = false;
@@ -206,7 +214,11 @@ export default {
         data.formData = _self.formData;
       })
       .on("fileuploadsend", function(e, data) {
-        /* ... */
+        if(_self.fileuploadsend){
+          return _self.fileuploadsend(e,data);
+        }else{
+          return true;
+        }
       })
       .on("fileuploaddone", function(e, data) {
         if (_self.hide) {

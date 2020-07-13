@@ -1,0 +1,71 @@
+.vue-switch{
+    position: relative;
+    .vue-toggle{
+        &.large{
+            border-radius: 15px;
+            height: 30px;
+            width: 60px;
+            &:before{
+                height:30px;
+                width: 30px;
+            };                      
+        }
+        &.small{
+            border-radius: 5px;
+            height: 10px;
+            width: 20px;
+            &:before{
+                height:10px;
+                width: 10px;
+            };          
+        }
+        &.disabled {
+            opacity: .5;
+            cursor: not-allowed !important;
+        }       
+        border: 1px solid #bbb;
+        background-color: #bbb;
+        border-radius: 10px;
+        height: 20px;
+        width: 40px;
+        cursor: pointer;
+        display: inline-block;
+        &:before{
+            height:20px;
+            width: 20px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+        content: "";
+        transition: all 0.25s ease;     
+        }
+        &.checked{
+            &.large{
+                &:before{
+                    transform: translateX(30px);
+                }
+            }
+            &.small{
+                &:before{
+                    transform: translateX(10px);
+                }
+            }
+            border: 1px solid #0096cc;
+            background-color: #0096cc;
+            &:before{
+                transform: translateX(20px);
+            }           
+        }
+    }
+    span{
+        vertical-align: top;
+        display: inline-block;
+        &.large{
+            margin-top: 5px;
+        }
+    }
+    .vue-toggle.large + span{
+        margin-top: 6px;
+    }
+}
